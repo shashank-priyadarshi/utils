@@ -1,30 +1,10 @@
-# utilities
+package ports
 
-This repository contains common libraries for my projects.
+import (
+	"context"
+	"github.com/shashank-priyadarshi/utilities/database/models"
+)
 
-This repository provides the following packages:
-
-- [Logger](#logger)
-- [Database](#database)
-- [Network](#network)
-- [Security](#security)
-
-## Logger
-
-```
-type Logger interface {
-	Info(string, ...interface{})
-	Warn(string, ...interface{})
-	Error(error, ...interface{})
-	Fatal(error, ...interface{})
-	Debug(string, ...interface{})
-	With(key string, args ...interface{})
-}
-```
-
-## Database
-
-```
 type Database interface {
 	Operations
 	Transactions
@@ -52,8 +32,3 @@ type Closer interface {
 type Configure interface {
 	Configure(context.Context, ...interface{}) error
 }
-```
-
-## Network
-
-## Security
