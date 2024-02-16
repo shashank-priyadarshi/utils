@@ -10,6 +10,16 @@ type Config struct {
 }
 
 type Options struct {
+	LogOptions
+	DatabaseOptions
+}
+
+type LogOptions struct {
+	Provider, Level, Format string
+	Trace                   bool
+}
+
+type DatabaseOptions struct {
 	URI, Username, Password string
 	Driver                  constants.Driver
 	ORM                     constants.ORM
