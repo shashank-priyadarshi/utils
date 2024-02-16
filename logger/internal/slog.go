@@ -24,7 +24,7 @@ func NewSlogLogger(logLevel, format string, trace bool) *Slog {
 }
 
 func (s *Slog) init(logLevel, format string, trace bool) {
-	var opts *slog.HandlerOptions
+	var opts = &slog.HandlerOptions{}
 	var handler slog.Handler
 
 	opts.AddSource = trace
@@ -100,7 +100,7 @@ func (s *Slog) Debug(msg string, args ...interface{}) {
 	s.logger.Debug(msg, args...)
 }
 
-func (s *Slog) With(key string, args ...interface{}) {
+func (s *Slog) With(args ...interface{}) {
 	var attrs []slog.Attr
 
 	if len(args)/2 != 0 {
@@ -109,10 +109,11 @@ func (s *Slog) With(key string, args ...interface{}) {
 
 	var (
 		ok    bool
+		key   string
 		value string
 	)
 
-	for i := 0; i < len(args); i += 2 {
+	for i := 0; i < len(args)-1; i += 2 {
 		key, ok = args[i].(string)
 		if !ok {
 			return
@@ -127,5 +128,5 @@ func (s *Slog) With(key string, args ...interface{}) {
 		attrs = append(attrs, attr)
 	}
 
-	s.logger.With(slog.Group(key, attrs))
+	s.logger = s.logger.With(slog.Group(key, attrs))
 }

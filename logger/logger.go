@@ -3,16 +3,27 @@ package logger
 import (
 	"fmt"
 	"github.com/shashank-priyadarshi/utilities/logger/constants"
+	"github.com/shashank-priyadarshi/utilities/logger/internal"
 	"github.com/shashank-priyadarshi/utilities/logger/ports"
 )
 
-func NewLogger() (ports.Logger, error) {
+func NewLogger(logProvider, logLevel, format string, trace bool) (ports.Logger, error) {
 
-	if !isSupported("logging") {
+	if !isSupported(logProvider) {
 		return nil, fmt.Errorf("logging option %s is not supported", "")
 	}
 
-	return nil, nil
+	var log ports.Logger
+
+	switch constants.Type(logProvider) {
+	case constants.SLOG:
+		log = internal.NewSlogLogger(logLevel, format, trace)
+	case constants.LOGRUS:
+	case constants.ZAP:
+	case constants.ZEROLOG:
+	}
+
+	return log, nil
 }
 
 func isSupported(option string) bool {

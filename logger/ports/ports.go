@@ -6,7 +6,7 @@ type Logger interface {
 	Error(error, ...interface{})
 	Fatal(error, ...interface{})
 	Debug(string, ...interface{})
-	With(key string, args ...interface{})
+	With(args ...interface{})
 	/* TODO
 	   Enable logging to file
 	   Enable log rotation

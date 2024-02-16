@@ -1,8 +1,13 @@
 # TODO
 
+- Data
+
+    - Add interfaces: DONE
+    - Replace placeholder code of Data interface implementation with actual implementation for JWT
+
 - Database
 
-    - Replace placeholder code of Database interface implementation with actual implementation
+    - Replace placeholder code of Database interface implementation with actual implementation for MongoDB and SQL
     - Integration tests
 
 - Logger
@@ -15,11 +20,14 @@
 
 - Network
 
-    - Add correct segregation of Protocols, REST and RPCs
-    - Add interfaces
+    - Add correct segregation of Protocols, REST and RPCs: DONE
+    - Add interfaces for REST: DONE
+    - Replace placeholder code of Network & REST interface implementation with actual implementation for Echo
+    - Integration tests
 
 - Security
 
-    - Add correct segregation of Basic and Bearer authentication, JWT, SAML, Cookie and Session based authentication, API keys
-      and OAuth
+    - Add correct segregation of Basic and Bearer authentication, JWT, SAML, Cookie and Session based authentication,
+      API keys
+      and OAuth: DONE
     - Add interfaces

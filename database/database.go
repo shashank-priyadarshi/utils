@@ -19,10 +19,11 @@ func NewDatabase(ctx context.Context, log loggerPort.Logger, config models.Confi
 	}
 
 	if log == nil {
-		err = fmt.Errorf("uninitialized logger, initializing module logger")
-		log.Warn("%v", err)
+		err = fmt.Errorf("received uninitialized logger, initialized module logger")
 
-		log, err = logger.NewLogger()
+		logOptions := config.Options.LogOptions
+		log.Warn("%v", err)
+		log, err = logger.NewLogger(logOptions.Provider, logOptions.Level, logOptions.Format, logOptions.Trace)
 		log.With("module", "database")
 
 		if err != nil {

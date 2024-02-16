@@ -44,7 +44,7 @@ func NewDatabaseAdapter(ctx context.Context, log ports2.Logger, config *models.C
 		handle = redis.NewRedisHandle(log, client)
 
 	default:
-		return nil, fmt.Errorf("database type %s  is not supported", config.Type)
+		return nil, fmt.Errorf("database type %s is not supported", config.Type)
 
 	}
 
