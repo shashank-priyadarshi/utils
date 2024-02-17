@@ -24,9 +24,10 @@ type DatabaseOptions struct {
 	Driver                  constants.Driver
 	ORM                     constants.ORM
 	WithORM                 bool
+	MongoDBPoolSize         uint8
 }
 
 type Response struct {
 	Error  error
-	Result interface{}
+	Result []interface{}
 }

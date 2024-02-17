@@ -20,9 +20,50 @@ func NewMongoDBClient(ctx context.Context, log ports.Logger, config *models.Conf
 		return
 	}
 
-	opts.ApplyURI(config.Options.URI)
+	serverAPI := options.ServerAPI(options.ServerAPIVersion1)
+	bsonOpts := &options.BSONOptions{
+		UseJSONStructTags: true,
+		NilSliceAsEmpty:   true,
+	}
 
-	// Backoff connection logic
+	opts.ApplyURI(config.Options.URI).SetServerAPIOptions(serverAPI).SetMaxPoolSize(uint64(config.Options.DatabaseOptions.MongoDBPoolSize)).SetBSONOptions(bsonOpts)
+
+	// TODO: Create collection if not exist
+	/*dbClient := client.Database(LINCLIST_DATABASE)
+
+	existingCollections, err := dbClient.ListCollectionNames(context.TODO(), bson.D{})
+	if err != nil {
+		return nil, fmt.Errorf("error fetching existing collection name list: %v", err)
+	}
+
+	var existingCollectionMap = make(map[string]any)
+	for _, collection := range existingCollections {
+		existingCollectionMap[collection] = nil
+	}
+
+	for _, collection := range config.Collections {
+		if _, ok := existingCollectionMap[collection]; !ok {
+			err := dbClient.CreateCollection(context.TODO(), collection)
+			if err != nil {
+				fmt.Println("error while creating collection", collection, ":", err)
+				return nil, fmt.Errorf("error creating collection %s: %v", collection, err)
+			}
+			indexes, err := dbClient.Collection(collection).Indexes().CreateMany(context.TODO(), []mongo.IndexModel{
+				{Keys: bson.D{{"tags", []string{}}}, Options: options.Index().SetUnique(false)},
+				{Keys: bson.D{{"metadata.read", false}}, Options: options.Index().SetUnique(false)},
+				{Keys: bson.D{{"metadata.stale", false}}, Options: options.Index().SetUnique(false)},
+			})
+
+			if err != nil {
+				fmt.Println("error while creating indexes in collection", collection, ":", err)
+				return nil, fmt.Errorf("error creating indexes for collection %s: %v", collection, err)
+			}
+
+			fmt.Println("newly created indexes on collection ", collection, ":", indexes)
+		}
+	}*/
+
+	// TODO: Backoff connection logic
 	if client, err = mongo.Connect(ctx, opts); err != nil {
 		err = fmt.Errorf("error connecting to database: %v", err)
 		log.Error(err)
@@ -32,7 +73,7 @@ func NewMongoDBClient(ctx context.Context, log ports.Logger, config *models.Conf
 	if err = client.Ping(ctx, nil); err != nil {
 		err = fmt.Errorf("error pinging mongo db on established connection: %v", err)
 		log.Error(err)
-		// Backoff disconnection logic
+		// TODO: Backoff disconnection logic
 		client.Disconnect(ctx)
 		return
 	}
