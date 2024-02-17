@@ -10,7 +10,7 @@ import (
 	_ "go.mongodb.org/mongo-driver/mongo/options"
 )
 
-var opts *options.ClientOptions
+var opts = &options.ClientOptions{}
 
 func NewMongoDBClient(ctx context.Context, log ports.Logger, config *models.Config) (client *mongo.Client, err error) {
 

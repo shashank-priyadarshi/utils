@@ -14,11 +14,11 @@ type Handle struct {
 	client *mongo.Client
 }
 
-func NewMongoDBHandle(log ports.Logger, client *mongo.Client) (handle *Handle) {
-	handle.log = log
-	handle.client = client
-
-	return
+func NewMongoDBHandle(log ports.Logger, client *mongo.Client) *Handle {
+	return &Handle{
+		log:    log,
+		client: client,
+	}
 }
 
 func (h *Handle) Create(ctx context.Context, params ...interface{}) (response models.Response, err error) {
