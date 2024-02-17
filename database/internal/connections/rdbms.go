@@ -34,7 +34,8 @@ func NewRDBMSClient(ctx context.Context, log ports.Logger, config *models.Config
 	case true:
 		switch config.Options.ORM {
 		case constants.GORM:
-			if gormDB, err := createGORMConnection(config.Options.Driver, conn); err != nil {
+			var gormDB *gorm.DB
+			if gormDB, err = createGORMConnection(config.Options.Driver, conn); err != nil {
 				err = fmt.Errorf("error creating gorm connection: %v", err)
 				return
 			} else {
