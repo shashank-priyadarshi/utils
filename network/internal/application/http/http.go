@@ -14,7 +14,7 @@ type HTTPServer struct {
 }
 
 func NewHTTPServer(log loggerPort.Logger) (ports.HTTP, error) {
-	restServer, _ := rest.NewRESTServer()
+	restServer, _ := rest.NewRESTServer(log)
 	graphQLServer, _ := graphql.NewGraphQLServer()
 
 	return &HTTPServer{

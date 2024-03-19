@@ -2,40 +2,40 @@
 
 - Data
 
-    - Add interfaces: DONE
-    - Replace placeholder code of Data interface implementation with actual implementation for JWT
+  - Add interfaces: DONE
+  - Replace placeholder code of Data interface implementation with actual implementation for JWT
 
 - Database
 
-    - Replace placeholder code of Database interface implementation with actual implementation for MongoDB and SQL
-    - Integration tests
+  - Replace placeholder code of Database interface implementation with actual implementation for MongoDB and SQL
+  - Integration tests
 
 - Logger
 
-    - File logging
-    - Log rotation
-    - Log forwarding
-    - Tinted logs
-    - Integration tests
+  - File logging
+  - Log rotation
+  - Log forwarding
+  - Tinted logs
+  - Integration tests
 
 - Network
 
-    - Add correct segregation of Protocols, REST and RPCs: DONE
-    - Add interfaces for REST: DONE
-    - Replace placeholder code of Network & REST interface implementation with actual implementation for Echo
-    - Integration tests
+  - Add correct segregation of Protocols, REST and RPCs: DONE
+  - Add interfaces for REST: DONE
+  - Replace placeholder code of Network & REST interface implementation with actual implementation for Echo
+  - Integration tests
 
 - Security
 
-    - Add correct segregation of Basic and Bearer authentication, JWT, SAML, Cookie and Session based authentication,
+  - Add correct segregation of Basic and Bearer authentication, JWT, SAML, Cookie and Session based authentication,
       API keys
       and OAuth: DONE
-    - Add interfaces
+  - Add interfaces
 
 - PubSub
 
-    - Add interfaces
+  - Add interfaces
 
 - Worker
 
-    - Add interfaces
+  - Add interfaces

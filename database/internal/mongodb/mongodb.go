@@ -3,6 +3,7 @@ package mongodb
 import (
 	"context"
 	"fmt"
+
 	"github.com/shashank-priyadarshi/utilities/database/models"
 	"github.com/shashank-priyadarshi/utilities/logger/ports"
 	"go.mongodb.org/mongo-driver/bson"
@@ -21,7 +22,7 @@ func NewMongoDBHandle(log ports.Logger, client *mongo.Client) *Handle {
 	}
 }
 
-func (h *Handle) Create(ctx context.Context, params ...interface{}) (response models.Response, err error) {
+func (h *Handle) Create(ctx context.Context, params ...interface{}) (response *models.Response, err error) {
 	if len(params) < 3 {
 		err = fmt.Errorf("insufficient parameters")
 		response.Error = err
@@ -62,7 +63,7 @@ func (h *Handle) Create(ctx context.Context, params ...interface{}) (response mo
 	return
 }
 
-func (h *Handle) Query(ctx context.Context, params ...interface{}) (response models.Response, err error) {
+func (h *Handle) Query(ctx context.Context, params ...interface{}) (response *models.Response, err error) {
 
 	if len(params) < 3 {
 		err = fmt.Errorf("insufficient parameters")
@@ -117,7 +118,7 @@ func (h *Handle) Query(ctx context.Context, params ...interface{}) (response mod
 	return
 }
 
-func (h *Handle) Update(ctx context.Context, params ...interface{}) (response models.Response, err error) {
+func (h *Handle) Update(ctx context.Context, params ...interface{}) (response *models.Response, err error) {
 	if len(params) < 4 {
 		err = fmt.Errorf("insufficient parameters")
 		response.Error = err
@@ -175,32 +176,26 @@ func (h *Handle) Update(ctx context.Context, params ...interface{}) (response mo
 	return
 }
 
-func (h *Handle) Delete(ctx context.Context, i ...interface{}) (models.Response, error) {
-	//TODO implement me
-	panic("implement me")
+func (h *Handle) Delete(ctx context.Context, i ...interface{}) (*models.Response, error) {
+	return nil, nil
 }
 
-func (h *Handle) Begin(ctx context.Context, i ...interface{}) (models.Response, error) {
-	//TODO implement me
-	panic("implement me")
+func (h *Handle) Begin(ctx context.Context, i ...interface{}) (*models.Response, error) {
+	return nil, nil
 }
 
-func (h *Handle) Execute(ctx context.Context, i ...interface{}) (models.Response, error) {
-	//TODO implement me
-	panic("implement me")
+func (h *Handle) Execute(ctx context.Context, i ...interface{}) (*models.Response, error) {
+	return nil, nil
 }
 
-func (h *Handle) Rollback(ctx context.Context, i ...interface{}) (models.Response, error) {
-	//TODO implement me
-	panic("implement me")
+func (h *Handle) Rollback(ctx context.Context, i ...interface{}) (*models.Response, error) {
+	return nil, nil
 }
 
 func (h *Handle) Configure(ctx context.Context, i ...interface{}) error {
-	//TODO implement me
-	panic("implement me")
+	return nil
 }
 
 func (h *Handle) Close() error {
-	//TODO implement me
-	panic("implement me")
+	return nil
 }

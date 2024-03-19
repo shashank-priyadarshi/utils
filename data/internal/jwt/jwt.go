@@ -19,16 +19,13 @@ func NewJWTHandler(log loggerPort.Logger) (ports.Data, error) {
 }
 
 func (j *JWT) Generate() error {
-	//TODO implement me
-	panic("implement me")
+	return nil
 }
 
 func (j *JWT) Validate() error {
-	//TODO implement me
-	panic("implement me")
+	return nil
 }
 
 func (j *JWT) Refresh() error {
-	//TODO implement me
-	panic("implement me")
+	return nil
 }
