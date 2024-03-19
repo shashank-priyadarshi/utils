@@ -2,6 +2,7 @@ package ports
 
 import (
 	"context"
+
 	"github.com/shashank-priyadarshi/utilities/database/models"
 )
 
@@ -13,16 +14,16 @@ type Database interface {
 }
 
 type Operations interface {
-	Create(context.Context, ...interface{}) (models.Response, error)
-	Query(context.Context, ...interface{}) (models.Response, error)
-	Update(context.Context, ...interface{}) (models.Response, error)
-	Delete(context.Context, ...interface{}) (models.Response, error)
+	Create(context.Context, ...interface{}) (*models.Response, error)
+	Query(context.Context, ...interface{}) (*models.Response, error)
+	Update(context.Context, ...interface{}) (*models.Response, error)
+	Delete(context.Context, ...interface{}) (*models.Response, error)
 }
 
 type Transactions interface {
-	Begin(context.Context, ...interface{}) (models.Response, error)
-	Execute(context.Context, ...interface{}) (models.Response, error)
-	Rollback(context.Context, ...interface{}) (models.Response, error)
+	Begin(context.Context, ...interface{}) (*models.Response, error)
+	Execute(context.Context, ...interface{}) (*models.Response, error)
+	Rollback(context.Context, ...interface{}) (*models.Response, error)
 }
 
 type Closer interface {
