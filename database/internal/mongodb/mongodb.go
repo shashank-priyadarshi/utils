@@ -49,7 +49,7 @@ func (h *Handle) Create(ctx context.Context, params ...interface{}) (*models.Res
 		return nil, utilities.NewError(utilities.InvalidParameter.Error(), "documents")
 	}
 
-	if _, err = h.client.Database(database).Collection(collection).InsertMany(context.TODO(), documents); err != nil {
+	if _, err = h.client.Database(database).Collection(collection).InsertMany(ctx, documents); err != nil {
 		return nil, utilities.NewError(utilities.OperationFailed.Error(), fmt.Sprintf("error inserting entries to collection %s of database %s: %v", collection, database, err))
 	}
 
@@ -83,7 +83,7 @@ func (h *Handle) Query(ctx context.Context, params ...interface{}) (*models.Resp
 		return nil, utilities.NewError(utilities.InvalidParameter.Error(), "query")
 	}
 
-	if cur, err = h.client.Database(database).Collection(collection).Find(context.TODO(), query); err != nil {
+	if cur, err = h.client.Database(database).Collection(collection).Find(ctx, query); err != nil {
 		return nil, utilities.NewError(utilities.OperationFailed.Error(), fmt.Sprintf("error executing query %+v on collection %s in database %s", query, collection, database))
 	}
 
@@ -134,43 +134,67 @@ func (h *Handle) Update(ctx context.Context, params ...interface{}) (*models.Res
 		return nil, utilities.NewError(utilities.InvalidParameter.Error(), "update query")
 	}
 
-	if updateResult, err = h.client.Database(database).Collection(collection).UpdateOne(context.TODO(), filterQuery, updateQuery); err != nil {
+	if updateResult, err = h.client.Database(database).Collection(collection).UpdateOne(ctx, filterQuery, updateQuery); err != nil {
 		return nil, utilities.NewError(utilities.OperationFailed.Error(), fmt.Sprintf("error updating entry in collection %s of database %s: %v", collection, database, err))
 	}
 
-	var response *models.Response
-	{
-	}
-
-	response.Result = []interface{}{struct {
+	return &models.Response{Result: []interface{}{struct {
 		MatchedCount, ModifiedCount int64
 		UpsertedID                  interface{}
 	}{
 		MatchedCount:  updateResult.MatchedCount,
 		ModifiedCount: updateResult.ModifiedCount,
 		UpsertedID:    updateResult.UpsertedID,
-	}}
-
-	return response, nil
+	}}}, nil
 }
 
-func (h *Handle) Delete(ctx context.Context, i ...interface{}) (*models.Response, error) {
+func (h *Handle) Delete(ctx context.Context, params ...interface{}) (*models.Response, error) {
+
+	if len(params) < 4 {
+		return nil, utilities.InsufficientParameters
+	}
+
+	var (
+		err                  error
+		collection, database string
+		ok                   bool
+
+		filterQuery  bson.D
+		deleteResult *mongo.DeleteResult
+	)
+
+	if database, ok = params[0].(string); !ok {
+		return nil, utilities.NewError(utilities.InvalidParameter.Error(), "database")
+	}
+
+	if collection, ok = params[1].(string); !ok {
+		return nil, utilities.NewError(utilities.InvalidParameter.Error(), "collection")
+	}
+
+	if filterQuery, ok = params[2].(bson.D); !ok {
+		return nil, utilities.NewError(utilities.InvalidParameter.Error(), "filter query")
+	}
+
+	if deleteResult, err = h.client.Database(database).Collection(collection).DeleteOne(ctx, filterQuery); err != nil {
+		return nil, utilities.NewError(utilities.OperationFailed.Error(), fmt.Sprintf("error deleting entry from collection %s of database %s: %v", collection, database, err))
+	}
+
+	return &models.Response{Result: []interface{}{deleteResult.DeletedCount}}, nil
+}
+
+func (h *Handle) Begin(ctx context.Context, params ...interface{}) (*models.Response, error) {
 	return nil, nil
 }
 
-func (h *Handle) Begin(ctx context.Context, i ...interface{}) (*models.Response, error) {
+func (h *Handle) Execute(ctx context.Context, params ...interface{}) (*models.Response, error) {
 	return nil, nil
 }
 
-func (h *Handle) Execute(ctx context.Context, i ...interface{}) (*models.Response, error) {
+func (h *Handle) Rollback(ctx context.Context, params ...interface{}) (*models.Response, error) {
 	return nil, nil
 }
 
-func (h *Handle) Rollback(ctx context.Context, i ...interface{}) (*models.Response, error) {
-	return nil, nil
-}
-
-func (h *Handle) Configure(ctx context.Context, i ...interface{}) error {
+func (h *Handle) Configure(ctx context.Context, params ...interface{}) error {
 	return nil
 }
 
