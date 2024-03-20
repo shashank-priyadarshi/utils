@@ -3,6 +3,7 @@ package database
 import (
 	"context"
 	"fmt"
+
 	"github.com/shashank-priyadarshi/utilities/database/constants"
 	adapters "github.com/shashank-priyadarshi/utilities/database/internal"
 	"github.com/shashank-priyadarshi/utilities/database/models"
@@ -22,8 +23,8 @@ func NewDatabase(ctx context.Context, log loggerPort.Logger, config models.Confi
 		err = fmt.Errorf("received uninitialized logger, initialized module logger")
 
 		logOptions := config.Options.LogOptions
-		log.Warn("%v", err)
 		log, err = logger.NewLogger(logOptions.Provider, logOptions.Level, logOptions.Format, logOptions.Trace)
+		log.Warn("%v", err)
 		log.With("module", "database")
 
 		if err != nil {

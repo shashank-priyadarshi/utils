@@ -28,6 +28,5 @@ type DatabaseOptions struct {
 }
 
 type Response struct {
-	Error  error
 	Result []interface{}
 }

@@ -3,6 +3,7 @@ package mongodb
 import (
 	"context"
 	"fmt"
+	"github.com/shashank-priyadarshi/utilities"
 
 	"github.com/shashank-priyadarshi/utilities/database/models"
 	"github.com/shashank-priyadarshi/utilities/logger/ports"
@@ -23,9 +24,11 @@ func NewMongoDBHandle(log ports.Logger, client *mongo.Client) *Handle {
 }
 
 func (h *Handle) Create(ctx context.Context, params ...interface{}) (response *models.Response, err error) {
+
+	response = &models.Response{}
+
 	if len(params) < 3 {
-		err = fmt.Errorf("insufficient parameters")
-		response.Error = err
+		err = utilities.InsufficientParameters
 		return
 	}
 
@@ -37,26 +40,22 @@ func (h *Handle) Create(ctx context.Context, params ...interface{}) (response *m
 	)
 
 	if database, ok = params[0].(string); !ok {
-		err = fmt.Errorf("invalid parameter")
-		response.Error = err
+		err = utilities.NewError(utilities.InvalidParameter.Error(), "database")
 		return
 	}
 
 	if collection, ok = params[1].(string); !ok {
-		err = fmt.Errorf("invalid parameter")
-		response.Error = err
+		err = utilities.NewError(utilities.InvalidParameter.Error(), "collection")
 		return
 	}
 
 	if documents, ok = params[2].([]interface{}); !ok {
-		err = fmt.Errorf("invalid parameter")
-		response.Error = err
+		err = utilities.NewError(utilities.InvalidParameter.Error(), "documents")
 		return
 	}
 
 	if _, err = h.client.Database(database).Collection(collection).InsertMany(context.TODO(), documents); err != nil {
-		err = fmt.Errorf("error inserting entries to collection %s of database %s: %v", collection, database, err)
-		response.Error = err
+		err = utilities.NewError(utilities.OperationFailed.Error(), fmt.Sprintf("error inserting entries to collection %s of database %s: %v", collection, database, err))
 		return
 	}
 
@@ -65,9 +64,10 @@ func (h *Handle) Create(ctx context.Context, params ...interface{}) (response *m
 
 func (h *Handle) Query(ctx context.Context, params ...interface{}) (response *models.Response, err error) {
 
+	response = &models.Response{}
+
 	if len(params) < 3 {
 		err = fmt.Errorf("insufficient parameters")
-		response.Error = err
 		return
 	}
 
@@ -81,25 +81,21 @@ func (h *Handle) Query(ctx context.Context, params ...interface{}) (response *mo
 
 	if database, ok = params[0].(string); !ok {
 		err = fmt.Errorf("invalid parameter")
-		response.Error = err
 		return
 	}
 
 	if collection, ok = params[1].(string); !ok {
 		err = fmt.Errorf("invalid parameter")
-		response.Error = err
 		return
 	}
 
 	if query, ok = params[2].(bson.D); !ok {
 		err = fmt.Errorf("invalid parameter")
-		response.Error = err
 		return
 	}
 
 	if cur, err = h.client.Database(database).Collection(collection).Find(context.TODO(), query); err != nil {
 		err = fmt.Errorf("error executing query %+v on collection %s in database %s", query, collection, database)
-		response.Error = err
 		return
 	}
 
@@ -108,7 +104,6 @@ func (h *Handle) Query(ctx context.Context, params ...interface{}) (response *mo
 
 		if err = cur.Decode(&entry); err != nil {
 			err = fmt.Errorf("error unmarshaling fetched document %+v to array of entries: %v", cur, err)
-			response.Error = err
 			return
 		}
 
@@ -119,9 +114,11 @@ func (h *Handle) Query(ctx context.Context, params ...interface{}) (response *mo
 }
 
 func (h *Handle) Update(ctx context.Context, params ...interface{}) (response *models.Response, err error) {
+
+	response = &models.Response{}
+
 	if len(params) < 4 {
 		err = fmt.Errorf("insufficient parameters")
-		response.Error = err
 		return
 	}
 
@@ -136,31 +133,26 @@ func (h *Handle) Update(ctx context.Context, params ...interface{}) (response *m
 
 	if database, ok = params[0].(string); !ok {
 		err = fmt.Errorf("invalid parameter")
-		response.Error = err
 		return
 	}
 
 	if collection, ok = params[1].(string); !ok {
 		err = fmt.Errorf("invalid parameter")
-		response.Error = err
 		return
 	}
 
 	if filterQuery, ok = params[2].(bson.D); !ok {
 		err = fmt.Errorf("invalid parameter")
-		response.Error = err
 		return
 	}
 
 	if updateQuery, ok = params[2].(bson.D); !ok {
 		err = fmt.Errorf("invalid parameter")
-		response.Error = err
 		return
 	}
 
 	if updateResult, err = h.client.Database(database).Collection(collection).UpdateOne(context.TODO(), filterQuery, updateQuery); err != nil {
 		err = fmt.Errorf("error updating entry in collection %s of database %s: %v", collection, database, err)
-		response.Error = err
 		return
 	}
 
