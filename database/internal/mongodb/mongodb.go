@@ -11,19 +11,19 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
-type Handle struct {
+type Handler struct {
 	log    ports.Logger
 	client *mongo.Client
 }
 
-func NewMongoDBHandle(log ports.Logger, client *mongo.Client) *Handle {
-	return &Handle{
+func Handle(log ports.Logger, client *mongo.Client) *Handler {
+	return &Handler{
 		log:    log,
 		client: client,
 	}
 }
 
-func (h *Handle) Create(ctx context.Context, params ...interface{}) (*models.Response, error) {
+func (h *Handler) Create(ctx context.Context, params ...interface{}) (*models.Response, error) {
 
 	if len(params) < 3 {
 		return nil, utilities.InsufficientParameters
@@ -56,7 +56,7 @@ func (h *Handle) Create(ctx context.Context, params ...interface{}) (*models.Res
 	return nil, nil
 }
 
-func (h *Handle) Query(ctx context.Context, params ...interface{}) (*models.Response, error) {
+func (h *Handler) Query(ctx context.Context, params ...interface{}) (*models.Response, error) {
 
 	if len(params) < 3 {
 		return nil, utilities.InsufficientParameters
@@ -102,7 +102,7 @@ func (h *Handle) Query(ctx context.Context, params ...interface{}) (*models.Resp
 	return response, nil
 }
 
-func (h *Handle) Update(ctx context.Context, params ...interface{}) (*models.Response, error) {
+func (h *Handler) Update(ctx context.Context, params ...interface{}) (*models.Response, error) {
 
 	if len(params) < 4 {
 		return nil, utilities.InsufficientParameters
@@ -148,7 +148,7 @@ func (h *Handle) Update(ctx context.Context, params ...interface{}) (*models.Res
 	}}}, nil
 }
 
-func (h *Handle) Delete(ctx context.Context, params ...interface{}) (*models.Response, error) {
+func (h *Handler) Delete(ctx context.Context, params ...interface{}) (*models.Response, error) {
 
 	if len(params) < 4 {
 		return nil, utilities.InsufficientParameters
@@ -182,22 +182,22 @@ func (h *Handle) Delete(ctx context.Context, params ...interface{}) (*models.Res
 	return &models.Response{Result: []interface{}{deleteResult.DeletedCount}}, nil
 }
 
-func (h *Handle) Begin(ctx context.Context, params ...interface{}) (*models.Response, error) {
+func (h *Handler) Begin(ctx context.Context, params ...interface{}) (*models.Response, error) {
 	return nil, nil
 }
 
-func (h *Handle) Execute(ctx context.Context, params ...interface{}) (*models.Response, error) {
+func (h *Handler) Execute(ctx context.Context, params ...interface{}) (*models.Response, error) {
 	return nil, nil
 }
 
-func (h *Handle) Rollback(ctx context.Context, params ...interface{}) (*models.Response, error) {
+func (h *Handler) Rollback(ctx context.Context, params ...interface{}) (*models.Response, error) {
 	return nil, nil
 }
 
-func (h *Handle) Configure(ctx context.Context, params ...interface{}) error {
+func (h *Handler) Configure(ctx context.Context, params ...interface{}) error {
 	return nil
 }
 
-func (h *Handle) Close() error {
+func (h *Handler) Close() error {
 	return nil
 }

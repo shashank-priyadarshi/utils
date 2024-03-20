@@ -8,13 +8,13 @@ import (
 	_ "entgo.io/ent/entc/gen"
 	_ "entgo.io/ent/schema/field"
 	"github.com/shashank-priyadarshi/utilities/database/constants"
-	gormHandler "github.com/shashank-priyadarshi/utilities/database/internal/rdbms/orm/gorm"
+	gormhandler "github.com/shashank-priyadarshi/utilities/database/internal/rdbms/orm/gorm"
 	"github.com/shashank-priyadarshi/utilities/database/ports"
-	ports2 "github.com/shashank-priyadarshi/utilities/logger/ports"
+	loggerport "github.com/shashank-priyadarshi/utilities/logger/ports"
 	"gorm.io/gorm"
 )
 
-func NewORMHandle(log ports2.Logger, orm constants.ORM, client interface{}) (handle ports.Database, err error) {
+func Handle(log loggerport.Logger, orm constants.ORM, client interface{}) (handle ports.Database, err error) {
 
 	switch orm {
 	case constants.GORM:
@@ -25,7 +25,7 @@ func NewORMHandle(log ports2.Logger, orm constants.ORM, client interface{}) (han
 			return
 		}
 
-		handle = gormHandler.NewGORMHandle(log, conn)
+		handle = gormhandler.Handle(log, conn)
 		return
 	}
 

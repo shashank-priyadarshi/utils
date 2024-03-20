@@ -8,50 +8,50 @@ import (
 	"github.com/shashank-priyadarshi/utilities/logger/ports"
 )
 
-type Handle struct {
+type Handler struct {
 	log    ports.Logger
 	client *sql.DB
 }
 
-func NewMySQLHandle(log ports.Logger, client *sql.DB) (handle *Handle) {
+func Handle(log ports.Logger, client *sql.DB) (handle *Handler) {
 	handle.log = log
 	handle.client = client
 
 	return
 }
 
-func (h *Handle) Create(ctx context.Context, i ...interface{}) (*models.Response, error) {
+func (h *Handler) Create(ctx context.Context, i ...interface{}) (*models.Response, error) {
 	return nil, nil
 }
 
-func (h *Handle) Query(ctx context.Context, i ...interface{}) (*models.Response, error) {
+func (h *Handler) Query(ctx context.Context, i ...interface{}) (*models.Response, error) {
 	return nil, nil
 }
 
-func (h *Handle) Update(ctx context.Context, i ...interface{}) (*models.Response, error) {
+func (h *Handler) Update(ctx context.Context, i ...interface{}) (*models.Response, error) {
 	return nil, nil
 }
 
-func (h *Handle) Delete(ctx context.Context, i ...interface{}) (*models.Response, error) {
+func (h *Handler) Delete(ctx context.Context, i ...interface{}) (*models.Response, error) {
 	return nil, nil
 }
 
-func (h *Handle) Begin(ctx context.Context, i ...interface{}) (*models.Response, error) {
+func (h *Handler) Begin(ctx context.Context, i ...interface{}) (*models.Response, error) {
 	return nil, nil
 }
 
-func (h *Handle) Execute(ctx context.Context, i ...interface{}) (*models.Response, error) {
+func (h *Handler) Execute(ctx context.Context, i ...interface{}) (*models.Response, error) {
 	return nil, nil
 }
 
-func (h *Handle) Rollback(ctx context.Context, i ...interface{}) (*models.Response, error) {
+func (h *Handler) Rollback(ctx context.Context, i ...interface{}) (*models.Response, error) {
 	return nil, nil
 }
 
-func (h *Handle) Configure(ctx context.Context, i ...interface{}) error {
+func (h *Handler) Configure(ctx context.Context, i ...interface{}) error {
 	return nil
 }
 
-func (h *Handle) Close() error {
+func (h *Handler) Close() error {
 	return nil
 }

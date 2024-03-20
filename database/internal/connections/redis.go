@@ -3,12 +3,12 @@ package connections
 import (
 	"context"
 	"fmt"
-	"github.com/redis/go-redis/v9"
+	redisclient "github.com/redis/go-redis/v9"
 	"github.com/shashank-priyadarshi/utilities/database/models"
 	"github.com/shashank-priyadarshi/utilities/logger/ports"
 )
 
-func NewRedisClient(ctx context.Context, log ports.Logger, config *models.Config) (client *redis.Client, err error) {
+func Redis(ctx context.Context, log ports.Logger, config *models.Config) (client *redisclient.Client, err error) {
 
 	if len(config.Options.URI) == 0 {
 		err = fmt.Errorf("redis uri cannot be empty")
@@ -17,13 +17,13 @@ func NewRedisClient(ctx context.Context, log ports.Logger, config *models.Config
 	}
 
 	// Other options pending: Using functional options
-	opts := &redis.Options{
+	opts := &redisclient.Options{
 		Addr:     config.Options.URI,
 		Username: config.Options.Username,
 		Password: config.Options.Password,
 	}
 
-	client = redis.NewClient(opts)
+	client = redisclient.NewClient(opts)
 	if client.Ping(ctx); err != nil {
 		err = fmt.Errorf("error pinging redis: %v", err)
 		log.Error(err)
