@@ -23,9 +23,9 @@ func Handle(log ports.Logger, client *mongo.Client) *Handler {
 	}
 }
 
-func (h *Handler) Create(ctx context.Context, params ...interface{}) (*models.Response, error) {
+func (h *Handler) Create(ctx context.Context, args ...interface{}) (*models.Response, error) {
 
-	if len(params) < 3 {
+	if len(args) < 3 {
 		return nil, utilities.InsufficientParameters
 	}
 
@@ -37,15 +37,15 @@ func (h *Handler) Create(ctx context.Context, params ...interface{}) (*models.Re
 		ok         bool
 	)
 
-	if database, ok = params[0].(string); !ok {
+	if database, ok = args[0].(string); !ok {
 		return nil, utilities.NewError(utilities.InvalidParameter.Error(), "database")
 	}
 
-	if collection, ok = params[1].(string); !ok {
+	if collection, ok = args[1].(string); !ok {
 		return nil, utilities.NewError(utilities.InvalidParameter.Error(), "collection")
 	}
 
-	if documents, ok = params[2].([]interface{}); !ok {
+	if documents, ok = args[2].([]interface{}); !ok {
 		return nil, utilities.NewError(utilities.InvalidParameter.Error(), "documents")
 	}
 
@@ -56,9 +56,9 @@ func (h *Handler) Create(ctx context.Context, params ...interface{}) (*models.Re
 	return nil, nil
 }
 
-func (h *Handler) Query(ctx context.Context, params ...interface{}) (*models.Response, error) {
+func (h *Handler) Query(ctx context.Context, args ...interface{}) (*models.Response, error) {
 
-	if len(params) < 3 {
+	if len(args) < 3 {
 		return nil, utilities.InsufficientParameters
 	}
 
@@ -71,15 +71,15 @@ func (h *Handler) Query(ctx context.Context, params ...interface{}) (*models.Res
 		ok         bool
 	)
 
-	if database, ok = params[0].(string); !ok {
+	if database, ok = args[0].(string); !ok {
 		return nil, utilities.NewError(utilities.InvalidParameter.Error(), "database")
 	}
 
-	if collection, ok = params[1].(string); !ok {
+	if collection, ok = args[1].(string); !ok {
 		return nil, utilities.NewError(utilities.InvalidParameter.Error(), "collection")
 	}
 
-	if query, ok = params[2].(bson.D); !ok {
+	if query, ok = args[2].(bson.D); !ok {
 		return nil, utilities.NewError(utilities.InvalidParameter.Error(), "query")
 	}
 
@@ -102,9 +102,9 @@ func (h *Handler) Query(ctx context.Context, params ...interface{}) (*models.Res
 	return response, nil
 }
 
-func (h *Handler) Update(ctx context.Context, params ...interface{}) (*models.Response, error) {
+func (h *Handler) Update(ctx context.Context, args ...interface{}) (*models.Response, error) {
 
-	if len(params) < 4 {
+	if len(args) < 4 {
 		return nil, utilities.InsufficientParameters
 	}
 
@@ -118,19 +118,19 @@ func (h *Handler) Update(ctx context.Context, params ...interface{}) (*models.Re
 		ok           bool
 	)
 
-	if database, ok = params[0].(string); !ok {
+	if database, ok = args[0].(string); !ok {
 		return nil, utilities.NewError(utilities.InvalidParameter.Error(), "database")
 	}
 
-	if collection, ok = params[1].(string); !ok {
+	if collection, ok = args[1].(string); !ok {
 		return nil, utilities.NewError(utilities.InvalidParameter.Error(), "collection")
 	}
 
-	if filterQuery, ok = params[2].(bson.D); !ok {
+	if filterQuery, ok = args[2].(bson.D); !ok {
 		return nil, utilities.NewError(utilities.InvalidParameter.Error(), "filter query")
 	}
 
-	if updateQuery, ok = params[2].(bson.D); !ok {
+	if updateQuery, ok = args[2].(bson.D); !ok {
 		return nil, utilities.NewError(utilities.InvalidParameter.Error(), "update query")
 	}
 
@@ -148,9 +148,9 @@ func (h *Handler) Update(ctx context.Context, params ...interface{}) (*models.Re
 	}}}, nil
 }
 
-func (h *Handler) Delete(ctx context.Context, params ...interface{}) (*models.Response, error) {
+func (h *Handler) Delete(ctx context.Context, args ...interface{}) (*models.Response, error) {
 
-	if len(params) < 4 {
+	if len(args) < 4 {
 		return nil, utilities.InsufficientParameters
 	}
 
@@ -163,15 +163,15 @@ func (h *Handler) Delete(ctx context.Context, params ...interface{}) (*models.Re
 		deleteResult *mongo.DeleteResult
 	)
 
-	if database, ok = params[0].(string); !ok {
+	if database, ok = args[0].(string); !ok {
 		return nil, utilities.NewError(utilities.InvalidParameter.Error(), "database")
 	}
 
-	if collection, ok = params[1].(string); !ok {
+	if collection, ok = args[1].(string); !ok {
 		return nil, utilities.NewError(utilities.InvalidParameter.Error(), "collection")
 	}
 
-	if filterQuery, ok = params[2].(bson.D); !ok {
+	if filterQuery, ok = args[2].(bson.D); !ok {
 		return nil, utilities.NewError(utilities.InvalidParameter.Error(), "filter query")
 	}
 
@@ -182,19 +182,19 @@ func (h *Handler) Delete(ctx context.Context, params ...interface{}) (*models.Re
 	return &models.Response{Result: []interface{}{deleteResult.DeletedCount}}, nil
 }
 
-func (h *Handler) Begin(ctx context.Context, params ...interface{}) (*models.Response, error) {
+func (h *Handler) Begin(ctx context.Context, args ...interface{}) (*models.Response, error) {
 	return nil, nil
 }
 
-func (h *Handler) Execute(ctx context.Context, params ...interface{}) (*models.Response, error) {
+func (h *Handler) Execute(ctx context.Context, args ...interface{}) (*models.Response, error) {
 	return nil, nil
 }
 
-func (h *Handler) Rollback(ctx context.Context, params ...interface{}) (*models.Response, error) {
+func (h *Handler) Rollback(ctx context.Context, args ...interface{}) (*models.Response, error) {
 	return nil, nil
 }
 
-func (h *Handler) Configure(ctx context.Context, params ...interface{}) error {
+func (h *Handler) Configure(ctx context.Context, args ...interface{}) error {
 	return nil
 }
 

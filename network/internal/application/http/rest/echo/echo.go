@@ -17,20 +17,20 @@ func NewEchoServer(log loggerPort.Logger) (*EchoServer, error) {
 	return &EchoServer{log: log}, nil
 }
 
-func (e *EchoServer) AddGroup(i ...interface{}) error {
+func (e *EchoServer) AddGroup(args ...interface{}) error {
 	return nil
 }
 
-func (e *EchoServer) AddHandler(i ...interface{}) error {
+func (e *EchoServer) AddHandler(args ...interface{}) error {
 	return nil
 }
 
-func (e *EchoServer) AddMiddleware(i ...interface{}) error {
+func (e *EchoServer) AddMiddleware(args ...interface{}) error {
 	return nil
 }
 
-func (e *EchoServer) Start(params ...interface{}) (err error) {
-	if len(params) < 1 {
+func (e *EchoServer) Start(args ...interface{}) (err error) {
+	if len(args) < 1 {
 		err = fmt.Errorf("")
 		return
 	}
@@ -40,7 +40,7 @@ func (e *EchoServer) Start(params ...interface{}) (err error) {
 		ok   bool
 	)
 
-	if addr, ok = params[0].(string); !ok {
+	if addr, ok = args[0].(string); !ok {
 		err = fmt.Errorf("")
 		return
 	}
@@ -57,10 +57,10 @@ func (e *EchoServer) Start(params ...interface{}) (err error) {
 	return
 }
 
-func (e *EchoServer) Shutdown(params ...interface{}) (err error) {
+func (e *EchoServer) Shutdown(args ...interface{}) (err error) {
 	var ctx context.Context
 
-	if len(params) < 1 {
+	if len(args) < 1 {
 		ctx = context.TODO()
 	}
 
