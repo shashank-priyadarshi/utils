@@ -13,7 +13,7 @@ import (
 	"gorm.io/gorm"
 )
 
-func NewRDBMSClient(ctx context.Context, log ports.Logger, config *models.Config) (client interface{}, err error) {
+func RDBMS(ctx context.Context, log ports.Logger, config *models.Config) (client interface{}, err error) {
 
 	if !isSupported(config.Options.Driver) {
 		err = fmt.Errorf("unsupported sql driver")

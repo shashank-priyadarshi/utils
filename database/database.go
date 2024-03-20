@@ -8,10 +8,10 @@ import (
 	"github.com/shashank-priyadarshi/utilities/database/models"
 	"github.com/shashank-priyadarshi/utilities/database/ports"
 	"github.com/shashank-priyadarshi/utilities/logger"
-	loggerPort "github.com/shashank-priyadarshi/utilities/logger/ports"
+	loggerport "github.com/shashank-priyadarshi/utilities/logger/ports"
 )
 
-func NewDatabase(ctx context.Context, log loggerPort.Logger, config models.Config) (database ports.Database, err error) {
+func New(ctx context.Context, log loggerport.Logger, config models.Config) (database ports.Database, err error) {
 
 	if !isSupported(config.Type) {
 		err = fmt.Errorf("unsupported database type: %s", config.Type)
@@ -32,7 +32,7 @@ func NewDatabase(ctx context.Context, log loggerPort.Logger, config models.Confi
 		}
 	}
 
-	return adapters.NewDatabaseAdapter(ctx, log, &config)
+	return adapters.New(ctx, log, &config)
 }
 
 func isSupported(db constants.Database) bool {

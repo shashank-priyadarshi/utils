@@ -4,17 +4,17 @@ import (
 	"database/sql"
 	"fmt"
 	"github.com/shashank-priyadarshi/utilities/database/constants"
-	ormHandler "github.com/shashank-priyadarshi/utilities/database/internal/rdbms/orm"
-	sqlHandler "github.com/shashank-priyadarshi/utilities/database/internal/rdbms/sql"
+	ormhandler "github.com/shashank-priyadarshi/utilities/database/internal/rdbms/orm"
+	sqlhandler "github.com/shashank-priyadarshi/utilities/database/internal/rdbms/sql"
 	"github.com/shashank-priyadarshi/utilities/database/ports"
-	ports2 "github.com/shashank-priyadarshi/utilities/logger/ports"
+	loggerport "github.com/shashank-priyadarshi/utilities/logger/ports"
 )
 
-func NewRelationalDBHandle(log ports2.Logger, withORM bool, orm constants.ORM, client interface{}) (handle ports.Database, err error) {
+func Handle(log loggerport.Logger, withORM bool, orm constants.ORM, client interface{}) (handle ports.Database, err error) {
 
 	switch withORM {
 	case true:
-		handle, err = ormHandler.NewORMHandle(log, orm, client)
+		handle, err = ormhandler.Handle(log, orm, client)
 		if err != nil {
 			err = fmt.Errorf("error creating orm handle: %w", err)
 			log.Error(err)
@@ -29,7 +29,7 @@ func NewRelationalDBHandle(log ports2.Logger, withORM bool, orm constants.ORM, c
 			return
 		}
 
-		handle = sqlHandler.NewMySQLHandle(log, conn)
+		handle = sqlhandler.Handle(log, conn)
 	}
 
 	return
