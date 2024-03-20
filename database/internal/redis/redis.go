@@ -26,9 +26,9 @@ func Handle(log ports.Logger, client *redis.Client) (handle *Handler) {
 }
 
 // Create all arguments of Redis Set like nx, xx etc.
-func (h *Handler) Create(ctx context.Context, i ...interface{}) (*models.Response, error) {
+func (h *Handler) Create(ctx context.Context, args ...interface{}) (*models.Response, error) {
 
-	paramsLength := len(i)
+	paramsLength := len(args)
 	if paramsLength < 2 {
 		return nil, utilities.InsufficientParameters
 	}
@@ -43,15 +43,15 @@ func (h *Handler) Create(ctx context.Context, i ...interface{}) (*models.Respons
 		isKey, isExpiration bool
 	)
 
-	if key, isKey = i[0].(string); !isKey {
+	if key, isKey = args[0].(string); !isKey {
 		err = utilities.NewError(utilities.InvalidParameter.Error(), "key")
 		return nil, err
 	}
 
-	value = i[1]
+	value = args[1]
 
 	if paramsLength > 2 {
-		if expiration, isExpiration = i[2].(time.Duration); !isExpiration {
+		if expiration, isExpiration = args[2].(time.Duration); !isExpiration {
 			err = utilities.NewError(utilities.InvalidParameter.Error(), "expiration")
 			return nil, err
 		}
@@ -72,9 +72,9 @@ func (h *Handler) Create(ctx context.Context, i ...interface{}) (*models.Respons
 	}, nil
 }
 
-func (h *Handler) Query(ctx context.Context, i ...interface{}) (*models.Response, error) {
+func (h *Handler) Query(ctx context.Context, args ...interface{}) (*models.Response, error) {
 
-	paramsLength := len(i)
+	paramsLength := len(args)
 	if paramsLength < 2 {
 		return nil, utilities.InsufficientParameters
 	}
@@ -86,7 +86,7 @@ func (h *Handler) Query(ctx context.Context, i ...interface{}) (*models.Response
 		isKey bool
 	)
 
-	if key, isKey = i[0].(string); !isKey {
+	if key, isKey = args[0].(string); !isKey {
 		err = utilities.NewError(utilities.InvalidParameter.Error(), "key")
 		return nil, err
 	}
@@ -106,13 +106,13 @@ func (h *Handler) Query(ctx context.Context, i ...interface{}) (*models.Response
 	}, nil
 }
 
-func (h *Handler) Update(ctx context.Context, i ...interface{}) (*models.Response, error) {
-	return h.Create(ctx, i...)
+func (h *Handler) Update(ctx context.Context, args ...interface{}) (*models.Response, error) {
+	return h.Create(ctx, args...)
 }
 
-func (h *Handler) Delete(ctx context.Context, i ...interface{}) (*models.Response, error) {
+func (h *Handler) Delete(ctx context.Context, args ...interface{}) (*models.Response, error) {
 
-	paramsLength := len(i)
+	paramsLength := len(args)
 	if paramsLength < 2 {
 		return nil, utilities.InsufficientParameters
 	}
@@ -124,7 +124,7 @@ func (h *Handler) Delete(ctx context.Context, i ...interface{}) (*models.Respons
 		isKey bool
 	)
 
-	if key, isKey = i[0].(string); !isKey {
+	if key, isKey = args[0].(string); !isKey {
 		err = utilities.NewError(utilities.InvalidParameter.Error(), "key")
 		return nil, err
 	}
@@ -144,19 +144,19 @@ func (h *Handler) Delete(ctx context.Context, i ...interface{}) (*models.Respons
 	}, nil
 }
 
-func (h *Handler) Begin(ctx context.Context, i ...interface{}) (*models.Response, error) {
+func (h *Handler) Begin(ctx context.Context, args ...interface{}) (*models.Response, error) {
 	return nil, nil
 }
 
-func (h *Handler) Execute(ctx context.Context, i ...interface{}) (*models.Response, error) {
+func (h *Handler) Execute(ctx context.Context, args ...interface{}) (*models.Response, error) {
 	return nil, nil
 }
 
-func (h *Handler) Rollback(ctx context.Context, i ...interface{}) (*models.Response, error) {
+func (h *Handler) Rollback(ctx context.Context, args ...interface{}) (*models.Response, error) {
 	return nil, nil
 }
 
-func (h *Handler) Configure(ctx context.Context, i ...interface{}) error {
+func (h *Handler) Configure(ctx context.Context, args ...interface{}) error {
 	return nil
 }
 
