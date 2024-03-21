@@ -7,7 +7,8 @@
 
 - Database
 
-  - Replace placeholder code of Database interface implementation with actual implementation for MongoDB, Redis and SQL: IN PROGRESS
+  - Replace placeholder code of Database CRUD operations with actual implementation for MongoDB, Redis and SQL: DONE
+  - Replace placeholder code of Database interface implementation with actual implementation for MongoDB, Redis and SQL
   - Integration tests
 
 - Logger
