@@ -8,7 +8,9 @@
 - Database
 
   - Replace placeholder code of Database CRUD operations with actual implementation for MongoDB, Redis and SQL: DONE
-  - Replace placeholder code of Database interface implementation with actual implementation for MongoDB, Redis and SQL
+  - Replace placeholder code of Operations interface implementation with actual implementation for MongoDB, Redis and SQL: DONE
+  - Write Unit Tests for MongoDB, Redis and SQL: IN PROGRESS
+  - Replace placeholder code of Transactions interface implementation with actual implementation for MongoDB, Redis and SQL:
   - Integration tests
 
 - Logger
