@@ -75,7 +75,7 @@ func (h *Handler) Create(ctx context.Context, args ...interface{}) (*models.Resp
 func (h *Handler) Query(ctx context.Context, args ...interface{}) (*models.Response, error) {
 
 	paramsLength := len(args)
-	if paramsLength < 2 {
+	if paramsLength < 1 {
 		return nil, utilities.InsufficientParameters
 	}
 
@@ -113,7 +113,7 @@ func (h *Handler) Update(ctx context.Context, args ...interface{}) (*models.Resp
 func (h *Handler) Delete(ctx context.Context, args ...interface{}) (*models.Response, error) {
 
 	paramsLength := len(args)
-	if paramsLength < 2 {
+	if paramsLength < 1 {
 		return nil, utilities.InsufficientParameters
 	}
 

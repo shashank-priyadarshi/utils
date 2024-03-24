@@ -11,8 +11,8 @@ type testSuite struct {
 	packages []string
 }
 
-type fetchDependencies interface {
-	fetchLogDependencies() string
+type dependencies interface {
+	fetch() string
 }
 
 func Test() {
@@ -28,12 +28,12 @@ func Test() {
 	for _, pkg := range t.packages {
 		switch pkg {
 		case "logger":
-			t.testLogger(t.fetchLogDependencies())
+			t.testLogger(t.fetch())
 		}
 	}
 
 }
 
-func (t *testSuite) fetchLogDependencies() []string {
+func (t *testSuite) fetch() []string {
 	return []string{os.Getenv("LOG_PROVIDER"), os.Getenv("LOG_LEVEL"), os.Getenv("LOG_FORMAT"), os.Getenv("LOG_TRACE")}
 }
