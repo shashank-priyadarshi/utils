@@ -1,6 +1,10 @@
 package main
 
-import "github.com/shashank-priyadarshi/utilities/integrationtests/suite"
+import (
+	_ "github.com/ory/dockertest/v3"
+
+	"github.com/shashank-priyadarshi/utilities/integrationtests/suite"
+)
 
 func main() {
 	suite.Test()
