@@ -83,7 +83,7 @@ if ! command -v npm &> /dev/null; then
 fi
 
 if ! command -v commitlint &> /dev/null; then
-    npm install --global commitlint@latest
+  npm install --global commitlint@latest @commitlint/cli@latest @commitlint/config-conventional
 fi
 
 cd "$parent_dir" || exit
