@@ -1,0 +1,18 @@
+#!/bin/bash
+
+echo "formatting..."
+go fmt ./...
+
+echo "checking imports..."
+goimports -l -w .
+
+echo "linting..."
+golint ./...
+
+echo "vetting..."
+go vet ./...
+
+echo "performing other code quality checks using golangci-lint..."
+golangci-lint run
+
+# TODO: go test script to compare code coverage changes
