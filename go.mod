@@ -14,6 +14,7 @@ require (
 	github.com/pborman/uuid v1.2.1
 	github.com/redis/go-redis/v9 v9.4.0
 	github.com/stretchr/testify v1.9.0
+	github.com/strikesecurity/strikememongo v0.2.4
 	go.mongodb.org/mongo-driver v1.13.1
 	gorm.io/driver/mysql v1.5.4
 	gorm.io/driver/postgres v1.5.6
@@ -26,6 +27,7 @@ require (
 	github.com/Azure/go-ansiterm v0.0.0-20230124172434-306776ec8161 // indirect
 	github.com/Microsoft/go-winio v0.6.1 // indirect
 	github.com/Nvveen/Gotty v0.0.0-20120604004816-cd527374f1e5 // indirect
+	github.com/acobaugh/osrelease v0.0.0-20181218015638-a93a0a55a249 // indirect
 	github.com/agext/levenshtein v1.2.1 // indirect
 	github.com/alicebob/gopher-json v0.0.0-20200520072559-a9ecdc9d1d3a // indirect
 	github.com/apparentlymart/go-textseg/v13 v13.0.0 // indirect
@@ -70,6 +72,7 @@ require (
 	github.com/remyoudompheng/bigfft v0.0.0-20230129092748-24d4a6f8daec // indirect
 	github.com/rogpeppe/go-internal v1.12.0 // indirect
 	github.com/sirupsen/logrus v1.9.3 // indirect
+	github.com/spf13/afero v1.5.1 // indirect
 	github.com/stretchr/objx v0.5.2 // indirect
 	github.com/valyala/bytebufferpool v1.0.0 // indirect
 	github.com/valyala/fasttemplate v1.2.2 // indirect

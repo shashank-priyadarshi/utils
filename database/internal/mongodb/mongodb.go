@@ -87,7 +87,9 @@ func (h *Handler) Query(ctx context.Context, args ...interface{}) (*models.Respo
 		return nil, utilities.NewError(utilities.OperationFailed.Error(), fmt.Sprintf("error executing query %+v on collection %s in database %s", query, collection, database))
 	}
 
-	var response *models.Response
+	response := &models.Response{
+		Result: make([]interface{}, 0),
+	}
 
 	for cur.Next(context.Background()) {
 		var entry interface{}
@@ -130,7 +132,7 @@ func (h *Handler) Update(ctx context.Context, args ...interface{}) (*models.Resp
 		return nil, utilities.NewError(utilities.InvalidParameter.Error(), "filter query")
 	}
 
-	if updateQuery, ok = args[2].(bson.D); !ok {
+	if updateQuery, ok = args[3].(bson.D); !ok {
 		return nil, utilities.NewError(utilities.InvalidParameter.Error(), "update query")
 	}
 
@@ -150,7 +152,7 @@ func (h *Handler) Update(ctx context.Context, args ...interface{}) (*models.Resp
 
 func (h *Handler) Delete(ctx context.Context, args ...interface{}) (*models.Response, error) {
 
-	if len(args) < 4 {
+	if len(args) < 3 {
 		return nil, utilities.InsufficientParameters
 	}
 
