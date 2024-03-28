@@ -6,5 +6,6 @@ README.pdf
 
 *.out
 *.htm*
+*logs*
 
 dist/
