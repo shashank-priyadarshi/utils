@@ -6,3 +6,5 @@ README.pdf
 
 *.out
 *.htm*
+
+dist/

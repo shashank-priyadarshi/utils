@@ -1,5 +1,12 @@
 # TODO
 
+- CI
+  
+  - Add git hooks for local checks: DONE
+  - Add goreleaser: IN PROGRESS
+
+- CD
+
 - Data
 
   - Add interfaces: DONE
