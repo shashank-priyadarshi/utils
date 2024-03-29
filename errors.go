@@ -4,6 +4,7 @@ import "fmt"
 
 var (
 	InsufficientParameters error = NewError("insufficient parameters")
+	InvalidParameterType   error = NewError("invalid parameter type")
 	InvalidParameter       error = NewError("invalid parameter")
 
 	OperationFailed error = NewError("operation failed")
