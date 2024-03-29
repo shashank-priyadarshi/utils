@@ -3,6 +3,7 @@ package connections
 import (
 	"context"
 	"fmt"
+
 	"github.com/shashank-priyadarshi/utilities/database/models"
 	"github.com/shashank-priyadarshi/utilities/logger/ports"
 	"go.mongodb.org/mongo-driver/mongo"

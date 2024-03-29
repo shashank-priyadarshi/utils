@@ -3,6 +3,8 @@ package mongodb
 import (
 	"context"
 	"fmt"
+	"testing"
+
 	"github.com/shashank-priyadarshi/utilities"
 	ports "github.com/shashank-priyadarshi/utilities/mocks/logger"
 	"github.com/stretchr/testify/assert"
@@ -13,7 +15,6 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 	_ "go.mongodb.org/mongo-driver/mongo/integration/mtest"
 	"go.mongodb.org/mongo-driver/mongo/options"
-	"testing"
 )
 
 func Test_Create(t *testing.T) {

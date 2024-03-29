@@ -3,6 +3,7 @@ package echo
 import (
 	"context"
 	"fmt"
+
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 	loggerPort "github.com/shashank-priyadarshi/utilities/logger/ports"

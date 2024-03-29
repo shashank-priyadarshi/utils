@@ -4,6 +4,7 @@ import (
 	"context"
 	"database/sql"
 	"fmt"
+
 	"github.com/glebarez/sqlite"
 	"github.com/shashank-priyadarshi/utilities/database/constants"
 	"github.com/shashank-priyadarshi/utilities/database/models"

@@ -2,9 +2,10 @@ package logger
 
 import (
 	"fmt"
-	"github.com/shashank-priyadarshi/utilities/logger"
 	"os"
 	"strconv"
+
+	"github.com/shashank-priyadarshi/utilities/logger"
 )
 
 func Test() {
