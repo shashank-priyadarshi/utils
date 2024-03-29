@@ -2,6 +2,7 @@ package logger
 
 import (
 	"fmt"
+
 	"github.com/shashank-priyadarshi/utilities/logger/constants"
 	"github.com/shashank-priyadarshi/utilities/logger/internal"
 	"github.com/shashank-priyadarshi/utilities/logger/ports"

@@ -3,12 +3,13 @@ package redis
 import (
 	"context"
 	"fmt"
+	"testing"
+
 	"github.com/alicebob/miniredis/v2"
 	"github.com/redis/go-redis/v9"
 	"github.com/shashank-priyadarshi/utilities"
 	ports "github.com/shashank-priyadarshi/utilities/mocks/logger"
 	"github.com/stretchr/testify/assert"
-	"testing"
 )
 
 func Test_Create(t *testing.T) {

@@ -1,6 +1,8 @@
 package suite
 
 import (
+	"os"
+
 	"github.com/shashank-priyadarshi/utilities/integrationtests/modules/data"
 	"github.com/shashank-priyadarshi/utilities/integrationtests/modules/database"
 	"github.com/shashank-priyadarshi/utilities/integrationtests/modules/logger"
@@ -8,7 +10,6 @@ import (
 	"github.com/shashank-priyadarshi/utilities/integrationtests/modules/pubsub"
 	"github.com/shashank-priyadarshi/utilities/integrationtests/modules/security"
 	"github.com/shashank-priyadarshi/utilities/integrationtests/modules/worker"
-	"os"
 )
 
 const (
