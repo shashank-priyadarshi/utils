@@ -44,7 +44,7 @@ func (h *Handler) Create(ctx context.Context, args ...interface{}) (*models.Resp
 	)
 
 	if key, isKey = args[0].(string); !isKey {
-		err = utilities.NewError(utilities.InvalidParameter.Error(), "key")
+		err = utilities.NewError(utilities.InvalidParameterType.Error(), "key")
 		return nil, err
 	}
 
@@ -52,7 +52,7 @@ func (h *Handler) Create(ctx context.Context, args ...interface{}) (*models.Resp
 
 	if paramsLength > 2 {
 		if expiration, isExpiration = args[2].(time.Duration); !isExpiration {
-			err = utilities.NewError(utilities.InvalidParameter.Error(), "expiration")
+			err = utilities.NewError(utilities.InvalidParameterType.Error(), "expiration")
 			return nil, err
 		}
 	}
@@ -87,7 +87,7 @@ func (h *Handler) Query(ctx context.Context, args ...interface{}) (*models.Respo
 	)
 
 	if key, isKey = args[0].(string); !isKey {
-		err = utilities.NewError(utilities.InvalidParameter.Error(), "key")
+		err = utilities.NewError(utilities.InvalidParameterType.Error(), "key")
 		return nil, err
 	}
 
@@ -125,7 +125,7 @@ func (h *Handler) Delete(ctx context.Context, args ...interface{}) (*models.Resp
 	)
 
 	if key, isKey = args[0].(string); !isKey {
-		err = utilities.NewError(utilities.InvalidParameter.Error(), "key")
+		err = utilities.NewError(utilities.InvalidParameterType.Error(), "key")
 		return nil, err
 	}
 

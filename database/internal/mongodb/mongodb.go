@@ -38,15 +38,15 @@ func (h *Handler) Create(ctx context.Context, args ...interface{}) (*models.Resp
 	)
 
 	if database, ok = args[0].(string); !ok {
-		return nil, utilities.NewError(utilities.InvalidParameter.Error(), "database")
+		return nil, utilities.NewError(utilities.InvalidParameterType.Error(), "database")
 	}
 
 	if collection, ok = args[1].(string); !ok {
-		return nil, utilities.NewError(utilities.InvalidParameter.Error(), "collection")
+		return nil, utilities.NewError(utilities.InvalidParameterType.Error(), "collection")
 	}
 
 	if documents, ok = args[2].([]interface{}); !ok {
-		return nil, utilities.NewError(utilities.InvalidParameter.Error(), "documents")
+		return nil, utilities.NewError(utilities.InvalidParameterType.Error(), "documents")
 	}
 
 	if _, err = h.client.Database(database).Collection(collection).InsertMany(ctx, documents); err != nil {
@@ -72,15 +72,15 @@ func (h *Handler) Query(ctx context.Context, args ...interface{}) (*models.Respo
 	)
 
 	if database, ok = args[0].(string); !ok {
-		return nil, utilities.NewError(utilities.InvalidParameter.Error(), "database")
+		return nil, utilities.NewError(utilities.InvalidParameterType.Error(), "database")
 	}
 
 	if collection, ok = args[1].(string); !ok {
-		return nil, utilities.NewError(utilities.InvalidParameter.Error(), "collection")
+		return nil, utilities.NewError(utilities.InvalidParameterType.Error(), "collection")
 	}
 
 	if query, ok = args[2].(bson.D); !ok {
-		return nil, utilities.NewError(utilities.InvalidParameter.Error(), "query")
+		return nil, utilities.NewError(utilities.InvalidParameterType.Error(), "query")
 	}
 
 	if cur, err = h.client.Database(database).Collection(collection).Find(ctx, query); err != nil {
@@ -121,19 +121,19 @@ func (h *Handler) Update(ctx context.Context, args ...interface{}) (*models.Resp
 	)
 
 	if database, ok = args[0].(string); !ok {
-		return nil, utilities.NewError(utilities.InvalidParameter.Error(), "database")
+		return nil, utilities.NewError(utilities.InvalidParameterType.Error(), "database")
 	}
 
 	if collection, ok = args[1].(string); !ok {
-		return nil, utilities.NewError(utilities.InvalidParameter.Error(), "collection")
+		return nil, utilities.NewError(utilities.InvalidParameterType.Error(), "collection")
 	}
 
 	if filterQuery, ok = args[2].(bson.D); !ok {
-		return nil, utilities.NewError(utilities.InvalidParameter.Error(), "filter query")
+		return nil, utilities.NewError(utilities.InvalidParameterType.Error(), "filter query")
 	}
 
 	if updateQuery, ok = args[3].(bson.D); !ok {
-		return nil, utilities.NewError(utilities.InvalidParameter.Error(), "update query")
+		return nil, utilities.NewError(utilities.InvalidParameterType.Error(), "update query")
 	}
 
 	if updateResult, err = h.client.Database(database).Collection(collection).UpdateOne(ctx, filterQuery, updateQuery); err != nil {
@@ -166,15 +166,15 @@ func (h *Handler) Delete(ctx context.Context, args ...interface{}) (*models.Resp
 	)
 
 	if database, ok = args[0].(string); !ok {
-		return nil, utilities.NewError(utilities.InvalidParameter.Error(), "database")
+		return nil, utilities.NewError(utilities.InvalidParameterType.Error(), "database")
 	}
 
 	if collection, ok = args[1].(string); !ok {
-		return nil, utilities.NewError(utilities.InvalidParameter.Error(), "collection")
+		return nil, utilities.NewError(utilities.InvalidParameterType.Error(), "collection")
 	}
 
 	if filterQuery, ok = args[2].(bson.D); !ok {
-		return nil, utilities.NewError(utilities.InvalidParameter.Error(), "filter query")
+		return nil, utilities.NewError(utilities.InvalidParameterType.Error(), "filter query")
 	}
 
 	if deleteResult, err = h.client.Database(database).Collection(collection).DeleteOne(ctx, filterQuery); err != nil {
