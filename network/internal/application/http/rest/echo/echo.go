@@ -6,6 +6,7 @@ import (
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 	loggerPort "github.com/shashank-priyadarshi/utilities/logger/ports"
+	"github.com/shashank-priyadarshi/utilities/network/ports"
 )
 
 type EchoServer struct {
@@ -17,19 +18,8 @@ func NewEchoServer(log loggerPort.Logger) (*EchoServer, error) {
 	return &EchoServer{log: log}, nil
 }
 
-func (e *EchoServer) AddGroup(args ...interface{}) error {
-	return nil
-}
+func (e *EchoServer) Start(args ...interface{}) (client ports.Client, err error) {
 
-func (e *EchoServer) AddHandler(args ...interface{}) error {
-	return nil
-}
-
-func (e *EchoServer) AddMiddleware(args ...interface{}) error {
-	return nil
-}
-
-func (e *EchoServer) Start(args ...interface{}) (err error) {
 	if len(args) < 1 {
 		err = fmt.Errorf("")
 		return
@@ -70,4 +60,15 @@ func (e *EchoServer) Shutdown(args ...interface{}) (err error) {
 	}
 
 	return
+}
+
+type Group struct {
+}
+
+func (g *Group) Chain(i ...interface{}) ports.Group {
+	return nil
+}
+
+func (g *Group) Add(i ...interface{}) error {
+	return nil
 }
