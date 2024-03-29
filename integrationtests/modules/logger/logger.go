@@ -1,14 +1,20 @@
-package suite
+package logger
 
 import (
 	"fmt"
 	"github.com/shashank-priyadarshi/utilities/logger"
+	"os"
 	"strconv"
 )
 
-func (t *testSuite) testLogger(args []string) {
-	logProvider, logLevel, logFormat := args[0], args[1], args[2]
-	trace, _ := strconv.ParseBool(args[3])
+func Test() {
+
+	logProvider := os.Getenv("LOG_PROVIDER")
+	logLevel := os.Getenv("LOG_LEVEL")
+	logFormat := os.Getenv("LOG_FORMAT")
+	traceRaw := os.Getenv("LOG_TRACE")
+
+	trace, _ := strconv.ParseBool(traceRaw)
 
 	log, err := logger.NewLogger(logProvider, logLevel, logFormat, trace)
 	if err != nil {
@@ -21,5 +27,4 @@ func (t *testSuite) testLogger(args []string) {
 	log.Warn("something", "warn_key", "warn_value")
 	log.Error(fmt.Errorf("some error"), "err_key", "err_value")
 	log.Fatal(fmt.Errorf("some error"), "fatal_key", "fatal_value") //debug
-
 }

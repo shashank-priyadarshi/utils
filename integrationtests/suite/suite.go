@@ -1,39 +1,53 @@
 package suite
 
 import (
-	"github.com/shashank-priyadarshi/utilities/logger/constants"
-	loggerPort "github.com/shashank-priyadarshi/utilities/logger/ports"
+	"github.com/shashank-priyadarshi/utilities/integrationtests/modules/data"
+	"github.com/shashank-priyadarshi/utilities/integrationtests/modules/database"
+	"github.com/shashank-priyadarshi/utilities/integrationtests/modules/logger"
+	"github.com/shashank-priyadarshi/utilities/integrationtests/modules/network"
+	"github.com/shashank-priyadarshi/utilities/integrationtests/modules/pubsub"
+	"github.com/shashank-priyadarshi/utilities/integrationtests/modules/security"
+	"github.com/shashank-priyadarshi/utilities/integrationtests/modules/worker"
 	"os"
 )
 
-type testSuite struct {
-	log      loggerPort.Logger
-	packages []string
-}
-
-type dependencies interface {
-	fetch() string
-}
+const (
+	DATA = iota
+	DATABASE
+	LOGGER
+	NETWORK
+	PUBSUB
+	SECURITY
+	WORKER
+)
 
 func Test() {
-	os.Setenv("LOG_PROVIDER", string(constants.SLOG))
-	os.Setenv("LOG_LEVEL", "info")
-	os.Setenv("LOG_FORMAT", "JSON")
-	os.Setenv("LOG_TRACE", "true")
 
-	t := testSuite{
-		packages: []string{"logger"},
-	}
+	var packages = make(map[int]string)
+	var packageTests = make(map[int]func())
 
-	for _, pkg := range t.packages {
-		switch pkg {
-		case "logger":
-			t.testLogger(t.fetch())
+	// Read packages to be tested from environment variable
+	packages[DATA] = os.Getenv("DATA")
+	packages[DATABASE] = os.Getenv("DATABASE")
+	packages[LOGGER] = os.Getenv("LOGGER")
+	packages[NETWORK] = os.Getenv("NETWORK")
+	packages[PUBSUB] = os.Getenv("PUBSUB")
+	packages[SECURITY] = os.Getenv("SECURITY")
+	packages[WORKER] = os.Getenv("WORKER")
+
+	// Store package integration tests for execution
+	packageTests[DATA] = data.Test
+	packageTests[DATABASE] = database.Test
+	packageTests[LOGGER] = logger.Test
+	packageTests[NETWORK] = network.Test
+	packageTests[PUBSUB] = pubsub.Test
+	packageTests[SECURITY] = security.Test
+	packageTests[WORKER] = worker.Test
+
+	for key, value := range packages {
+		switch value {
+		case "true":
+			packageTests[key]()
 		}
 	}
-
-}
-
-func (t *testSuite) fetch() []string {
-	return []string{os.Getenv("LOG_PROVIDER"), os.Getenv("LOG_LEVEL"), os.Getenv("LOG_FORMAT"), os.Getenv("LOG_TRACE")}
 }
