@@ -1,10 +1,17 @@
 package models
 
 type (
-	Type string
-	Data Type
+	Type      int
+	Algorithm string
 
 	Config struct {
-		Data Data
+		Type                   Type
+		SigningAlg, SigningKey string
+		CurveBits              int
+		DefaultClaims          map[string]interface{}
 	}
 )
+
+func (a Algorithm) String() string {
+	return string(a)
+}

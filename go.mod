@@ -7,7 +7,7 @@ require (
 	github.com/DATA-DOG/go-sqlmock v1.5.2
 	github.com/alicebob/miniredis/v2 v2.32.1
 	github.com/glebarez/sqlite v1.10.0
-	github.com/golang-jwt/jwt/v5 v5.2.0
+	github.com/golang-jwt/jwt/v5 v5.2.1
 	github.com/google/uuid v1.3.0
 	github.com/labstack/echo/v4 v4.11.4
 	github.com/ory/dockertest/v3 v3.10.0

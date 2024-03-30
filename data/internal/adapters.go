@@ -9,9 +9,9 @@ import (
 
 func New(config *models.Config) (ports.Data, error) {
 
-	switch config.Data {
+	switch config.Type {
 	case constants.JWT:
-		return jwt.Handle()
+		return jwt.Handle(config)
 
 	case constants.SAML:
 		return nil, nil
