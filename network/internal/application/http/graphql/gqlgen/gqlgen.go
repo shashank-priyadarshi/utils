@@ -1,11 +1,7 @@
 package gqlgen
 
-import loggerPort "github.com/shashank-priyadarshi/utilities/logger/ports"
+type Server struct{}
 
-type GraphQLServer struct {
-	log loggerPort.Logger
-}
-
-func NewGraphQLServer() (*GraphQLServer, error) {
+func New() (*Server, error) {
 	return nil, nil
 }

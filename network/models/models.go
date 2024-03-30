@@ -29,4 +29,16 @@ type (
 	WS          Application
 	REST        HTTP
 	GRAPHQL     HTTP
+
+	Config struct {
+		Protocol struct {
+			Layer                  Protocol
+			Type, Name, Toolchaink Type
+		}
+
+		Options Options
+	}
+
+	Options struct {
+	}
 )

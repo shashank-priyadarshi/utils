@@ -5,6 +5,6 @@ import (
 	"github.com/shashank-priyadarshi/utilities/network/ports"
 )
 
-func NewGraphQLServer() (ports.GraphQL, error) {
-	return gqlgen.NewGraphQLServer()
+func New() (ports.GraphQL, error) {
+	return gqlgen.New()
 }
