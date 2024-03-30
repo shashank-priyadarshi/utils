@@ -8,19 +8,17 @@ import (
 	"github.com/shashank-priyadarshi/utilities"
 
 	"github.com/shashank-priyadarshi/utilities/database/models"
-	"github.com/shashank-priyadarshi/utilities/logger/ports"
 )
 
 type Handler struct {
-	log    ports.Logger
 	client *sql.DB
 }
 
-func Handle(log ports.Logger, client *sql.DB) (handle *Handler) {
-	handle.log = log
-	handle.client = client
+func Handle(client *sql.DB) *Handler {
 
-	return
+	return &Handler{
+		client: client,
+	}
 }
 
 func (h *Handler) Create(ctx context.Context, args ...interface{}) (*models.Response, error) {
@@ -47,11 +45,11 @@ func (h *Handler) Query(ctx context.Context, args ...interface{}) (*models.Respo
 	)
 
 	if model = args[0]; model == nil {
-		return nil, utilities.NewError(utilities.InvalidParameter.Error(), "model")
+		return nil, utilities.NewError(utilities.InvalidParameterType.Error(), "model")
 	}
 
 	if query, ok = args[1].(string); !ok {
-		return nil, utilities.NewError(utilities.InvalidParameter.Error(), "query")
+		return nil, utilities.NewError(utilities.InvalidParameterType.Error(), "query")
 	}
 
 	rows, err = h.client.QueryContext(ctx, query, args[1:]...)
@@ -91,11 +89,19 @@ func (h *Handler) Update(ctx context.Context, args ...interface{}) (*models.Resp
 		result sql.Result
 	)
 
-	if query, ok = args[1].(string); !ok {
+	if query, ok = args[0].(string); !ok {
+		return nil, utilities.NewError(utilities.InvalidParameterType.Error(), "query")
+	}
+
+	if len(query) == 0 {
 		return nil, utilities.NewError(utilities.InvalidParameter.Error(), "query")
 	}
 
-	result, err = h.client.ExecContext(ctx, query, args[1:]...)
+	if len(args) > 1 {
+		args = args[1:]
+	}
+
+	result, err = h.client.ExecContext(ctx, query, args...)
 	if err != nil {
 		return nil, utilities.NewError(utilities.OperationFailed.Error(), fmt.Sprintf("error executing query %s on database: %v", query, err))
 	}

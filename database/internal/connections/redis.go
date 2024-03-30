@@ -3,13 +3,13 @@ package connections
 import (
 	"context"
 	"fmt"
+	"github.com/labstack/gommon/log"
 
 	redisclient "github.com/redis/go-redis/v9"
 	"github.com/shashank-priyadarshi/utilities/database/models"
-	"github.com/shashank-priyadarshi/utilities/logger/ports"
 )
 
-func Redis(ctx context.Context, log ports.Logger, config *models.Config) (client *redisclient.Client, err error) {
+func Redis(ctx context.Context, config *models.Config) (client *redisclient.Client, err error) {
 
 	if len(config.Options.URI) == 0 {
 		err = fmt.Errorf("redis uri cannot be empty")
@@ -27,7 +27,6 @@ func Redis(ctx context.Context, log ports.Logger, config *models.Config) (client
 	client = redisclient.NewClient(opts)
 	if client.Ping(ctx); err != nil {
 		err = fmt.Errorf("error pinging redis: %v", err)
-		log.Error(err)
 
 		client.Close()
 		return

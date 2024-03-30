@@ -4,17 +4,17 @@ import (
 	"context"
 	"database/sql"
 	"fmt"
+	"github.com/labstack/gommon/log"
 
 	"github.com/glebarez/sqlite"
 	"github.com/shashank-priyadarshi/utilities/database/constants"
 	"github.com/shashank-priyadarshi/utilities/database/models"
-	"github.com/shashank-priyadarshi/utilities/logger/ports"
 	"gorm.io/driver/mysql"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
 
-func RDBMS(ctx context.Context, log ports.Logger, config *models.Config) (client interface{}, err error) {
+func RDBMS(ctx context.Context, config *models.Config) (client interface{}, err error) {
 
 	if !isSupported(config.Options.Driver) {
 		err = fmt.Errorf("unsupported sql driver")

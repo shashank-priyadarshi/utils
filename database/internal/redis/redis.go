@@ -8,18 +8,15 @@ import (
 
 	"github.com/redis/go-redis/v9"
 	"github.com/shashank-priyadarshi/utilities/database/models"
-	"github.com/shashank-priyadarshi/utilities/logger/ports"
 )
 
 type Handler struct {
-	log    ports.Logger
 	client *redis.Client
 }
 
-func Handle(log ports.Logger, client *redis.Client) (handle *Handler) {
+func Handle(client *redis.Client) (handle *Handler) {
 
 	handle = &Handler{
-		log:    log,
 		client: client,
 	}
 
