@@ -3,7 +3,7 @@
 echo "formatting..."
 go fmt ./...
 
-echo "checking imports..."
+echo "sorting imports..."
 goimports -l -w .
 
 echo "linting..."
@@ -11,6 +11,15 @@ golint ./...
 
 echo "vetting..."
 go vet ./...
+
+#echo "static checks..."
+#staticcheck ./...
+
+echo "checking missed error checks..."
+errcheck ./...
+
+echo "checking memory inefficient structs..."
+fieldalignment ./...
 
 echo "performing other code quality checks using golangci-lint..."
 golangci-lint run

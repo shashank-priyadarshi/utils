@@ -101,7 +101,7 @@ func (s *Slog) Debug(msg string, args ...interface{}) {
 }
 
 func (s *Slog) With(args ...interface{}) {
-	var attrs []slog.Attr
+	var attrs []any
 
 	if len(args)/2 != 0 {
 		return
@@ -128,5 +128,5 @@ func (s *Slog) With(args ...interface{}) {
 		attrs = append(attrs, attr)
 	}
 
-	s.logger = s.logger.With(slog.Group(key, attrs))
+	s.logger = s.logger.With(slog.Group(key, attrs...))
 }
