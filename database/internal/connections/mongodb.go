@@ -3,16 +3,16 @@ package connections
 import (
 	"context"
 	"fmt"
+	"github.com/labstack/gommon/log"
 
 	"github.com/shashank-priyadarshi/utilities/database/models"
-	"github.com/shashank-priyadarshi/utilities/logger/ports"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
 var opts = &options.ClientOptions{}
 
-func MongoDB(ctx context.Context, log ports.Logger, config *models.Config) (client *mongo.Client, err error) {
+func MongoDB(ctx context.Context, config *models.Config) (client *mongo.Client, err error) {
 
 	if len(config.Options.URI) == 0 {
 		err = fmt.Errorf("mongo db uri cannot be empty")

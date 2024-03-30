@@ -7,19 +7,16 @@ import (
 	"github.com/shashank-priyadarshi/utilities"
 
 	"github.com/shashank-priyadarshi/utilities/database/models"
-	"github.com/shashank-priyadarshi/utilities/logger/ports"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
 type Handler struct {
-	log    ports.Logger
 	client *mongo.Client
 }
 
-func Handle(log ports.Logger, client *mongo.Client) *Handler {
+func Handle(client *mongo.Client) *Handler {
 	return &Handler{
-		log:    log,
 		client: client,
 	}
 }

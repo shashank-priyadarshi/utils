@@ -4,17 +4,14 @@ import (
 	"context"
 
 	"github.com/shashank-priyadarshi/utilities/database/models"
-	"github.com/shashank-priyadarshi/utilities/logger/ports"
 	"gorm.io/gorm"
 )
 
 type Handler struct {
-	log    ports.Logger
 	client *gorm.DB
 }
 
-func Handle(log ports.Logger, client *gorm.DB) (handle *Handler) {
-	handle.log = log
+func Handle(client *gorm.DB) (handle *Handler) {
 	handle.client = client
 
 	return
