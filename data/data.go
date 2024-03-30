@@ -9,17 +9,17 @@ import (
 
 func New(config *models.Config) (ports.Data, error) {
 
-	if !isSupported(config.Data) {
+	if !isSupported(config.Type) {
 		return nil, nil
 	}
 
 	return adapters.New(config)
 }
 
-func isSupported(data models.Data) bool {
+func isSupported(data models.Type) bool {
 	switch data {
 	case constants.JWT, constants.SAML:
 		return true
 	}
-	return true
+	return false
 }
