@@ -1,18 +1,23 @@
 package application
 
 import (
-	loggerPort "github.com/shashank-priyadarshi/utilities/logger/ports"
+	"github.com/shashank-priyadarshi/utilities"
+	"github.com/shashank-priyadarshi/utilities/network/constants"
 	"github.com/shashank-priyadarshi/utilities/network/internal/application/http"
+	"github.com/shashank-priyadarshi/utilities/network/models"
 	"github.com/shashank-priyadarshi/utilities/network/ports"
 )
 
-type ApplicationProtocolServer struct {
-	log loggerPort.Logger
+type Server struct {
 	ports.Application
 }
 
-func NewApplicationProtocolServer(log loggerPort.Logger) (ports.Application, error) {
-	appProto, _ := http.NewHTTPServer(log)
+func New(config *models.Config) (ports.Application, error) {
 
-	return &ApplicationProtocolServer{log, appProto}, nil
+	switch models.Application(config.Protocol.Type) {
+	case constants.HTTP:
+		return http.New()
+	default:
+		return nil, utilities.UnsupportedType
+	}
 }

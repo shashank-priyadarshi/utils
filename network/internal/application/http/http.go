@@ -1,24 +1,21 @@
 package http
 
 import (
-	loggerPort "github.com/shashank-priyadarshi/utilities/logger/ports"
 	"github.com/shashank-priyadarshi/utilities/network/internal/application/http/graphql"
 	"github.com/shashank-priyadarshi/utilities/network/internal/application/http/rest"
 	"github.com/shashank-priyadarshi/utilities/network/ports"
 )
 
-type HTTPServer struct {
-	log loggerPort.Logger
+type Server struct {
 	ports.REST
 	ports.GraphQL
 }
 
-func NewHTTPServer(log loggerPort.Logger) (ports.HTTP, error) {
-	restServer, _ := rest.NewRESTServer(log)
-	graphQLServer, _ := graphql.NewGraphQLServer()
+func New() (ports.HTTP, error) {
+	restServer, _ := rest.New()
+	graphQLServer, _ := graphql.New()
 
-	return &HTTPServer{
-		log,
+	return &Server{
 		restServer,
 		graphQLServer,
 	}, nil

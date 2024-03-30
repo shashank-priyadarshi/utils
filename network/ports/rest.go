@@ -6,17 +6,17 @@ type REST interface {
 }
 
 type Client interface {
-	Group
+	Group(...interface{}) (Group, error)
 	Handler
 }
 
 type Group interface {
-	Chain(...interface{}) Group
+	Group(...interface{}) (Group, error)
 	Handler
 }
 
 type Handler interface {
-	Add(...interface{}) error
+	Handler(...interface{}) error
 }
 
 //type Middleware interface {
