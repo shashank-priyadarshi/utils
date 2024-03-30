@@ -16,6 +16,8 @@ godef_download_url=github.com/rogpeppe/godef@latest
 golint_download_url=golang.org/x/lint/golint@latest
 staticcheck_download_url=honnef.co/go/tools/cmd/staticcheck@v0.4.7
 golangci_lint_download_url=github.com/golangci/golangci-lint/cmd/golangci-lint@latest
+errcheck_download_url=github.com/kisielk/errcheck@latest
+fieldalignment_download_url=golang.org/x/tools/go/analysis/passes/fieldalignment/cmd/fieldalignment@latest
 nvm_installation_script_url=https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh
 
 if ! command -v go &> /dev/null; then
@@ -56,6 +58,14 @@ if ! command -v golangci-lint &> /dev/null; then
     go install $golangci_lint_download_url
 fi
 
+if ! command -v errcheck &> /dev/null; then
+    go install $errcheck_download_url
+fi
+
+if ! command -v fieldalignment &> /dev/null; then
+    go install $fieldalignment_download_url
+fi
+
 if ! command -v npm &> /dev/null; then
 
     nodejs_installation_dir=$installation_dir/nodejs
@@ -82,14 +92,18 @@ if ! command -v npm &> /dev/null; then
 
 fi
 
-if ! command -v commitlint &> /dev/null; then
-  npm install --global commitlint@latest @commitlint/cli@latest @commitlint/config-conventional
-fi
-
 cd "$parent_dir" || exit
+
+if ! command -v commitlint &> /dev/null; then
+  npm init -y
+  npm install --save-dev @commitlint/config-conventional
+  npm install --global @commitlint/cli
+fi
 
 cp "$parent_dir/githooks/commit-msg" "$parent_dir/.git/hooks/"
 chmod +x "$parent_dir/.git/hooks/commit-msg"
 
 cp "$parent_dir/githooks/pre-commit" "$parent_dir/.git/hooks/pre-commit"
 chmod +x "$parent_dir/.git/hooks/pre-commit"
+
+echo setup hook dependencies and setup local hooks
