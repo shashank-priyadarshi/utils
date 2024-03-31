@@ -4,10 +4,10 @@ import (
 	"context"
 	"fmt"
 	"github.com/shashank-priyadarshi/utilities"
+	"github.com/shashank-priyadarshi/utilities/network/ports/application"
 
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
-	"github.com/shashank-priyadarshi/utilities/network/ports"
 )
 
 type Server struct {
@@ -18,7 +18,7 @@ func New() (*Server, error) {
 	return &Server{}, nil
 }
 
-func (e *Server) Start(args ...interface{}) (client ports.Client, err error) {
+func (e *Server) Start(args ...interface{}) (client application.Client, err error) {
 
 	if len(args) < 1 {
 		return nil, utilities.InsufficientParameters
@@ -70,7 +70,7 @@ type Client struct {
 	Handler
 }
 
-func (c *Client) Group(args ...interface{}) (ports.Group, error) {
+func (c *Client) Group(args ...interface{}) (application.Group, error) {
 
 	group := &Group{
 		server: c.server,
@@ -90,7 +90,7 @@ type Group struct {
 	group  *echo.Group
 }
 
-func (g *Group) Group(args ...interface{}) (ports.Group, error) {
+func (g *Group) Group(args ...interface{}) (application.Group, error) {
 
 	group, err := g.create(args...)
 	if err != nil {

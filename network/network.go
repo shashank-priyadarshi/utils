@@ -11,12 +11,6 @@ import (
 func New(config *models.Config) (ports.Network, error) {
 
 	switch config.Network.Layer {
-	case constants.DataLink:
-		return nil, nil
-	case constants.Transport:
-		return nil, nil
-	case constants.Sessions:
-		return nil, nil
 	case constants.Application:
 		return application.New(config)
 	default:
