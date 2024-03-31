@@ -1,16 +1,16 @@
 package ports
 
+import "github.com/shashank-priyadarshi/utilities/network/ports/application"
+
 // Network is the main interface that all network types should implement
-type Network interface{}
+type Network interface {
+	Protocol
+}
 
 // Protocol is the interface that all protocols should implement
-type Protocol interface{}
-
-// Standard is the interface that all standards should implement
-type Standard interface{}
-
-// Library is the interface that all libraries should implement
-type Library interface{}
+type Protocol interface {
+	application.HTTP
+}
 
 // Connection interface might be removed altogether
 //type Connection interface {
