@@ -8,15 +8,19 @@ import (
 	"github.com/shashank-priyadarshi/utilities/network/ports"
 )
 
-type Server struct {
-	ports.Application
-}
+func New(config *models.Config) (ports.Protocol, error) {
 
-func New(config *models.Config) (ports.Application, error) {
-
-	switch models.Application(config.Protocol.Type) {
+	switch config.Network.Protocol {
 	case constants.HTTP:
-		return http.New()
+		return http.New(config)
+	case constants.FTP:
+		return nil, nil
+	case constants.SMTP:
+		return nil, nil
+	case constants.DNS:
+		return nil, nil
+	case constants.WS:
+		return nil, nil
 	default:
 		return nil, utilities.UnsupportedType
 	}

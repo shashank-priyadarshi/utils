@@ -3,24 +3,29 @@ package constants
 import "github.com/shashank-priyadarshi/utilities/network/models"
 
 const (
-	DataLink    models.Protocol = "datalink"
-	Transport   models.Protocol = "transport"
-	Sessions    models.Protocol = "sessions"
-	Application models.Protocol = "application"
+	DataLink    models.Layer = "datalink"
+	Transport   models.Layer = "transport"
+	Sessions    models.Layer = "sessions"
+	Application models.Layer = "application"
 
-	PPP models.DataLink = "ppp"
+	PPP models.Protocol = "ppp" // DataLink layer
 
-	TCP  models.Transport = "tcp"
-	UDP  models.Transport = "udp"
-	SCTP models.Transport = "sctp"
+	TCP  models.Protocol = "tcp" // Transport layer
+	UDP  models.Protocol = "udp"
+	SCTP models.Protocol = "sctp"
 
-	HTTP models.Application = "http"
-	FTP  models.Application = "ftp"
-	SMTP models.Application = "smtp"
-	DNS  models.Application = "dns"
-	WS   models.Application = "ws"
+	RPC models.Protocol = "rpc" // Sessions layer
 
-	GRPC   models.RPC     = "grpc"
-	ECHO   models.REST    = "echo"
-	GQLGEN models.GRAPHQL = "gqlgen"
+	HTTP models.Protocol = "http" // Application layer
+	FTP  models.Protocol = "ftp"
+	SMTP models.Protocol = "smtp"
+	DNS  models.Protocol = "dns"
+	WS   models.Protocol = "ws"
+
+	REST    models.Standard = "rest"
+	GRAPHQL models.Standard = "graphql"
+
+	GRPC   models.Library = "grpc"
+	ECHO   models.Library = "echo"
+	GQLGEN models.Library = "gqlgen"
 )

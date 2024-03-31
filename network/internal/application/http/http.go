@@ -1,22 +1,23 @@
 package http
 
 import (
+	"github.com/shashank-priyadarshi/utilities"
+	"github.com/shashank-priyadarshi/utilities/network/constants"
 	"github.com/shashank-priyadarshi/utilities/network/internal/application/http/graphql"
 	"github.com/shashank-priyadarshi/utilities/network/internal/application/http/rest"
+	"github.com/shashank-priyadarshi/utilities/network/models"
 	"github.com/shashank-priyadarshi/utilities/network/ports"
 )
 
-type Server struct {
-	ports.REST
-	ports.GraphQL
-}
+func New(config *models.Config) (ports.Standard, error) {
 
-func New() (ports.HTTP, error) {
-	restServer, _ := rest.New()
-	graphQLServer, _ := graphql.New()
+	switch config.Network.Standard {
+	case constants.REST:
+		return rest.New(config)
+	case constants.GRAPHQL:
+		return graphql.New(config)
+	default:
+		return nil, utilities.UnsupportedType
 
-	return &Server{
-		restServer,
-		graphQLServer,
-	}, nil
+	}
 }
