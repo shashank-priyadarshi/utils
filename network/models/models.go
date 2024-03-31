@@ -18,6 +18,11 @@ type (
 		Standard Standard
 		Library  Library
 	}
+
 	Options struct {
+		TLS               bool
+		CertPath, KeyPath string
+		Host              string
+		Port              uint16
 	}
 )
