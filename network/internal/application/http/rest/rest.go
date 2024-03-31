@@ -12,7 +12,7 @@ func New(config *models.Config) (application.HTTP, error) {
 
 	switch config.Network.Library {
 	case constants.ECHO:
-		return echo.New()
+		return echo.New(config)
 	default:
 		return nil, utilities.UnsupportedType
 	}
