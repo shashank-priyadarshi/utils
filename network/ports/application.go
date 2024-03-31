@@ -1,13 +1,9 @@
 package ports
 
 type Application interface {
-	HTTP
 }
 
-type HTTP interface {
-	REST
-	GraphQL
-}
+type HTTP interface{}
 
 type GraphQL interface {
 }
