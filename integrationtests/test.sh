@@ -7,8 +7,8 @@ export LOGGER=false
 export NETWORK=false
 export PUBSUB=false
 export SECURITY=false
-export WORKER=false
+export WORKER=true
 
 # Set environment variables for each package
 
-go run main.go
+go run integrationtests/main.go
