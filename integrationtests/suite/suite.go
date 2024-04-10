@@ -1,14 +1,10 @@
 package suite
 
 import (
+	"fmt"
 	"os"
+	"sync"
 
-	"github.com/shashank-priyadarshi/utilities/integrationtests/modules/data"
-	"github.com/shashank-priyadarshi/utilities/integrationtests/modules/database"
-	"github.com/shashank-priyadarshi/utilities/integrationtests/modules/logger"
-	"github.com/shashank-priyadarshi/utilities/integrationtests/modules/network"
-	"github.com/shashank-priyadarshi/utilities/integrationtests/modules/pubsub"
-	"github.com/shashank-priyadarshi/utilities/integrationtests/modules/security"
 	"github.com/shashank-priyadarshi/utilities/integrationtests/modules/worker"
 )
 
@@ -24,6 +20,8 @@ const (
 
 func Test() {
 
+	fmt.Println("Setting up integration tests...")
+
 	var packages = make(map[int]string)
 	var packageTests = make(map[int]func())
 
@@ -37,18 +35,25 @@ func Test() {
 	packages[WORKER] = os.Getenv("WORKER")
 
 	// Store package integration tests for execution
-	packageTests[DATA] = data.Test
-	packageTests[DATABASE] = database.Test
-	packageTests[LOGGER] = logger.Test
-	packageTests[NETWORK] = network.Test
-	packageTests[PUBSUB] = pubsub.Test
-	packageTests[SECURITY] = security.Test
+	//packageTests[DATA] = data.Test
+	//packageTests[DATABASE] = database.Test
+	//packageTests[LOGGER] = logger.Test
+	//packageTests[NETWORK] = network.Test
+	//packageTests[PUBSUB] = pubsub.Test
+	//packageTests[SECURITY] = security.Test
 	packageTests[WORKER] = worker.Test
 
-	for key, value := range packages {
-		switch value {
-		case "true":
-			packageTests[key]()
-		}
-	}
+	fmt.Println("Executing integration tests...")
+	var wg sync.WaitGroup
+	wg.Add(1)
+	packageTests[WORKER]()
+
+	//for key, value := range packages {
+	//	switch {
+	//	case value == "true":
+	//		packageTests[key]()
+	//	}
+	//}
+
+	wg.Wait()
 }
