@@ -7,4 +7,7 @@ const (
 	Inactive  types.Status = "inactive"
 	Queued    types.Status = "inactive"
 	Completed types.Status = "completed"
+	Cancelled types.Status = "cancelled"
+	Timeout   types.Status = "timeout"
+	Invalid   types.Status = "invalid"
 )
