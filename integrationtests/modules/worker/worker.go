@@ -39,7 +39,7 @@ func Test() {
 					return nil
 				}
 			}
-		})
+		}, 1, 2)
 	}()
 
 	pool.DiscardJob(id)

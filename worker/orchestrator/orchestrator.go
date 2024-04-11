@@ -61,7 +61,8 @@ func (o *Orchestrator) Start() {
 				go func() {
 					select {
 					case elapsedWaitDuration := <-newWork.WaitDurationTimer.C:
-						if time.Now().After(elapsedWaitDuration) && newWork.Status != constants.Queued {
+						// NOTE: If pool scales but WorkQueue is long, current job might still be enqueued
+						if time.Now().After(elapsedWaitDuration) && newWork.Status == constants.Queued {
 							o.Scale(o.scalingFactor, false)
 						}
 					}
