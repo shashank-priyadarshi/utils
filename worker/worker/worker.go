@@ -40,7 +40,8 @@ func (w *Worker) Start() {
 			select {
 			case newWork := <-w.Work:
 				fmt.Println("Received new work with ID:", newWork.ID)
-				result := newWork.Job()
+				newWork.Status = constants.Active
+				result := newWork.Job(newWork.Ctx)
 				newWork.Status = constants.Completed
 				newWork.Result = result
 				w.workers <- w
@@ -56,4 +57,4 @@ func (w *Worker) Start() {
 
 	fmt.Println("Started worker with ID:", w.ID)
 }
-func (w *Worker) Stop(hotShutdown bool) (string, error) { return "", nil }
+func (w *Worker) Stop(hotShutdown bool) {}
