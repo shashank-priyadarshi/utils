@@ -5,6 +5,7 @@ import (
 	"github.com/google/uuid"
 	"github.com/shashank-priyadarshi/utilities/worker/constants"
 	"github.com/shashank-priyadarshi/utilities/worker/work"
+	"time"
 )
 
 type Worker struct {
@@ -41,8 +42,31 @@ func (w *Worker) Start() {
 			case newWork := <-w.Work:
 				fmt.Println("Received new work with ID:", newWork.ID)
 				newWork.Status = constants.Active
+
+				go func() {
+					// NOTE: Due to the maxExecutionDurationTimer starting up in a separate go routine,
+					// a task might run longer than set MaxExecutionTime
+					maxExecutionDurationTimer := time.NewTimer(newWork.MaxExecutionTime)
+
+					select {
+					case elapsedMaxExecutionTime := <-maxExecutionDurationTimer.C:
+						if time.Now().After(elapsedMaxExecutionTime) && newWork.Status == constants.Active {
+							newWork.Stop()
+
+							newWork.WaitDurationTimer.Stop()
+							maxExecutionDurationTimer.Stop()
+
+							newWork.Status = constants.Timeout
+							newWork.Result = nil
+						}
+					}
+				}()
+
 				result := newWork.Job(newWork.Ctx)
-				newWork.Status = constants.Completed
+				timeout := constants.Timeout
+				if newWork.Status.String() != timeout.String() {
+					newWork.Status = constants.Completed
+				}
 				newWork.Result = result
 				w.workers <- w
 

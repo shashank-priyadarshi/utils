@@ -10,27 +10,27 @@ import (
 )
 
 type Work struct {
-	Ctx                       context.Context
-	cancelFunc                context.CancelFunc
-	ID                        string
-	Job                       types.Job
-	Status                    types.Status
-	Result                    []interface{}
-	MaxExecutionDurationTimer *time.Timer
-	WaitDurationTimer         *time.Timer
+	Ctx               context.Context
+	cancelFunc        context.CancelFunc
+	ID                string
+	Job               types.Job
+	Status            types.Status
+	Result            []interface{}
+	MaxExecutionTime  time.Duration
+	WaitDurationTimer *time.Timer
 }
 
-func NewWork(job types.Job, waitTime time.Duration) *Work {
+func NewWork(job types.Job, maxExecutionTime time.Duration) *Work {
 
 	fmt.Println("Initializing new work")
 	ctx, cancel := context.WithCancel(context.Background())
 	work := &Work{
-		Ctx:                       ctx,
-		cancelFunc:                cancel,
-		ID:                        fmt.Sprintf("work_%s", uuid.New().String()),
-		Job:                       job,
-		Status:                    constants.Inactive,
-		MaxExecutionDurationTimer: time.NewTimer(waitTime),
+		Ctx:              ctx,
+		cancelFunc:       cancel,
+		ID:               fmt.Sprintf("work_%s", uuid.New().String()),
+		Job:              job,
+		Status:           constants.Inactive,
+		MaxExecutionTime: maxExecutionTime,
 	}
 
 	fmt.Println("Initialized new work with ID:", work.ID)

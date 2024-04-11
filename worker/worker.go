@@ -2,6 +2,7 @@ package worker
 
 import (
 	"fmt"
+	"github.com/google/uuid"
 	"github.com/shashank-priyadarshi/utilities/worker/constants"
 	"github.com/shashank-priyadarshi/utilities/worker/orchestrator"
 	"github.com/shashank-priyadarshi/utilities/worker/types"
@@ -98,34 +99,50 @@ func (p *Pool) GetBusyWorkers() int {
 	return p.active
 }
 
-func (p *Pool) Execute(job types.Job) string {
+// Execute
+// Accepts a func(ctx context.Context) []interface{} and array of time.Duration as input
+// Two durations are expected:
+// Wait time: maximum time that this jobs can spend in the queue before worker pool scales up, only works if scaling is enabled
+// Max Execution Time: maximum time that a worker can spend on this job before it is timed out
+// Both inputs have to provided for Max Execution Time to work
+func (p *Pool) Execute(job types.Job, durations ...time.Duration) string {
 
-	newWork := work.NewWork(job, p.waitTime)
+	var (
+		waitTime         = p.waitTime
+		maxExecutionTime = p.maxExecutionTime
+		inputLen         = len(durations)
+	)
 
-	waitDurationTimer := time.NewTimer(p.waitTime)
-	newWork.WaitDurationTimer = waitDurationTimer
+	if inputLen != 0 {
+		if durations[0] > 0 {
+			waitTime = durations[0]
+		}
 
-	p.orchestrator.WorkQueue <- newWork
-
-	newWork.Status = constants.Queued
-	p.orchestrator.Work[newWork.ID] = newWork
-
-	go func() {
-		select {
-		case elapsedMaxExecutionTime := <-newWork.MaxExecutionDurationTimer.C:
-			if time.Now().After(elapsedMaxExecutionTime) && newWork.Status == constants.Active {
-				newWork.Stop()
-
-				newWork.WaitDurationTimer.Stop()
-				newWork.MaxExecutionDurationTimer.Stop()
-
-				newWork.Status = constants.Timeout
-				newWork.Result = nil
+		switch {
+		case inputLen > 1:
+			if durations[1] > 0 {
+				maxExecutionTime = durations[1]
 			}
 		}
-	}()
+	}
 
-	return newWork.ID
+	newWork := work.NewWork(job, maxExecutionTime)
+
+	waitDurationTimer := time.NewTimer(waitTime)
+	newWork.WaitDurationTimer = waitDurationTimer
+
+	var id = newWork.ID
+	if len(id) == 0 {
+		id = fmt.Sprintf("work_%s", uuid.New().String())
+	}
+
+	newWork.ID = id
+	newWork.Status = constants.Queued
+	p.orchestrator.WorkQueue <- newWork
+
+	p.orchestrator.Work[id] = newWork
+
+	return id
 }
 func (p *Pool) GetJobStatus(ids ...string) map[string]string {
 	var statuses = make(map[string]string)
