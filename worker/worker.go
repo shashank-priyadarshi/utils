@@ -3,6 +3,8 @@ package worker
 import (
 	"fmt"
 	"github.com/google/uuid"
+	"github.com/shashank-priyadarshi/utilities/logger"
+	loggerPorts "github.com/shashank-priyadarshi/utilities/logger/ports"
 	"github.com/shashank-priyadarshi/utilities/worker/constants"
 	"github.com/shashank-priyadarshi/utilities/worker/orchestrator"
 	"github.com/shashank-priyadarshi/utilities/worker/types"
@@ -17,6 +19,7 @@ type Pool struct {
 	maxExecutionTime time.Duration // Max execution time allowed for a running Job before worker discards the Job
 	autoScale        bool
 	scalingFactor    int // Number of Worker to be added or removed at scaling
+	logger           loggerPorts.Logger
 
 	QuitChan chan bool
 
@@ -44,6 +47,9 @@ func NewPool(options ...func(*Pool)) *Pool {
 	newOrchestrator.WorkQueue = make(chan *work.Work)
 
 	newPool.orchestrator = newOrchestrator
+	if newPool.logger == nil {
+		newPool.logger, _ = logger.NewLogger("slog", "info", "json", false)
+	}
 
 	fmt.Println("Initialized new worker pool")
 	return newPool
@@ -52,29 +58,29 @@ func NewPool(options ...func(*Pool)) *Pool {
 func (p *Pool) SetPoolSize(count int) {
 	p.total = count
 }
-
 func (p *Pool) SetQueueSize(buffer int) {
 	p.workBuffer = buffer
 }
-
 func (p *Pool) SetWaitTime(waitTime time.Duration) {
 	p.waitTime = waitTime
 }
-
 func (p *Pool) SetMaxExecutionTime(maxExecutionTime time.Duration) {
 	p.maxExecutionTime = maxExecutionTime
 }
-
 func (p *Pool) EnableAutoScale() {
 	p.autoScale = true
 }
-
 func (p *Pool) SetScalingFactor(factor int) {
 	if factor < 1 {
 		factor = 1
 		return
 	}
 	p.scalingFactor = factor
+}
+func (p *Pool) SetLogger(logger loggerPorts.Logger) {
+	if logger != nil {
+		p.logger = logger
+	}
 }
 
 func (p *Pool) Start() {
