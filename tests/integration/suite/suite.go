@@ -5,7 +5,7 @@ import (
 	"os"
 	"sync"
 
-	"github.com/shashank-priyadarshi/utilities/integrationtests/modules/worker"
+	"github.com/shashank-priyadarshi/utilities/tests/integration/modules/worker"
 )
 
 const (
