@@ -1,0 +1,15 @@
+.idea
+.vscode
+
+TODO.pdf
+README.pdf
+
+*.out
+*.htm*
+*logs*
+
+dist/
+
+package.json
+package-lock.json
+node_modules/
