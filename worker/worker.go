@@ -42,13 +42,13 @@ func NewPool(options ...func(*Pool)) *Pool {
 		option(newPool)
 	}
 
-	newOrchestrator := orchestrator.NewOrchestrator(newPool.total, newPool.scalingFactor)
-	fmt.Println("New orchestrator initialized with worker count:", len(newOrchestrator.Workers))
+	newOrchestrator := orchestrator.NewOrchestrator(newPool.total, newPool.scalingFactor, newPool.autoScale)
+	fmt.Println("New orchestrator initialized with worker count:", len(newOrchestrator.IdleWorkers))
 	newOrchestrator.WorkQueue = make(chan *work.Work)
 
 	newPool.orchestrator = newOrchestrator
 	if newPool.logger == nil {
-		newPool.logger, _ = logger.NewLogger("slog", "info", "json", false)
+		newPool.logger, _ = logger.New("slog", "info", "json", false)
 	}
 
 	fmt.Println("Initialized new worker pool")
@@ -90,19 +90,20 @@ func (p *Pool) Start() {
 }
 func (p *Pool) Stop(hotShutdown bool) error { return nil }
 func (p *Pool) Scale(count int, hotShutdown bool) {
-	p.orchestrator.Scale(count, hotShutdown)
+	if p.autoScale {
+		p.orchestrator.Scale(count, hotShutdown)
+		p.total += p.scalingFactor
+	}
 }
+
 func (p *Pool) GetAvailableWorkers() int {
-	return len(p.orchestrator.Workers)
-}
-func (p *Pool) GetQueuedJobs() int {
-	return len(p.orchestrator.WorkQueue)
-}
-func (p *Pool) GetCompletedJobs() int {
-	return len(p.orchestrator.Work)
+	return len(p.orchestrator.IdleWorkers)
 }
 func (p *Pool) GetBusyWorkers() int {
-	return p.active
+	return p.total - len(p.orchestrator.IdleWorkers)
+}
+func (p *Pool) DiscardWorkers(workerIDs ...string) {
+	p.orchestrator.DiscardWorkers(workerIDs...)
 }
 
 // Execute
@@ -150,6 +151,16 @@ func (p *Pool) Execute(job types.Job, durations ...time.Duration) string {
 
 	return id
 }
+func (p *Pool) DiscardJobs(ids ...string) {
+	p.orchestrator.DiscardJobs(ids...)
+}
+
+func (p *Pool) GetQueuedJobs() int {
+	return len(p.orchestrator.WorkQueue)
+}
+func (p *Pool) GetCompletedJobs() int {
+	return len(p.orchestrator.Work)
+}
 func (p *Pool) GetJobStatus(ids ...string) map[string]string {
 	var statuses = make(map[string]string)
 	invalidStatus := constants.Invalid
@@ -163,13 +174,15 @@ func (p *Pool) GetJobStatus(ids ...string) map[string]string {
 
 	return statuses
 }
-func (p *Pool) GetJobResult(id string) []interface{} {
-	return nil
-}
-func (p *Pool) DiscardJob(id string) {
-	p.orchestrator.DiscardJob(id)
-}
+func (p *Pool) GetJobResult(ids ...string) map[string][]interface{} {
+	var results = make(map[string][]interface{})
+	for _, id := range ids {
+		if w, isValidWork := p.orchestrator.Work[id]; isValidWork {
+			results[id] = w.Result
+			continue
+		}
+		results[id] = nil
+	}
 
-func (p *Pool) DiscardJobs(ids ...string) {
-	p.orchestrator.DiscardJobs(ids...)
+	return results
 }

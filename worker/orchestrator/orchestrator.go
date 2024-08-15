@@ -10,15 +10,17 @@ import (
 )
 
 type Orchestrator struct {
+	autoScale     bool
 	scalingFactor int
 	workerCount   int
 	WorkQueue     chan *work.Work
-	Workers       chan *worker.Worker
-	Work          map[string]*work.Work // Map of Work ID against current status
+	IdleWorkers   chan *worker.Worker
+	Work          map[string]*work.Work     // Map of Work ID against current status
+	workers       map[string]*worker.Worker // Map of Worker ID against worker
 	mut           sync.RWMutex
 }
 
-func NewOrchestrator(workerCount, scalingFactor int) *Orchestrator {
+func NewOrchestrator(workerCount, scalingFactor int, autoScale bool) *Orchestrator {
 
 	fmt.Println("Initializing orchestrator")
 	var workers = make(chan *worker.Worker, workerCount)
@@ -31,21 +33,22 @@ func NewOrchestrator(workerCount, scalingFactor int) *Orchestrator {
 	fmt.Println("Available workers waiting to be started:", len(workers))
 	fmt.Println("Initialized orchestrator")
 	return &Orchestrator{
+		autoScale:     autoScale,
 		scalingFactor: scalingFactor,
 		workerCount:   workerCount,
-		Workers:       workers,
+		IdleWorkers:   workers,
 		Work:          make(map[string]*work.Work),
 		mut:           sync.RWMutex{},
 	}
 }
 
 func (o *Orchestrator) Start() {
-	fmt.Println("Starting new orchestrator with idle worker count:", len(o.Workers))
+	fmt.Println("Starting new orchestrator with idle worker count:", len(o.IdleWorkers))
 	go func() {
 		for i := 0; i < o.workerCount; i++ {
-			w := <-o.Workers
+			w := <-o.IdleWorkers
 			w.Start()
-			o.Workers <- w
+			o.IdleWorkers <- w
 		}
 	}()
 
@@ -53,12 +56,16 @@ func (o *Orchestrator) Start() {
 
 	go func() {
 		for {
-			fmt.Println("Available idle workers: ", len(o.Workers))
+			fmt.Println("Available idle workers: ", len(o.IdleWorkers))
 
 			select {
 			case newWork := <-o.WorkQueue:
 
 				go func() {
+					if !o.autoScale {
+						return
+					}
+
 					select {
 					case elapsedWaitDuration := <-newWork.WaitDurationTimer.C:
 						// NOTE: If pool scales but WorkQueue is long, current job might still be enqueued
@@ -68,7 +75,7 @@ func (o *Orchestrator) Start() {
 					}
 				}()
 
-				availableWorker := <-o.Workers
+				availableWorker := <-o.IdleWorkers
 				fmt.Printf("Pushing new work with ID %s for execution by available idle worker: %s\n", newWork.ID, availableWorker.ID)
 				availableWorker.Work <- newWork
 				o.Work[newWork.ID] = newWork
@@ -80,6 +87,10 @@ func (o *Orchestrator) Start() {
 }
 func (o *Orchestrator) Scale(count int, hotShutdown bool) {
 
+	if !o.autoScale {
+		return
+	}
+
 	o.workerCount = o.workerCount + count
 	workers := make(chan *worker.Worker, o.workerCount)
 
@@ -87,9 +98,9 @@ func (o *Orchestrator) Scale(count int, hotShutdown bool) {
 	case count < 0:
 		for i := count; i < 0; {
 			select {
-			case w := <-o.Workers:
+			case w := <-o.IdleWorkers:
 				i++
-				w.Stop(hotShutdown)
+				w.QuitChan <- true
 			}
 		}
 
@@ -104,23 +115,25 @@ func (o *Orchestrator) Scale(count int, hotShutdown bool) {
 
 	o.updateWorkers(workers)
 }
-
 func (o *Orchestrator) updateWorkers(workers chan *worker.Worker) {
 
 	o.mut.Lock()
-	for w := range o.Workers {
+	for w := range o.IdleWorkers {
 		workers <- w
 	}
 	o.mut.Unlock()
 
-	o.Workers = workers
+	o.IdleWorkers = workers
 }
-
-func (o *Orchestrator) DiscardJob(id string) {
-	if w, isValidWork := o.Work[id]; isValidWork {
-		w.Stop()
+func (o *Orchestrator) DiscardWorkers(workerIDs ...string) {
+	for _, workerID := range workerIDs {
+		if w, isValidWorker := o.workers[workerID]; isValidWorker {
+			delete(o.Work, workerID)
+			w.QuitChan <- true
+		}
 	}
 }
+
 func (o *Orchestrator) DiscardJobs(ids ...string) {
 	for _, id := range ids {
 		if w, isValidWork := o.Work[id]; isValidWork {

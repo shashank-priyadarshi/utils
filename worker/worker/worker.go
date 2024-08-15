@@ -12,7 +12,7 @@ type Worker struct {
 	ID       string
 	Work     chan *work.Work
 	workers  chan<- *Worker
-	QuitChan <-chan bool
+	QuitChan chan bool
 }
 
 func NewWorker(workers chan<- *Worker) *Worker {
@@ -22,7 +22,7 @@ func NewWorker(workers chan<- *Worker) *Worker {
 		ID:       fmt.Sprintf("worker_%s", uuid.New().String()),
 		workers:  workers,
 		Work:     make(chan *work.Work),
-		QuitChan: make(<-chan bool),
+		QuitChan: make(chan bool),
 	}
 
 	fmt.Println("Initialized new worker with ID:", worker.ID)
@@ -30,8 +30,6 @@ func NewWorker(workers chan<- *Worker) *Worker {
 }
 
 func (w *Worker) Start() {
-
-	//w.workers <- w
 
 	fmt.Println("Starting worker with ID:", w.ID)
 	go func() {
@@ -72,7 +70,7 @@ func (w *Worker) Start() {
 
 			case quit := <-w.QuitChan:
 				if quit {
-
+					return
 				}
 
 			}
@@ -81,4 +79,3 @@ func (w *Worker) Start() {
 
 	fmt.Println("Started worker with ID:", w.ID)
 }
-func (w *Worker) Stop(hotShutdown bool) {}
