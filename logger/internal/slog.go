@@ -17,13 +17,13 @@ type Slog struct {
 	logger *slog.Logger
 }
 
-func NewSlogLogger(logLevel, format string, trace bool) *Slog {
-	logger := &Slog{}
+func NewSlogLogger(logLevel, format string, trace bool) Slog {
+	logger := Slog{}
 	logger.init(logLevel, format, trace)
 	return logger
 }
 
-func (s *Slog) init(logLevel, format string, trace bool) {
+func (s Slog) init(logLevel, format string, trace bool) {
 	var opts = &slog.HandlerOptions{}
 	var handler slog.Handler
 
@@ -80,27 +80,27 @@ func (s *Slog) init(logLevel, format string, trace bool) {
 	s.logger = slog.New(handler)
 }
 
-func (s *Slog) Info(msg string, args ...interface{}) {
+func (s Slog) Info(msg string, args ...interface{}) {
 	s.logger.Info(msg, args...)
 }
 
-func (s *Slog) Warn(msg string, args ...interface{}) {
+func (s Slog) Warn(msg string, args ...interface{}) {
 	s.logger.Warn(msg, args...)
 }
 
-func (s *Slog) Error(err error, args ...interface{}) {
+func (s Slog) Error(err error, args ...interface{}) {
 	s.logger.Error(err.Error(), args...)
 }
 
-func (s *Slog) Fatal(err error, args ...interface{}) {
+func (s Slog) Fatal(err error, args ...interface{}) {
 
 }
 
-func (s *Slog) Debug(msg string, args ...interface{}) {
+func (s Slog) Debug(msg string, args ...interface{}) {
 	s.logger.Debug(msg, args...)
 }
 
-func (s *Slog) With(args ...interface{}) {
+func (s Slog) With(args ...interface{}) {
 	var attrs []any
 
 	if len(args)/2 != 0 {

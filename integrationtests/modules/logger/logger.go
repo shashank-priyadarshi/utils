@@ -17,7 +17,7 @@ func Test() {
 
 	trace, _ := strconv.ParseBool(traceRaw)
 
-	log, err := logger.NewLogger(logProvider, logLevel, logFormat, trace)
+	log, err := logger.New(logProvider, logLevel, logFormat, trace)
 	if err != nil {
 		fmt.Println("failed to initialize new logger using provider ", logProvider)
 	}

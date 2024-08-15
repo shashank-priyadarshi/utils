@@ -9,14 +9,19 @@ import (
 	"github.com/shashank-priyadarshi/utilities/database/ports"
 )
 
-func New(ctx context.Context, config *models.Config) (database ports.Database, err error) {
+type Database struct {
+	ports.Database
+}
+
+func New(ctx context.Context, config *models.Config) (Database, error) {
 
 	if !isSupported(config.Type) {
-		err = fmt.Errorf("unsupported database type: %s", config.Type)
-		return
+		return Database{}, fmt.Errorf("unsupported database type: %s", config.Type)
 	}
 
-	return adapters.New(ctx, config)
+	db, err := adapters.New(ctx, config)
+
+	return Database{db}, err
 }
 
 func isSupported(db constants.Database) bool {

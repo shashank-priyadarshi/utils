@@ -35,7 +35,7 @@ func Test() {
 	packages[WORKER] = os.Getenv("WORKER")
 
 	// Store package integration tests for execution
-	//packageTests[DATA] = data.Test
+	//packageTests[DATA] = secretxform.Test
 	//packageTests[DATABASE] = database.Test
 	//packageTests[LOGGER] = logger.Test
 	//packageTests[NETWORK] = network.Test

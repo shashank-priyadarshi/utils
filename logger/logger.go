@@ -8,10 +8,14 @@ import (
 	"github.com/shashank-priyadarshi/utilities/logger/ports"
 )
 
-func NewLogger(logProvider, logLevel, format string, trace bool) (ports.Logger, error) {
+type Logger struct {
+	ports.Logger
+}
+
+func New(logProvider, logLevel, format string, trace bool) (Logger, error) {
 
 	if !isSupported(logProvider) {
-		return nil, fmt.Errorf("logging option %s is not supported", "")
+		return Logger{}, fmt.Errorf("logging option %s is not supported", "")
 	}
 
 	var log ports.Logger
@@ -24,7 +28,7 @@ func NewLogger(logProvider, logLevel, format string, trace bool) (ports.Logger, 
 	case constants.ZEROLOG:
 	}
 
-	return log, nil
+	return Logger{log}, nil
 }
 
 func isSupported(option string) bool {
