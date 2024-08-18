@@ -6,7 +6,7 @@ import (
 	"github.com/DATA-DOG/go-sqlmock"
 	_ "github.com/DATA-DOG/go-sqlmock"
 	"github.com/shashank-priyadarshi/utilities"
-	ports "github.com/shashank-priyadarshi/utilities/mocks/logger"
+	"github.com/shashank-priyadarshi/utilities/test/mocks/logger"
 	"github.com/stretchr/testify/assert"
 	"strings"
 	"testing"
