@@ -1,0 +1,14 @@
+packages:
+  - data
+  - database
+  - logger
+  - network
+  - pubsub
+  - security
+  - worker
+unit:
+mutation:
+fuzz:
+integration:
+profile:
+benchmark:
