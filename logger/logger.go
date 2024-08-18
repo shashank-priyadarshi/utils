@@ -1,47 +1,105 @@
 package logger
 
 import (
-	"fmt"
-
 	"github.com/shashank-priyadarshi/utilities/logger/constants"
 	"github.com/shashank-priyadarshi/utilities/logger/internal"
 	"github.com/shashank-priyadarshi/utilities/logger/ports"
+	"time"
 )
 
 type Logger struct {
 	ports.Logger
+
+	provider   constants.Provider
+	level      constants.Level
+	format     constants.Format
+	trace      bool
+	rotateOpts RotateOptions
 }
 
-func New(logProvider, logLevel, format string, trace bool) (Logger, error) {
-
-	if !isSupported(logProvider) {
-		return Logger{}, fmt.Errorf("logging option %s is not supported", "")
-	}
-
-	var log ports.Logger
-
-	switch constants.Type(logProvider) {
-	case constants.SLOG:
-		log = internal.NewSlogLogger(logLevel, format, trace)
-	case constants.LOGRUS:
-	case constants.ZAP:
-	case constants.ZEROLOG:
-	}
-
-	return Logger{log}, nil
+type RotateOptions struct {
+	format      constants.Format
+	duration    time.Duration
+	maxFileSize int64
 }
 
-func isSupported(option string) bool {
-	var supported = make(map[constants.Type]any)
+func New(opts ...func(*Logger)) Logger {
 
-	supported[constants.SLOG] = nil
-	supported[constants.LOGRUS] = nil
-	supported[constants.ZAP] = nil
-	supported[constants.ZEROLOG] = nil
-
-	if _, ok := supported[constants.Type(option)]; ok {
-		return true
+	l := &Logger{
+		Logger: nil,
 	}
 
-	return false
+	for _, opt := range opts {
+		opt(l)
+	}
+
+	var logger ports.Logger
+
+	switch l.provider {
+	case constants.Slog:
+		logger = internal.NewSlogLogger(l.provider.String(), l.level.String(), l.trace)
+	case constants.Logrus:
+	case constants.Zap:
+	case constants.Zerolog:
+	}
+
+	l.Logger = logger
+
+	return *l
+}
+
+func SetProvider(provider constants.Provider) func(*Logger) {
+	return func(logger *Logger) {
+		if len(provider) == 0 {
+			provider = constants.Slog
+		}
+
+		logger.provider = provider
+	}
+}
+
+func SetLevel(level constants.Level) func(*Logger) {
+	return func(logger *Logger) {
+		if len(level) == 0 {
+			level = constants.Debug
+		}
+
+		logger.level = level
+	}
+}
+
+func SetFormat(format constants.Format) func(*Logger) {
+	return func(logger *Logger) {
+		if len(format) == 0 {
+			format = constants.Json
+		}
+
+		logger.format = format
+	}
+}
+
+func WithTracing() func(*Logger) {
+	return func(logger *Logger) {
+		logger.trace = true
+	}
+}
+
+func WithRotateOptions(duration, maxFileSize int64, format string) func(*Logger) {
+	return func(logger *Logger) {
+		if duration == 0 {
+			duration = int64(24 * time.Hour)
+		}
+
+		if maxFileSize == 0 {
+			maxFileSize = 8 * 1024 * 1024
+		}
+
+		if len(format) == 0 {
+			format = string(constants.Proto)
+		}
+
+		logger.rotateOpts.duration = time.Duration(duration)
+		logger.rotateOpts.maxFileSize = maxFileSize
+		logger.rotateOpts.format = constants.Format(format)
+	}
 }
