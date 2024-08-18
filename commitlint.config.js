@@ -22,7 +22,7 @@ module.exports = {
     'scope-enum': [
       2,
       'always',
-      ['database', /* Other possible scopes */]
+      ['database', 'logger', /* Other possible scopes */]
     ],
   },
   prompt: {
