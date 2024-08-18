@@ -3,10 +3,10 @@ package mongodb
 import (
 	"context"
 	"fmt"
+	"github.com/shashank-priyadarshi/utilities/test/mocks/logger"
 	"testing"
 
 	"github.com/shashank-priyadarshi/utilities"
-	ports "github.com/shashank-priyadarshi/utilities/mocks/logger"
 	"github.com/stretchr/testify/assert"
 	_ "github.com/stretchr/testify/assert"
 	"github.com/strikesecurity/strikememongo"

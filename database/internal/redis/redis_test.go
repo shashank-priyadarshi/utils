@@ -3,12 +3,12 @@ package redis
 import (
 	"context"
 	"fmt"
+	"github.com/shashank-priyadarshi/utilities/test/mocks/logger"
 	"testing"
 
 	"github.com/alicebob/miniredis/v2"
 	"github.com/redis/go-redis/v9"
 	"github.com/shashank-priyadarshi/utilities"
-	ports "github.com/shashank-priyadarshi/utilities/mocks/logger"
 	"github.com/stretchr/testify/assert"
 )
 
