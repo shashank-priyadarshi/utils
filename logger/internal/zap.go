@@ -1,41 +1,41 @@
 package internal
 
 import (
+	"fmt"
 	"go.uber.org/zap"
 )
 
-type ZapLogger struct {
+type Zap struct {
 	logger *zap.Logger
 }
 
-func NewZapLogger() *ZapLogger {
+func NewZapLogger() *Zap {
 	logger, _ := zap.NewProduction() // Replace with your desired Zap configuration
-	return &ZapLogger{
+	return &Zap{
 		logger: logger,
 	}
 }
 
-func (z *ZapLogger) Info(s string, args ...interface{}) {
+func (z *Zap) Info(s string, args ...interface{}) {
 	z.logger.Sugar().Infof(s, args...)
 }
 
-func (z *ZapLogger) Warn(s string, args ...interface{}) {
+func (z *Zap) Warn(s string, args ...interface{}) {
 	z.logger.Sugar().Warnf(s, args...)
 }
 
-func (z *ZapLogger) Error(err error, args ...interface{}) {
+func (z *Zap) Error(err error, args ...interface{}) {
 	z.logger.Sugar().Errorf("%v: %s", err, fmt.Sprint(args...))
 }
 
-func (z *ZapLogger) Fatal(err error, args ...interface{}) {
+func (z *Zap) Fatal(err error, args ...interface{}) {
 	z.logger.Sugar().Fatalf("%v: %s", err, fmt.Sprint(args...))
 }
 
-func (z *ZapLogger) Debug(s string, args ...interface{}) {
+func (z *Zap) Debug(s string, args ...interface{}) {
 	z.logger.Sugar().Debugf(s, args...)
 }
 
-func (z *ZapLogger) With(args ...interface{}) {
+func (z *Zap) With(args ...interface{}) {
 	// TODO: Implement structured logging with fields using zap.Field
 }
-

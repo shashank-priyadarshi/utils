@@ -7,10 +7,12 @@ import (
 
 const (
 	LevelFatal = slog.Level(12)
+	LevelPanic = slog.Level(16)
 )
 
 var LevelNames = map[slog.Leveler]string{
 	LevelFatal: "FTL",
+	LevelPanic: "PAN",
 }
 
 type Slog struct {
@@ -80,6 +82,10 @@ func (s Slog) init(logLevel, format string, trace bool) {
 	s.logger = slog.New(handler)
 }
 
+func (s Slog) Debug(msg string, args ...interface{}) {
+	s.logger.Debug(msg, args...)
+}
+
 func (s Slog) Info(msg string, args ...interface{}) {
 	s.logger.Info(msg, args...)
 }
@@ -93,40 +99,22 @@ func (s Slog) Error(err error, args ...interface{}) {
 }
 
 func (s Slog) Fatal(err error, args ...interface{}) {
-
+	s.Error(err, args...)
+	os.Exit(1)
 }
 
-func (s Slog) Debug(msg string, args ...interface{}) {
-	s.logger.Debug(msg, args...)
+func (s Slog) Panic(err error, args ...interface{}) {
+	s.Error(err, args...)
+	panic(err)
 }
 
-func (s Slog) With(args ...interface{}) {
+func (s Slog) With(args map[string]string) {
 	var attrs []any
 
-	if len(args)/2 != 0 {
-		return
-	}
-
-	var (
-		ok    bool
-		key   string
-		value string
-	)
-
-	for i := 0; i < len(args)-1; i += 2 {
-		key, ok = args[i].(string)
-		if !ok {
-			return
-		}
-
-		value, ok = args[i+1].(string) // process value type
-		if !ok {
-			return
-		}
-
-		attr := slog.String(key, value)
+	for key, val := range args {
+		attr := slog.String(key, val)
 		attrs = append(attrs, attr)
 	}
 
-	s.logger = s.logger.With(slog.Group(key, attrs...))
+	s.logger = s.logger.With(attrs...)
 }

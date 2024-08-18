@@ -1,6 +1,9 @@
 package internal
 
 import (
+	"fmt"
+	"os"
+
 	"github.com/rs/zerolog"
 )
 

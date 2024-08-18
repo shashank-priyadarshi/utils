@@ -1,15 +1,18 @@
 package ports
 
 type Logger interface {
-	Info(string, ...interface{})
-	Warn(string, ...interface{})
-	Error(error, ...interface{})
+	Panic(error, ...interface{})
 	Fatal(error, ...interface{})
+	Error(error, ...interface{})
+	Warn(string, ...interface{})
+	Info(string, ...interface{})
 	Debug(string, ...interface{})
-	With(args ...interface{})
-	/* TODO
-	   Enable logging to file
-	   Enable log rotation
-	   Enable zipping log files
-	*/
+}
+
+type Sugar interface {
+	With(map[string]string) Logger
+}
+
+type Leveler interface {
+	Level(string) Logger
 }
