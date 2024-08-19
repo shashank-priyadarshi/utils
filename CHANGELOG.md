@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
+## [unreleased]
+
+### 🚜 Refactor
+
+- *(setup)* Add commit check and releaser scripts, tools & config
+- *(secretxform)* Remove redundant impl for JWT & SAML from data pkg
+
+### 🧪 Testing
+
+- *(mocks)* Move mocks to test dir for easy management
+
 ## [0.2.0] - 2024-08-18
 
 ### 🚀 Features
