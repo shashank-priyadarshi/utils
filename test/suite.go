@@ -4,13 +4,10 @@ import (
 	"flag"
 	"github.com/shashank-priyadarshi/utilities/logger"
 	loggerPorts "github.com/shashank-priyadarshi/utilities/logger/ports"
-	"github.com/shashank-priyadarshi/utilities/test/benchmark"
-	"github.com/shashank-priyadarshi/utilities/test/fuzz"
 	"github.com/shashank-priyadarshi/utilities/test/integration"
-	"github.com/shashank-priyadarshi/utilities/test/mutation"
+	"github.com/shashank-priyadarshi/utilities/test/load"
 	"github.com/shashank-priyadarshi/utilities/test/profile"
 	"github.com/shashank-priyadarshi/utilities/test/types"
-	"github.com/shashank-priyadarshi/utilities/test/unit"
 	"gopkg.in/yaml.v3"
 	"io"
 	"os"
@@ -26,12 +23,9 @@ type Tester interface {
 type Test int
 
 const (
-	Unit Test = iota
-	Mutation
-	Fuzz
-	Integration
+	Integration Test = iota
 	Profile
-	Benchmark
+	Load
 )
 
 const (
@@ -39,12 +33,9 @@ const (
 	Default "configPath" value is "./config.yaml".`
 	FlagDescriptionTests = `Runs Unit and Integration tests by default.
 	To run all available tests in the suite, provide comma-separated values from 0 to 5, where
-	0: Unit Tests,
-	1: Mutation Tests,
-	2: Fuzz Tests,
-	3: Integration Tests,
-	4: Integration Tests with Profiling enabled,
-	5: Benchmark Tests.`
+	1: Integration Tests,
+	2: Integration Tests with Profiling enabled,
+	3: Load Tests.`
 	FlagDescriptionParallel = `If multiple tests are to be run in the suite, starts tests in parallel by default.
 	Set "parallel" flag value to false to disable parallel execution.`
 )
@@ -56,12 +47,9 @@ func main() {
 	}
 
 	s.builders = map[Test]func() *suite{
-		Unit:        s.withUnitTests,
-		Mutation:    s.withMutationTests,
-		Fuzz:        s.withFuzzTests,
 		Integration: s.withIntegrationTests,
 		Profile:     s.withProfiling,
-		Benchmark:   s.withBenchmarkTests,
+		Load:        s.withLoadTests,
 	}
 
 	var (
@@ -153,24 +141,6 @@ type suite struct {
 	config   *types.Config
 }
 
-func (s *suite) withUnitTests() *suite {
-
-	s.tests[Unit] = unit.New()
-	return s
-}
-
-func (s *suite) withMutationTests() *suite {
-
-	s.tests[Mutation] = mutation.New()
-	return s
-}
-
-func (s *suite) withFuzzTests() *suite {
-
-	s.tests[Fuzz] = fuzz.New()
-	return s
-}
-
 func (s *suite) withIntegrationTests() *suite {
 
 	s.tests[Integration] = integration.New()
@@ -183,8 +153,8 @@ func (s *suite) withProfiling() *suite {
 	return s
 }
 
-func (s *suite) withBenchmarkTests() *suite {
+func (s *suite) withLoadTests() *suite {
 
-	s.tests[Benchmark] = benchmark.New()
+	s.tests[Load] = load.New()
 	return s
 }

@@ -6,7 +6,6 @@ import (
 	"github.com/DATA-DOG/go-sqlmock"
 	_ "github.com/DATA-DOG/go-sqlmock"
 	"github.com/shashank-priyadarshi/utilities"
-	"github.com/shashank-priyadarshi/utilities/test/mocks/logger"
 	"github.com/stretchr/testify/assert"
 	"strings"
 	"testing"
@@ -14,11 +13,11 @@ import (
 
 func Test_Create(t *testing.T) {
 
-	logger := ports.NewMockLogger(t)
+	//logger := ports.NewMockLogger(t)
 	db, mock, err := sqlmock.New()
 	assert.Equal(t, nil, err)
 
-	handle := Handle(logger, db)
+	handle := Handle(db)
 
 	tests := []utilities.Test{{
 		Name: "happy path",
@@ -27,7 +26,7 @@ func Test_Create(t *testing.T) {
 
 			mock.ExpectExec(query).WillReturnResult(nil)
 
-			_, err = handle.Create(context.TODO(), query)
+			_, err = handle.Create(context.Background(), query)
 			assert.Equal(t, nil, err)
 		},
 	}}
@@ -39,18 +38,18 @@ func Test_Create(t *testing.T) {
 
 func Test_Query(t *testing.T) {
 
-	logger := ports.NewMockLogger(t)
+	//logger := ports.NewMockLogger(t)
 	db, mock, err := sqlmock.New()
 	assert.Equal(t, nil, err)
 
-	handle := Handle(logger, db)
+	handle := Handle(db)
 
 	tests := []utilities.Test{{
 		Name: "happy path",
 		TestCase: func(t *testing.T) {
 			mock.ExpectExec("")
 
-			_, err = handle.Create(context.TODO())
+			_, err = handle.Create(context.Background())
 			assert.Equal(t, nil, err)
 		},
 	}}
@@ -62,18 +61,18 @@ func Test_Query(t *testing.T) {
 
 func Test_Update(t *testing.T) {
 
-	logger := ports.NewMockLogger(t)
+	//logger := ports.NewMockLogger(t)
 	db, mock, err := sqlmock.New()
 	assert.Equal(t, nil, err)
 
-	handle := Handle(logger, db)
+	handle := Handle(db)
 
 	tests := []utilities.Test{{
 		Name: "happy path",
 		TestCase: func(t *testing.T) {
 			mock.ExpectExec("")
 
-			_, err = handle.Create(context.TODO())
+			_, err = handle.Create(context.Background())
 			assert.Equal(t, nil, err)
 		},
 	}}
@@ -85,18 +84,18 @@ func Test_Update(t *testing.T) {
 
 func Test_Delete(t *testing.T) {
 
-	logger := ports.NewMockLogger(t)
+	//logger := ports.NewMockLogger(t)
 	db, mock, err := sqlmock.New()
 	assert.Equal(t, nil, err)
 
-	handle := Handle(logger, db)
+	handle := Handle(db)
 
 	tests := []utilities.Test{{
 		Name: "happy path",
 		TestCase: func(t *testing.T) {
 			mock.ExpectExec("")
 
-			_, err = handle.Create(context.TODO())
+			_, err = handle.Create(context.Background())
 			assert.Equal(t, nil, err)
 		},
 	}}

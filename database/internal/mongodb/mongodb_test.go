@@ -3,7 +3,6 @@ package mongodb
 import (
 	"context"
 	"fmt"
-	"github.com/shashank-priyadarshi/utilities/test/mocks/logger"
 	"testing"
 
 	"github.com/shashank-priyadarshi/utilities"
@@ -19,7 +18,7 @@ import (
 
 func Test_Create(t *testing.T) {
 
-	logger := ports.NewMockLogger(t)
+	//logger := ports.NewMockLogger(t)
 	server, err := strikememongo.Start("4.0.5")
 	defer server.Stop()
 	assert.Equal(t, nil, err)
@@ -29,7 +28,7 @@ func Test_Create(t *testing.T) {
 	client, err := mongo.Connect(context.TODO(), &opts)
 	assert.Equal(t, nil, err)
 
-	handle := Handle(logger, client)
+	handle := Handle(client)
 
 	tests := []utilities.Test{{
 		Name: "happy path",
@@ -48,7 +47,7 @@ func Test_Create(t *testing.T) {
 
 func Test_Query(t *testing.T) {
 
-	logger := ports.NewMockLogger(t)
+	//logger := ports.NewMockLogger(t)
 	server, err := strikememongo.Start("4.0.5")
 	defer server.Stop()
 	assert.Equal(t, nil, err)
@@ -58,7 +57,7 @@ func Test_Query(t *testing.T) {
 	client, err := mongo.Connect(context.TODO(), &opts)
 	assert.Equal(t, nil, err)
 
-	handle := Handle(logger, client)
+	handle := Handle(client)
 
 	tests := []utilities.Test{{
 		Name: "happy path",
@@ -82,7 +81,7 @@ func Test_Query(t *testing.T) {
 
 func Test_Update(t *testing.T) {
 
-	logger := ports.NewMockLogger(t)
+	//logger := ports.NewMockLogger(t)
 	server, err := strikememongo.Start("4.0.5")
 	defer server.Stop()
 	assert.Equal(t, nil, err)
@@ -92,7 +91,7 @@ func Test_Update(t *testing.T) {
 	client, err := mongo.Connect(context.TODO(), &opts)
 	assert.Equal(t, nil, err)
 
-	handle := Handle(logger, client)
+	handle := Handle(client)
 
 	tests := []utilities.Test{{
 		Name: "happy path",
@@ -120,7 +119,7 @@ func Test_Update(t *testing.T) {
 
 func Test_Delete(t *testing.T) {
 
-	logger := ports.NewMockLogger(t)
+	//logger := ports.NewMockLogger(t)
 	server, err := strikememongo.Start("4.0.5")
 	defer server.Stop()
 	assert.Equal(t, nil, err)
@@ -130,7 +129,7 @@ func Test_Delete(t *testing.T) {
 	client, err := mongo.Connect(context.TODO(), &opts)
 	assert.Equal(t, nil, err)
 
-	handle := Handle(logger, client)
+	handle := Handle(client)
 
 	tests := []utilities.Test{{
 		Name: "happy path",
