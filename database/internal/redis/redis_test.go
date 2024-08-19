@@ -3,7 +3,6 @@ package redis
 import (
 	"context"
 	"fmt"
-	"github.com/shashank-priyadarshi/utilities/test/mocks/logger"
 	"testing"
 
 	"github.com/alicebob/miniredis/v2"
@@ -14,17 +13,17 @@ import (
 
 func Test_Create(t *testing.T) {
 
-	logger := ports.NewMockLogger(t)
-	miniredis_server := miniredis.NewMiniRedis()
-	if err := miniredis_server.Start(); err != nil {
+	//logger := ports.NewMockLogger(t)
+	miniredisServer := miniredis.NewMiniRedis()
+	if err := miniredisServer.Start(); err != nil {
 		t.Fatal("failed to start redis test server using mini redis")
 	}
 
 	client := redis.NewClient(&redis.Options{
-		Addr: miniredis_server.Addr(),
+		Addr: miniredisServer.Addr(),
 	})
 
-	handle := Handle(logger, client)
+	handle := Handle(client)
 
 	tests := []utilities.Test{
 		{
@@ -47,17 +46,17 @@ func Test_Create(t *testing.T) {
 
 func Test_Query(t *testing.T) {
 
-	logger := ports.NewMockLogger(t)
-	miniredis_server := miniredis.NewMiniRedis()
-	if err := miniredis_server.Start(); err != nil {
+	//logger := ports.NewMockLogger(t)
+	miniredisServer := miniredis.NewMiniRedis()
+	if err := miniredisServer.Start(); err != nil {
 		t.Fatal("failed to start redis test server using mini redis")
 	}
 
 	client := redis.NewClient(&redis.Options{
-		Addr: miniredis_server.Addr(),
+		Addr: miniredisServer.Addr(),
 	})
 
-	handle := Handle(logger, client)
+	handle := Handle(client)
 
 	tests := []utilities.Test{
 		{
@@ -82,17 +81,17 @@ func Test_Query(t *testing.T) {
 
 func Test_Update(t *testing.T) {
 
-	logger := ports.NewMockLogger(t)
-	miniredis_server := miniredis.NewMiniRedis()
-	if err := miniredis_server.Start(); err != nil {
+	//logger := ports.NewMockLogger(t)
+	miniredisServer := miniredis.NewMiniRedis()
+	if err := miniredisServer.Start(); err != nil {
 		t.Fatal("failed to start redis test server using mini redis")
 	}
 
 	client := redis.NewClient(&redis.Options{
-		Addr: miniredis_server.Addr(),
+		Addr: miniredisServer.Addr(),
 	})
 
-	handle := Handle(logger, client)
+	handle := Handle(client)
 
 	tests := []utilities.Test{
 		{
@@ -123,17 +122,17 @@ func Test_Update(t *testing.T) {
 
 func Test_Delete(t *testing.T) {
 
-	logger := ports.NewMockLogger(t)
-	miniredis_server := miniredis.NewMiniRedis()
-	if err := miniredis_server.Start(); err != nil {
+	//logger := ports.NewMockLogger(t)
+	miniredisServer := miniredis.NewMiniRedis()
+	if err := miniredisServer.Start(); err != nil {
 		t.Fatal("failed to start redis test server using mini redis")
 	}
 
 	client := redis.NewClient(&redis.Options{
-		Addr: miniredis_server.Addr(),
+		Addr: miniredisServer.Addr(),
 	})
 
-	handle := Handle(logger, client)
+	handle := Handle(client)
 
 	tests := []utilities.Test{
 		{

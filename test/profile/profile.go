@@ -10,6 +10,6 @@ func New() *Profile {
 	return &Profile{}
 }
 
-func (i *Profile) Execute(c *types.Config) error {
+func (m *Profile) Execute(c *types.Config) error {
 	return nil
 }

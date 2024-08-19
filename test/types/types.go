@@ -2,12 +2,9 @@ package types
 
 type Config struct {
 	Packages    []Package   `yaml:"packages"`
-	Unit        Unit        `yaml:"unit"`
-	Mutation    Mutation    `yaml:"mutation"`
-	Fuzz        Fuzz        `yaml:"fuzz"`
 	Integration Integration `yaml:"integration"`
 	Profile     Profile     `yaml:"profile"`
-	Benchmark   Benchmark   `yaml:"benchmark"`
+	Load        Load        `yaml:"load"`
 }
 
 type Package int
@@ -22,20 +19,11 @@ const (
 	WORKER
 )
 
-type Unit struct {
-}
-
-type Mutation struct {
-}
-
-type Fuzz struct {
-}
-
 type Integration struct {
 }
 
 type Profile struct {
 }
 
-type Benchmark struct {
+type Load struct {
 }

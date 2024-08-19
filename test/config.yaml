@@ -6,9 +6,7 @@ packages:
   - pubsub
   - security
   - worker
-unit:
-mutation:
-fuzz:
+
 integration:
 profile:
-benchmark:
+load:
