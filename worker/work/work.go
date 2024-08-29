@@ -4,8 +4,8 @@ import (
 	"context"
 	"fmt"
 	"github.com/google/uuid"
-	"github.com/shashank-priyadarshi/utilities/worker/constants"
-	"github.com/shashank-priyadarshi/utilities/worker/types"
+	"go.ssnk.in/utils/worker/constants"
+	"go.ssnk.in/utils/worker/types"
 	"time"
 )
 

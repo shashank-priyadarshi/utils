@@ -5,10 +5,10 @@ import (
 	"fmt"
 	"github.com/labstack/gommon/log"
 
-	"github.com/shashank-priyadarshi/utilities/database/constants"
-	ormhandler "github.com/shashank-priyadarshi/utilities/database/internal/rdbms/orm"
-	sqlhandler "github.com/shashank-priyadarshi/utilities/database/internal/rdbms/sql"
-	"github.com/shashank-priyadarshi/utilities/database/ports"
+	"go.ssnk.in/utils/database/constants"
+	ormhandler "go.ssnk.in/utils/database/internal/rdbms/orm"
+	sqlhandler "go.ssnk.in/utils/database/internal/rdbms/sql"
+	"go.ssnk.in/utils/database/ports"
 )
 
 func Handle(withORM bool, orm constants.ORM, client interface{}) (handle ports.Database, err error) {

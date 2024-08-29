@@ -1,9 +1,9 @@
 package logger
 
 import (
-	"github.com/shashank-priyadarshi/utilities/logger/constants"
-	"github.com/shashank-priyadarshi/utilities/logger/internal"
-	"github.com/shashank-priyadarshi/utilities/logger/ports"
+	"go.ssnk.in/utils/logger/constants"
+	"go.ssnk.in/utils/logger/internal"
+	"go.ssnk.in/utils/logger/ports"
 	"time"
 )
 

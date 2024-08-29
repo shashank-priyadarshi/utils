@@ -3,12 +3,12 @@ package worker
 import (
 	"fmt"
 	"github.com/google/uuid"
-	"github.com/shashank-priyadarshi/utilities/logger"
-	loggerPorts "github.com/shashank-priyadarshi/utilities/logger/ports"
-	"github.com/shashank-priyadarshi/utilities/worker/constants"
-	"github.com/shashank-priyadarshi/utilities/worker/orchestrator"
-	"github.com/shashank-priyadarshi/utilities/worker/types"
-	"github.com/shashank-priyadarshi/utilities/worker/work"
+	"go.ssnk.in/utils/logger"
+	loggerPorts "go.ssnk.in/utils/logger/ports"
+	"go.ssnk.in/utils/worker/constants"
+	"go.ssnk.in/utils/worker/orchestrator"
+	"go.ssnk.in/utils/worker/types"
+	"go.ssnk.in/utils/worker/work"
 	"time"
 )
 

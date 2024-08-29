@@ -2,9 +2,9 @@ package orchestrator
 
 import (
 	"fmt"
-	"github.com/shashank-priyadarshi/utilities/worker/constants"
-	"github.com/shashank-priyadarshi/utilities/worker/work"
-	"github.com/shashank-priyadarshi/utilities/worker/worker"
+	"go.ssnk.in/utils/worker/constants"
+	"go.ssnk.in/utils/worker/work"
+	"go.ssnk.in/utils/worker/worker"
 	"sync"
 	"time"
 )

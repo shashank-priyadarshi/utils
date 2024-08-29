@@ -7,8 +7,8 @@ import (
 	"github.com/labstack/gommon/log"
 
 	"github.com/glebarez/sqlite"
-	"github.com/shashank-priyadarshi/utilities/database/constants"
-	"github.com/shashank-priyadarshi/utilities/database/models"
+	"go.ssnk.in/utils/database/constants"
+	"go.ssnk.in/utils/database/models"
 	"gorm.io/driver/mysql"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"

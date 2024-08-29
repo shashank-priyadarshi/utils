@@ -5,7 +5,7 @@ import (
 	"os"
 	"strconv"
 
-	"github.com/shashank-priyadarshi/utilities/logger"
+	"go.ssnk.in/utils/logger"
 )
 
 func Test() {
@@ -17,10 +17,7 @@ func Test() {
 
 	trace, _ := strconv.ParseBool(traceRaw)
 
-	log, err := logger.New(logProvider, logLevel, logFormat, trace)
-	if err != nil {
-		fmt.Println("failed to initialize new logger using provider ", logProvider)
-	}
+	log := logger.New(logProvider, logLevel, logFormat, trace)
 
 	log.With("key", "value") // debug
 	log.Info("something", "info_key", "info_value")

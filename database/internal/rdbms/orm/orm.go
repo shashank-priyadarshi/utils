@@ -7,9 +7,9 @@ import (
 	_ "entgo.io/ent/entc"
 	_ "entgo.io/ent/entc/gen"
 	_ "entgo.io/ent/schema/field"
-	"github.com/shashank-priyadarshi/utilities/database/constants"
-	gormhandler "github.com/shashank-priyadarshi/utilities/database/internal/rdbms/orm/gorm"
-	"github.com/shashank-priyadarshi/utilities/database/ports"
+	"go.ssnk.in/utils/database/constants"
+	gormhandler "go.ssnk.in/utils/database/internal/rdbms/orm/gorm"
+	"go.ssnk.in/utils/database/ports"
 	"gorm.io/gorm"
 )
 

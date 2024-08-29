@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/shashank-priyadarshi/utilities"
 	"github.com/stretchr/testify/assert"
 	_ "github.com/stretchr/testify/assert"
 	"github.com/strikesecurity/strikememongo"

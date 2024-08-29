@@ -1,10 +1,10 @@
 package adapters
 
 import (
-	"github.com/shashank-priyadarshi/utilities/secretxform/constants"
-	"github.com/shashank-priyadarshi/utilities/secretxform/internal/jwt"
-	"github.com/shashank-priyadarshi/utilities/secretxform/models"
-	"github.com/shashank-priyadarshi/utilities/secretxform/ports"
+	"go.ssnk.in/utils/secretxform/constants"
+	"go.ssnk.in/utils/secretxform/internal/jwt"
+	"go.ssnk.in/utils/secretxform/models"
+	"go.ssnk.in/utils/secretxform/ports"
 )
 
 func New(config *models.Config) (ports.Data, error) {

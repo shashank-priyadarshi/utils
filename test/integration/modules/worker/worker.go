@@ -3,7 +3,7 @@ package worker
 import (
 	"context"
 	"fmt"
-	"github.com/shashank-priyadarshi/utilities/worker"
+	"go.ssnk.in/utils/worker"
 	"time"
 )
 

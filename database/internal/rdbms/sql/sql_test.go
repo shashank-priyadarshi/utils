@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"github.com/DATA-DOG/go-sqlmock"
 	_ "github.com/DATA-DOG/go-sqlmock"
-	"github.com/shashank-priyadarshi/utilities"
 	"github.com/stretchr/testify/assert"
 	"strings"
 	"testing"

@@ -1,7 +1,7 @@
 package models
 
 import (
-	"github.com/shashank-priyadarshi/utilities/database/constants"
+	"go.ssnk.in/utils/database/constants"
 )
 
 type (

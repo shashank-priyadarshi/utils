@@ -1,7 +1,7 @@
 with-expecter: true
 
 packages:
-  github.com/shashank-priyadarshi/utilities/logger/ports:
+  go.ssnk.in/utils/logger/ports:
     case: underscore
     interfaces:
       Logger:
@@ -10,7 +10,7 @@ packages:
           dir: mocks/logger
           mockname: MockLogger
 
-  github.com/shashank-priyadarshi/utilities/database/ports:
+  go.ssnk.in/utils/database/ports:
     case: underscore
     interfaces:
       Database:

@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"github.com/golang-jwt/jwt/v5"
 	_ "github.com/golang-jwt/jwt/v5"
-	"github.com/shashank-priyadarshi/utilities/secretxform/models"
+	"go.ssnk.in/utils/secretxform/models"
 	"strings"
 	"time"
 )
