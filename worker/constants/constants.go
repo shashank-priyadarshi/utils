@@ -1,6 +1,6 @@
 package constants
 
-import "github.com/shashank-priyadarshi/utilities/worker/types"
+import "go.ssnk.in/utils/worker/types"
 
 const (
 	Active    types.Status = "active"

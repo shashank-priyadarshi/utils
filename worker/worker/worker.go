@@ -3,8 +3,8 @@ package worker
 import (
 	"fmt"
 	"github.com/google/uuid"
-	"github.com/shashank-priyadarshi/utilities/worker/constants"
-	"github.com/shashank-priyadarshi/utilities/worker/work"
+	"go.ssnk.in/utils/worker/constants"
+	"go.ssnk.in/utils/worker/work"
 	"time"
 )
 

@@ -5,7 +5,7 @@ package ports
 import (
 	context "context"
 
-	models "github.com/shashank-priyadarshi/utilities/database/models"
+	models "go.ssnk.in/utils/database/models"
 	mock "github.com/stretchr/testify/mock"
 )
 

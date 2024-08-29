@@ -4,11 +4,9 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/shashank-priyadarshi/utilities"
-
-	"github.com/shashank-priyadarshi/utilities/database/models"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
+	"go.ssnk.in/utils/database/models"
 )
 
 type Handler struct {

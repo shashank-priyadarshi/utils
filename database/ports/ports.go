@@ -3,7 +3,7 @@ package ports
 import (
 	"context"
 
-	"github.com/shashank-priyadarshi/utilities/database/models"
+	"go.ssnk.in/utils/database/models"
 )
 
 type Database interface {

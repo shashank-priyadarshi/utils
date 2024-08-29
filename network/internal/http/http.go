@@ -1,20 +1,26 @@
 package http
 
 import (
-	"github.com/shashank-priyadarshi/utilities"
-	"github.com/shashank-priyadarshi/utilities/network/constants"
-	"github.com/shashank-priyadarshi/utilities/network/internal/application/http/rest"
-	"github.com/shashank-priyadarshi/utilities/network/models"
-	"github.com/shashank-priyadarshi/utilities/network/ports"
+	"go.ssnk.in/utils/network/ports"
+	"go.ssnk.in/utils/network/types"
 )
 
-func New(config *models.Config) (ports.Protocol, error) {
+type Http struct {
+	options *types.Options
+}
 
-	switch config.Network.Standard {
-	case constants.REST:
-		return rest.New(config)
-	default:
-		return nil, utilities.UnsupportedType
+func New(opts ...func(*Http)) (ports.Network, error) {
+	http := &Http{}
 
+	for _, opt := range opts {
+		opt(http)
+	}
+
+	return http, nil
+}
+
+func WithConfig(options *types.Options) func(*Http) {
+	return func(http *Http) {
+		http.options = options
 	}
 }

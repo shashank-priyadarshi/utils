@@ -4,10 +4,16 @@ All notable changes to this project will be documented in this file.
 
 ## [unreleased]
 
+### ⚙️ Miscellaneous Tasks
+
+- *(repo)* Revendor deps, add updated changelog & doc
+
 ### 🚜 Refactor
 
 - *(setup)* Add commit check and releaser scripts, tools & config
 - *(secretxform)* Remove redundant impl for JWT & SAML from data pkg
+- *(database)* Update mock import paths to updated path from test
+- *(setup,repo)* Refactor test & mocks structure and update tool configs
 
 ### 🧪 Testing
 

@@ -5,9 +5,9 @@ import (
 	"fmt"
 	"github.com/labstack/gommon/log"
 
-	"github.com/shashank-priyadarshi/utilities/database/models"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
+	"go.ssnk.in/utils/database/models"
 )
 
 var opts = &options.ClientOptions{}

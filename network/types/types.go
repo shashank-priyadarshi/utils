@@ -1,5 +1,7 @@
 package types
 
+import "net/http"
+
 type (
 	// Layer: Datalink, Transport, Sessions, Application
 	// Standard: REST, GraphQL
@@ -14,9 +16,12 @@ type (
 	}
 
 	Options struct {
-		TLS               bool
 		CertPath, KeyPath string
 		Host              string
 		Port              uint16
 	}
+)
+
+type (
+	HTTPMiddlewareFunc func(handler http.Handler) http.Handler
 )

@@ -1,6 +1,6 @@
 package constants
 
-import "github.com/shashank-priyadarshi/utilities/secretxform/models"
+import "go.ssnk.in/utils/secretxform/models"
 
 const (
 	JWT models.Type = iota

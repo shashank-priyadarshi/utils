@@ -2,12 +2,12 @@ package main
 
 import (
 	"flag"
-	"github.com/shashank-priyadarshi/utilities/logger"
-	loggerPorts "github.com/shashank-priyadarshi/utilities/logger/ports"
-	"github.com/shashank-priyadarshi/utilities/test/integration"
-	"github.com/shashank-priyadarshi/utilities/test/load"
-	"github.com/shashank-priyadarshi/utilities/test/profile"
-	"github.com/shashank-priyadarshi/utilities/test/types"
+	"go.ssnk.in/utils/logger"
+	loggerPorts "go.ssnk.in/utils/logger/ports"
+	"go.ssnk.in/utils/test/integration"
+	"go.ssnk.in/utils/test/load"
+	"go.ssnk.in/utils/test/profile"
+	"go.ssnk.in/utils/test/types"
 	"gopkg.in/yaml.v3"
 	"io"
 	"os"

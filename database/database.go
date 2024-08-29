@@ -3,10 +3,10 @@ package database
 import (
 	"context"
 	"fmt"
-	"github.com/shashank-priyadarshi/utilities/database/constants"
-	adapters "github.com/shashank-priyadarshi/utilities/database/internal"
-	"github.com/shashank-priyadarshi/utilities/database/models"
-	"github.com/shashank-priyadarshi/utilities/database/ports"
+	"go.ssnk.in/utils/database/constants"
+	adapters "go.ssnk.in/utils/database/internal"
+	"go.ssnk.in/utils/database/models"
+	"go.ssnk.in/utils/database/ports"
 )
 
 type Database struct {

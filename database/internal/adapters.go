@@ -4,13 +4,13 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/shashank-priyadarshi/utilities/database/constants"
-	"github.com/shashank-priyadarshi/utilities/database/internal/connections"
-	"github.com/shashank-priyadarshi/utilities/database/internal/mongodb"
-	"github.com/shashank-priyadarshi/utilities/database/internal/rdbms"
-	"github.com/shashank-priyadarshi/utilities/database/internal/redis"
-	"github.com/shashank-priyadarshi/utilities/database/models"
-	"github.com/shashank-priyadarshi/utilities/database/ports"
+	"go.ssnk.in/utils/database/constants"
+	"go.ssnk.in/utils/database/internal/connections"
+	"go.ssnk.in/utils/database/internal/mongodb"
+	"go.ssnk.in/utils/database/internal/rdbms"
+	"go.ssnk.in/utils/database/internal/redis"
+	"go.ssnk.in/utils/database/models"
+	"go.ssnk.in/utils/database/ports"
 )
 
 func New(ctx context.Context, config *models.Config) (handle ports.Database, err error) {

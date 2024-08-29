@@ -6,7 +6,7 @@ import (
 	"github.com/labstack/gommon/log"
 
 	redisclient "github.com/redis/go-redis/v9"
-	"github.com/shashank-priyadarshi/utilities/database/models"
+	"go.ssnk.in/utils/database/models"
 )
 
 func Redis(ctx context.Context, config *models.Config) (client *redisclient.Client, err error) {
@@ -26,7 +26,7 @@ func Redis(ctx context.Context, config *models.Config) (client *redisclient.Clie
 
 	client = redisclient.NewClient(opts)
 	if client.Ping(ctx); err != nil {
-		err = fmt.Errorf("error pinging redis: %v", err)
+		_, _, _ = err, fmt.Errorf, err
 
 		client.Close()
 		return

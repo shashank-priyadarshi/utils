@@ -3,14 +3,14 @@ package integration
 import (
 	"fmt"
 	_ "github.com/ory/dockertest/v3"
-	"github.com/shashank-priyadarshi/utilities/test/integration/modules/database"
-	"github.com/shashank-priyadarshi/utilities/test/integration/modules/logger"
-	"github.com/shashank-priyadarshi/utilities/test/integration/modules/network"
-	"github.com/shashank-priyadarshi/utilities/test/integration/modules/pubsub"
-	"github.com/shashank-priyadarshi/utilities/test/integration/modules/secretxform"
-	"github.com/shashank-priyadarshi/utilities/test/integration/modules/security"
-	"github.com/shashank-priyadarshi/utilities/test/integration/modules/worker"
-	"github.com/shashank-priyadarshi/utilities/test/types"
+	"go.ssnk.in/utils/test/integration/modules/database"
+	"go.ssnk.in/utils/test/integration/modules/logger"
+	"go.ssnk.in/utils/test/integration/modules/network"
+	"go.ssnk.in/utils/test/integration/modules/pubsub"
+	"go.ssnk.in/utils/test/integration/modules/secretxform"
+	"go.ssnk.in/utils/test/integration/modules/security"
+	"go.ssnk.in/utils/test/integration/modules/worker"
+	"go.ssnk.in/utils/test/types"
 )
 
 type Integration struct {
