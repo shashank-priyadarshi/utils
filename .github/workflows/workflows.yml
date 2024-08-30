@@ -42,7 +42,7 @@ jobs:
 
       # https://github.com/amannn/action-semantic-pull-request
       - name: Semantic Pull Requests
-        uses: amannn/action-semantic-pull-request@main
+        uses: amannn/action-semantic-pull-request@v5
         env:
           GITHUB_TOKEN: "${{secrets.GITHUB_TOKEN}}"
         with:
