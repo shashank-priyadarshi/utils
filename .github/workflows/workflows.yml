@@ -2,7 +2,7 @@ name: Unified Workflows
 
 on:
   push:
-    branches: [ 'main', 'dev' ]
+    branches: [ 'main' ]
     tags:
       - 'v*.*.*'
   workflow_dispatch:
@@ -57,41 +57,59 @@ jobs:
 
       - name: 'Analyze with SonarQube'
         uses: SonarSource/sonarcloud-github-action@master
-        continue-on-error: true
         env:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
           SONAR_TOKEN: "${{ secrets.SONAR_TOKEN }}"
           SONAR_HOST_URL: "${{ secrets.SONAR_HOST_URL }}"
         with:
           args:
+            -Dsonar.project.branch=main
             -Dsonar.projectKey="${{ secrets.SONAR_PROJECT_KEY }}"
             -Dsonar.organization="${{ secrets.SONAR_ORGANIZATION }}"
             -Dsonar.projectName=utils
             -Dsonar.projectVersion=$RELEASE_VERSION
             -Dsonar.sources=.
             -Dsonar.exclusions=**/[^/](algo|database|logger)/**/*.go
+            -Dsonar.verbose=true
 
       - name: 'Upload coverage reports to Codecov'
         uses: codecov/codecov-action@main
-        continue-on-error: true
         with:
           token: "${{ secrets.CODECOV_TOKEN }}"
           slug: shashank-priyadarshi/utils
 
       - name: 'Dependency Review'
         uses: actions/dependency-review-action@v3
+        env:
+          VULNERABLE_CHANGES: ${{ steps.review.outputs.vulnerable-changes }}
+        with:
+          base-ref: pull_request
+          head-ref: pull_request_target
+          license-check: true
+          allow-licenses:
+            - 'GPL-3.0'
+            - 'BSD-3-Clause'
+            - 'MIT'
+          allow-dependencies-licenses:
+            - 'GPL-3.0'
+            - 'BSD-3-Clause'
+            - 'MIT'
+          comment-summary-in-pr: always
+          fail-on-severity: moderate
+          show-openssf-scorecard: true
+          vulnerability-check: true
+        run: |
+          echo "$VULNERABLE_CHANGES" | jq
 
       # https://github.com/actions/labeler
       - name: 'Labeler'
         uses: actions/labeler@v4
-        continue-on-error: true
         with:
           repo-token: "${{ secrets.GITHUB_TOKEN }}"
 
       # https://github.com/actions/stale
       - name: 'Stale manager'
         uses: actions/stale@v5
-        continue-on-error: true
         with:
           repo-token: "${{ secrets.GITHUB_TOKEN }}"
           stale-issue-message: 'Stale issue message'
