@@ -80,8 +80,6 @@ jobs:
 
       - name: 'Dependency Review'
         uses: actions/dependency-review-action@v3
-        env:
-          VULNERABLE_CHANGES: ${{ steps.review.outputs.vulnerable-changes }}
         with:
           base-ref: pull_request
           head-ref: pull_request_target
@@ -98,8 +96,6 @@ jobs:
           fail-on-severity: moderate
           show-openssf-scorecard: true
           vulnerability-check: true
-        run: |
-          echo "$VULNERABLE_CHANGES" | jq
 
       # https://github.com/actions/labeler
       - name: 'Labeler'
