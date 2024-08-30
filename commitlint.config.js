@@ -65,21 +65,15 @@ module.exports = {
                 'start-case', // Start Case
             ]
         ],
-        'scope-empty': [2, 'never'],
         'scope-enum': [
             2,
             'always',
             [
+                'algo',
                 'database',
                 'logger',
-                'mocks',
-                'network',
-                'pubsub',
                 'repo',
-                'secretxform',
-                'security',
                 'setup',
-                'worker'
             ]
         ],
         'scope-max-length': [2, 'always', 30],
