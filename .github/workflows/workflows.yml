@@ -86,14 +86,8 @@ jobs:
           base-ref: pull_request
           head-ref: pull_request_target
           license-check: true
-          allow-licenses:
-            - 'GPL-3.0'
-            - 'BSD-3-Clause'
-            - 'MIT'
-          allow-dependencies-licenses:
-            - 'GPL-3.0'
-            - 'BSD-3-Clause'
-            - 'MIT'
+          allow-licenses: 'GPL-3.0', 'BSD-3-Clause', 'MIT'
+          allow-dependencies-licenses: 'GPL-3.0', 'BSD-3-Clause', 'MIT'
           comment-summary-in-pr: always
           fail-on-severity: moderate
           show-openssf-scorecard: true
