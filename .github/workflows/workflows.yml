@@ -1,10 +1,10 @@
 name: Unified Workflows
 
 on:
-  pull_request:
-    branches: [ "main" ]
   push:
-    branches: [ "main" ]
+    tags:
+      - 'v*.*.*'
+  workflow_dispatch:
 
 permissions:
   actions: "read"
@@ -16,81 +16,84 @@ permissions:
 
 jobs:
   workflows:
-    runs-on: ${{ (matrix.language == 'swift' && 'macos-latest') || 'ubuntu-latest' }}
+    runs-on: "ubuntu-latest"
     permissions:
       actions: "read"
       issues: "write"
       checks: "write"
       security-events: "write"
       pull-requests: "write"
-      contents: "write" 
+      contents: "write"
 
     steps:
-    # https://github.com/Codium-ai/pr-agent
-    - name: PR Agent action step
-      id: pragent
-      uses: Codium-ai/pr-agent@main
-      env:
-        OPENAI_KEY: ${{ secrets.OPENAI_KEY }}
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        OPENAI.ORG: ${{ secrets.OPENAI_ORG }}
-        PR_REVIEWER.REQUIRE_TESTS_REVIEW: "false" # Disable tests review
-        PR_CODE_SUGGESTIONS.NUM_CODE_SUGGESTIONS: 20
+      # https://github.com/Codium-ai/pr-agent
+      - name: 'PR Agent action step'
+        id: pragent
+        uses: Codium-ai/pr-agent@main
+        env:
+          OPENAI_KEY: "${{ secrets.OPENAI_KEY }}"
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+          OPENAI.ORG: "${{ secrets.OPENAI_ORG }}"
+          PR_REVIEWER.REQUIRE_TESTS_REVIEW: "false" # Disable tests review
+          PR_CODE_SUGGESTIONS.NUM_CODE_SUGGESTIONS: 20
 
-    - name: Semantic Pull Requests
-      uses: wow-actions/semantic-pull-requests@v1.0.0
-      with:
-        GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+      - name: Semantic Pull Requests
+        uses: wow-actions/semantic-pull-requests@v1.0.0
+        with:
+          GITHUB_TOKEN: "${{secrets.GITHUB_TOKEN}}"
 
-    # https://github.com/actions/dependency-review-action
-    - name: 'Checkout Repository'
-      uses: actions/checkout@v3
-      with:
-        fetch-depth: 0
+      # https://github.com/actions/dependency-review-action
+      - name: 'Checkout Repository'
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
 
-    - name: Run tests
-      run: go test -coverprofile=coverage.txt
+      - name: 'Set env'
+        run: export RELEASE_VERSION=$(git describe --tags --abbrev=0)
 
-    - name: Analyze with SonarQube
-      uses: SonarSource/sonarcloud-github-action@master
-      continue-on-error: true
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-      with:
-        args:
-          -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }}
-          -Dsonar.organization=${{ secrets.SONAR_ORGANIZATION }}
-          -Dsonar.projectName=utils
-          -Dsonar.projectVersion=${{ github.ref.replace('v', '') }}
-          -Dsonar.sources=.
-          -Dsonar.exclusions=**/[^/](algo|database|logger)/**/*.go
+      - name: 'Run tests'
+        run: go test -coverprofile=coverage.txt
 
-    - name: Upload coverage reports to Codecov
-      uses: codecov/codecov-action@main
-      continue-on-error: true
-      with:
-          token: ${{ secrets.CODECOV_TOKEN }}
+      - name: 'Analyze with SonarQube'
+        uses: SonarSource/sonarcloud-github-action@master
+        continue-on-error: true
+        env:
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+          SONAR_TOKEN: "${{ secrets.SONAR_TOKEN }}"
+          SONAR_HOST_URL: "${{ secrets.SONAR_HOST_URL }}"
+        with:
+          args:
+            -Dsonar.projectKey="${{ secrets.SONAR_PROJECT_KEY }}"
+            -Dsonar.organization="${{ secrets.SONAR_ORGANIZATION }}"
+            -Dsonar.projectName=utils
+            -Dsonar.projectVersion=$RELEASE_VERSION
+            -Dsonar.sources=.
+            -Dsonar.exclusions=**/[^/](algo|database|logger)/**/*.go
+
+      - name: 'Upload coverage reports to Codecov'
+        uses: codecov/codecov-action@main
+        continue-on-error: true
+        with:
+          token: "${{ secrets.CODECOV_TOKEN }}"
           slug: shashank-priyadarshi/utils
 
-    - name: 'Dependency Review'
-      uses: actions/dependency-review-action@v3    
+      - name: 'Dependency Review'
+        uses: actions/dependency-review-action@v3
 
-    # https://github.com/actions/labeler
-    - name: 'Labeler'
-      uses: actions/labeler@v4
-      continue-on-error: true
-      with:
-        repo-token: "${{ secrets.GITHUB_TOKEN }}"
+      # https://github.com/actions/labeler
+      - name: 'Labeler'
+        uses: actions/labeler@v4
+        continue-on-error: true
+        with:
+          repo-token: "${{ secrets.GITHUB_TOKEN }}"
 
-    # https://github.com/actions/stale
-    - name: 'Stale manager'
-      uses: actions/stale@v5
-      continue-on-error: true
-      with:
-        repo-token: ${{ secrets.GITHUB_TOKEN }}
-        stale-issue-message: 'Stale issue message'
-        stale-pr-message: 'Stale pull request message'
-        stale-issue-label: 'no-issue-activity'
-        stale-pr-label: 'no-pr-activity'
+      # https://github.com/actions/stale
+      - name: 'Stale manager'
+        uses: actions/stale@v5
+        continue-on-error: true
+        with:
+          repo-token: "${{ secrets.GITHUB_TOKEN }}"
+          stale-issue-message: 'Stale issue message'
+          stale-pr-message: 'Stale pull request message'
+          stale-issue-label: 'no-issue-activity'
+          stale-pr-label: 'no-pr-activity'
