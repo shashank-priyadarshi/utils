@@ -1,9 +1,8 @@
 name: Unified Workflows
 
 on:
-  pull_request:
-    branches: ['main']
   push:
+    branches: [ 'main', 'dev' ]
     tags:
       - 'v*.*.*'
   workflow_dispatch:
