@@ -1,4 +1,4 @@
-package data
+package algo
 
 func Test() {
 	// Read required environment variables

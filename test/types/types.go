@@ -10,13 +10,9 @@ type Config struct {
 type Package int
 
 const (
-	DATA Package = iota
-	DATABASE
-	LOGGER
-	NETWORK
-	PUBSUB
-	SECURITY
-	WORKER
+	Algo Package = iota
+	Database
+	Logger
 )
 
 type Integration struct {
