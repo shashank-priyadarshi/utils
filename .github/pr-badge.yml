@@ -22,19 +22,19 @@
   message: "Feature"
   when: "$labels.includes('Feature')"
 
-- label: "commits"
+- label: "Commits"
   message: "$payload.pull_request.commits"
 
-- label: "changed files"
+- label: "Changed Files"
   message: "$payload.pull_request.changed_files"
 
-- label: "additions"
+- label: "Additions"
   message: "$payload.pull_request.additions"
 
-- label: "deletions"
+- label: "Deletions"
   message: "$payload.pull_request.deletions"
 
-- label: "author"
+- label: "Author"
   message: "$payload.pull_request.author_association"
 
 
@@ -47,6 +47,3 @@
   message: "Medium"
   color: "yellow"
   when: "$additions > 200 && $additions < 500"
-
-- imageUrl: "https://circleci.com/gh/$owner/$repo.svg?style=svg"
-  url: "https://app.circleci.com/pipelines/github/$owner/$repo?branch=$branchName"

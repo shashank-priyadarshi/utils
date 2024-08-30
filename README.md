@@ -1,18 +1,16 @@
-# utilities
+# utilities [![codecov](https://codecov.io/gh/shashank-priyadarshi/utils/graph/badge.svg?token=UL4Y1eBX07)](https://codecov.io/gh/shashank-priyadarshi/utils)
 
 This repository contains common libraries for my projects.
 
+## Unit test coverage graph
+
+<img src="https://codecov.io/gh/shashank-priyadarshi/utils/graphs/tree.svg?token=UL4Y1eBX07" alt="Unit test coverage grid graph from Codecov"/>
+
 This repository provides the following packages:
 
-- [Data](#data)
+- [Algo](#algo)
 - [Database](#database)
 - [Logger](#logger)
-- [Network](#network)
-- [Security](#security)
-- [PubSub](#pubsub)
-- [Worker](#worker)
-
-## Data
 
 ## Logger
 
@@ -58,48 +56,3 @@ type Configure interface {
 	Configure(context.Context, ...interface{}) error
 }
 ```
-
-## Network
-
-## Security
-
-## PubSub
-
-![PubSub](./assets/images/pubsub.png)<P style="text-align:center;">*PubSub System*</p>
-
-## Worker
-
-This package provides the following interface:
-
-```go
-package worker
-
-type Pool interface {
-	Execute(func(...interface{}) []interface{}) error
-	Exit()
-}
-
-```
-
-### Workflow
-
-![Worker Pool](./assets/images/workerpool.png)<p style="text-align:center;">
-![Worker Pool](./assets/images/workerpool_detailed.png)<p style="text-align:center;">*Worker Pool Workflow*</p>
-
-- At worker pool initialization:
-    - Collector & work queue are initialized
-    - Dispatcher & worker queue are initialized
-        - New workers are initialized with id, and each worker is registered in worker queue
-
-- Each time `Execute(func(...interface{}) []interface{}) error` method is called:
-    - Collector validates work request
-    - Adds work to the work channel with if space available
-    - Dispatcher listens on the work channel
-    - If work is available, wait for worker to be available
-    - Once a worker is available, pushes work to the worker channel, removes the worker from the worker channel
-
-- Each time a Worker completes a work:
-    - Adds itself back to the worker queue
-    - Signal received on the work channel, execute
-    - Signal received on the exit channel, exit
-

@@ -26,7 +26,7 @@ jobs:
       contents: "write" 
 
     steps:
-    # Run pr agent on every pull request, respond to user comments
+    # https://github.com/Codium-ai/pr-agent
     - name: PR Agent action step
       id: pragent
       uses: Codium-ai/pr-agent@main
@@ -36,93 +36,23 @@ jobs:
         OPENAI.ORG: ${{ secrets.OPENAI_ORG }}
         PR_REVIEWER.REQUIRE_TESTS_REVIEW: "false" # Disable tests review
         PR_CODE_SUGGESTIONS.NUM_CODE_SUGGESTIONS: 20
+
     - name: Semantic Pull Requests
       uses: wow-actions/semantic-pull-requests@v1.0.0
       with:
         GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
-      # This Action will scan dependency manifest files that change as part of a Pull Request, surfacing known-vulnerable versions of the packages declared or updated in the PR. Once installed, if the workflow run is marked as required, PRs introducing known-vulnerable packages will be blocked from merging.
-    #
-    # Source repository: https://github.com/actions/dependency-review-action
-    # Public documentation: https://docs.github.com/en/code-security/supply-chain-security/understanding-your-software-supply-chain/about-dependency-review#dependency-review-enforcement
+
+    # https://github.com/actions/dependency-review-action
     - name: 'Checkout Repository'
       uses: actions/checkout@v3
       with:
-        ref: ${{ github.event.pull_request.head.sha }}  # to check out the actual pull request commit, not the merge commit
-        fetch-depth: 0  # a full history is required for pull request analysis
-    # This workflow uses actions that are not certified by GitHub.
-    # They are provided by a third-party and are governed by
-    # separate terms of service, privacy policy, and support
-    # documentation.
-    # ESLint is a tool for identifying and reporting on patterns
-    # found in ECMAScript/JavaScript code.
-    # More details at https://github.com/eslint/eslint
-    # and https://eslint.org
-    - name: Install & Run ESLint
-      run: |
-        npm install eslint@8.10.0 @microsoft/eslint-formatter-sarif@2.1.7
-        npx eslint . --config ./../../.eslintrc.js --ext .js,.jsx,.ts,.tsx --format @microsoft/eslint-formatter-sarif --output-file eslint-results.sarif
-      continue-on-error: true
+        fetch-depth: 0
 
-    - name: Upload analysis results to GitHub
-      uses: github/codeql-action/upload-sarif@v2
-      continue-on-error: true
-      with:
-        sarif_file: eslint-results.sarif
-        wait-for-processing: true    
-    # This workflow uses actions that are not certified by GitHub.
-    # They are provided by a third-party and are governed by
-    # separate terms of service, privacy policy, and support
-    # documentation.
-    # hadoint is a Dockerfile linter written in Haskell
-    # that helps you build best practice Docker images.
-    # More details at https://github.com/hadolint/hadolint
-    - name: 'Run hadolint'
-      uses: hadolint/hadolint-action@f988afea3da57ee48710a9795b6bb677cc901183
-      continue-on-error: true
-      with:
-        dockerfile: ./Dockerfile
-        format: sarif
-        output-file: hadolint-results.sarif
-        no-fail: true
+    - name: Run tests
+      run: go test -coverprofile=coverage.txt
 
-    - name: Upload analysis results to GitHub
-      uses: github/codeql-action/upload-sarif@v2
-      continue-on-error: true
-      with:
-        sarif_file: hadolint-results.sarif
-        wait-for-processing: true
-    # This workflow uses actions that are not certified by GitHub.
-    # They are provided by a third-party and are governed by
-    # separate terms of service, privacy policy, and support
-    # documentation.
-
-    # This workflow helps you trigger a SonarCloud analysis of your code and populates
-    # GitHub Code Scanning alerts with the vulnerabilities found.
-    # Free for open source project.
-
-    # 1. Login to SonarCloud.io using your GitHub account
-
-    # 2. Import your project on SonarCloud
-    #     * Add your GitHub organization first, then add your repository as a new project.
-    #     * Please note that many languages are eligible for automatic analysis,
-    #       which means that the analysis will start automatically without the need to set up GitHub Actions.
-    #     * This behavior can be changed in Administration > Analysis Method.
-    #
-    # 3. Follow the SonarCloud in-product tutorial
-    #     * a. Copy/paste the Project Key and the Organization Key into the args parameter below
-    #          (You'll find this information in SonarCloud. Click on "Information" at the bottom left)
-    #
-    #     * b. Generate a new token and add it to your Github repository's secrets using the name SONAR_TOKEN
-    #          (On SonarCloud, click on your avatar on top-right > My account > Security
-    #           or go directly to https://sonarcloud.io/account/security/)
-
-    # Feel free to take a look at our documentation (https://docs.sonarcloud.io/getting-started/github/)
-    # or reach out to our community forum if you need some help (https://community.sonarsource.com/c/help/sc/9)
     - name: Analyze with SonarQube
-
-      # You can pin the exact commit or the version.
-      # uses: SonarSource/sonarcloud-github-action@de2e56b42aa84d0b1c5b622644ac17e505c9a049
-      uses: SonarSource/sonarqube-scan-action@7295e71c9583053f5bf40e9d4068a0c974603ec8
+      uses: SonarSource/sonarcloud-github-action@master
       continue-on-error: true
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -130,78 +60,25 @@ jobs:
         SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
       with:
         args:
-          -Dsonar.projectKey=${{secrets.SONAR_PROJECT_KEY}}
-          -Dsonar.organization=${{secrets.SONAR_ORGANIZATION}}
-          # Comma-separated paths to directories containing main source files.
-          #-Dsonar.sources= # optional, default is project base directory
-          # When you need the analysis to take place in a directory other than the one from which it was launched
-          #-Dsonar.projectBaseDir= # optional, default is .
-          # Comma-separated paths to directories containing test source files.
-          #-Dsonar.tests= # optional. For more info about Code Coverage, please refer to https://docs.sonarcloud.io/enriching/test-coverage/overview/
-          # Adds more detail to both client and server-side analysis logs, activating DEBUG mode for the scanner, and adding client-side environment variables and system properties to the server-side log of analysis report processing.
-          #-Dsonar.verbose= # optional, default is false
-
+          -Dsonar.projectVersion=${{secrets.SONAR_ORGANIZATION}}
 
     - name: Upload coverage reports to Codecov
+      uses: codecov/codecov-action@main
       continue-on-error: true
-      run: | 
-          curl -Os https://uploader.codecov.io/latest/linux/codecov 
-          chmod +x codecov 
-          ./codecov -t ${{ secrets.CODECOV_TOKEN }}
-    - name: 'Qodana Scan'
-      uses: JetBrains/qodana-action@v2023.2
-      continue-on-error: true
-      env:
-        QODANA_TOKEN: ${{ secrets.QODANA_TOKEN }}
-    # This workflow uses actions that are not certified by GitHub.
-    # They are provided by a third-party and are governed by
-    # separate terms of service, privacy policy, and support
-    # documentation.
+      with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          slug: shashank-priyadarshi/utils
 
-    # This workflow checks out code, performs a Codacy security scan
-    # and integrates the results with the
-    # GitHub Advanced Security code scanning feature.  For more information on
-    # the Codacy security scan action usage and parameters, see
-    # https://github.com/codacy/codacy-analysis-cli-action.
-    # For more information on Codacy Analysis CLI in general, see
-    # https://github.com/codacy/codacy-analysis-cli.        
-    # Execute Codacy Analysis CLI and generate a SARIF output with the security issues identified during the analysis
-    - name: 'Run Codacy Analysis CLI'
-      uses: codacy/codacy-analysis-cli-action@d840f886c4bd4edc059706d09c6a1586111c540b
-      continue-on-error: true
-      with:
-        # Check https://github.com/codacy/codacy-analysis-cli#project-token to get your project token from your Codacy repository
-        # You can also omit the token and run the tools that support default configurations
-        project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
-        verbose: true
-        output: results.sarif
-        format: sarif
-        # Adjust severity of non-security issues
-        gh-code-scanning-compat: true
-        # Force 0 exit code to allow SARIF file generation
-        # This will handover control about PR rejection to the GitHub side
-        max-allowed-issues: 2147483647      
-    # Upload the SARIF file generated in the previous step
-    - name: 'Upload Codacy Analysis SARIF results file'
-      uses: github/codeql-action/upload-sarif@v2
-      continue-on-error: true
-      with:
-        sarif_file: results.sarif      
     - name: 'Dependency Review'
       uses: actions/dependency-review-action@v3    
-    # This workflow will triage pull requests and apply a label based on the
-    # paths that are modified in the pull request.
-    #
-    # To use this workflow, you will need to set up a .github/labeler.yml
-    # file with configuration.  For more information, see:
+
     # https://github.com/actions/labeler
     - name: 'Labeler'
       uses: actions/labeler@v4
       continue-on-error: true
       with:
         repo-token: "${{ secrets.GH_TOKEN }}"    
-    # This workflow warns and then closes issues and PRs that have had no activity for a specified amount of time.
-    # For more information, see:
+
     # https://github.com/actions/stale
     - name: 'Stale manager'
       uses: actions/stale@v5
