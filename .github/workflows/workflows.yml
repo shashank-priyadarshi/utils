@@ -32,7 +32,7 @@ jobs:
       uses: Codium-ai/pr-agent@main
       env:
         OPENAI_KEY: ${{ secrets.OPENAI_KEY }}
-        GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         OPENAI.ORG: ${{ secrets.OPENAI_ORG }}
         PR_REVIEWER.REQUIRE_TESTS_REVIEW: "false" # Disable tests review
         PR_CODE_SUGGESTIONS.NUM_CODE_SUGGESTIONS: 20
@@ -60,7 +60,12 @@ jobs:
         SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
       with:
         args:
-          -Dsonar.projectVersion=${{secrets.SONAR_ORGANIZATION}}
+          -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }}
+          -Dsonar.organization=${{ secrets.SONAR_ORGANIZATION }}
+          -Dsonar.projectName=utils
+          -Dsonar.projectVersion=${{ github.ref.replace('v', '') }}
+          -Dsonar.sources=.
+          -Dsonar.exclusions=**/[^/](algo|database|logger)/**/*.go
 
     - name: Upload coverage reports to Codecov
       uses: codecov/codecov-action@main
@@ -77,14 +82,14 @@ jobs:
       uses: actions/labeler@v4
       continue-on-error: true
       with:
-        repo-token: "${{ secrets.GH_TOKEN }}"    
+        repo-token: "${{ secrets.GITHUB_TOKEN }}"
 
     # https://github.com/actions/stale
     - name: 'Stale manager'
       uses: actions/stale@v5
       continue-on-error: true
       with:
-        repo-token: ${{ secrets.GH_TOKEN }}
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
         stale-issue-message: 'Stale issue message'
         stale-pr-message: 'Stale pull request message'
         stale-issue-label: 'no-issue-activity'
