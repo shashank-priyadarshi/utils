@@ -100,8 +100,8 @@ jobs:
         with:
           args:
             -Dsonar.project.branch=main
-            -Dsonar.projectKey="${{ secrets.SONAR_PROJECT_KEY }}"
-            -Dsonar.organization="${{ secrets.SONAR_ORGANIZATION }}"
+            -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }}
+            -Dsonar.organization=${{ secrets.SONAR_ORGANIZATION }}
             -Dsonar.projectName=utils
             -Dsonar.projectVersion=$RELEASE_VERSION
             -Dsonar.sources=.
