@@ -18,7 +18,7 @@ next_version() {
 echo "Performing other code quality checks..."
 
 echo "performing other code quality checks using golangci-lint..."
-golangci-lint --out-format=json:lint.json,colored-line-number --config .golangci.yml run ./...
+golangci-lint --out-format=json:lint.json,colored-line-number --config .golangci.yaml run ./...
 
 echo "All checks passed!"
 

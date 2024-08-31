@@ -85,6 +85,17 @@ jobs:
         with:
           fetch-depth: 0
 
+      # Cache Go modules
+      - name: 'Cache Go Modules'
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.cache/go-build
+            ~/go/pkg/mod
+          key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
+          restore-keys: |
+            ${{ runner.os }}-go-
+
       - name: 'Set env'
         run: export RELEASE_VERSION=$(git describe --tags --abbrev=0)
 
@@ -93,10 +104,22 @@ jobs:
           go test -coverprofile=coverage.txt
           go test -coverprofile=coverage.out
 
+      - name: 'Cache golangci-lint'
+        uses: actions/cache@v3
+        with:
+          path: /usr/local/bin/golangci-lint
+          key: ${{ runner.os }}-golangci-lint-${{ hashFiles('**/go.sum') }}
+
+      # Install golangci-lint
+      - name: 'Install golangci-lint'
+        run: |
+          export GOBIN=/usr/local/bin
+          go install github.com/golangci/golangci-lint/cmd/golangci-lint@master
+          export PATH=$GOBIN:$PATH
+
       - name: 'golangci-lint scan & save output'
         run: |
-          go install github.com/golangci/golangci-lint/cmd/golangci-lint@master
-          golangci-lint run --config .golangci.yaml > external_issues.json
+          golangci-lint run --config .golangci.yaml --out-format json > external_issues.json
 
       - name: 'Analyze with SonarQube'
         uses: SonarSource/sonarcloud-github-action@master

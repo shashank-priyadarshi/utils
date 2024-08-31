@@ -5,6 +5,7 @@ run:
   allow-parallel-runners: true
   allow-serial-runners: true
   issues-exit-code: 2
+  go: '1.23'
   build-tags:
     - all
 
@@ -20,20 +21,6 @@ linters:
     - deadcode
     - varcheck
     - structcheck
-#  presets:
-#    - bugs
-#    - comment
-#    - complexity
-#    - error
-#    - format
-#    - import
-#    - metalinter
-#    - module
-#    - performance
-#    - sql
-#    - style
-#    - test
-#    - unused
   fast: true
 
 linters-settings:
@@ -110,14 +97,20 @@ linters-settings:
 issues:
   exclude-generated: strict
   max-same-issues: 0
-#  new: true
-#  fix: true
+  #  new: true
+  #  fix: true
   exclude-rules:
     - path: _test\.go
       linters:
         - dupl
         - gocritic
+  exclude-files:
+    - '^(?!.*(?:algo|database|logger)(?!.*\btest\b)).*\.go$'
+  #    - '^(?=.*test)(?!.*(?:algo|database|logger)).*\.go$'
+  #    - '**/[ ^/ ](?!algo|database|logger)/**/*.go'
   exclude-dirs:
+    - mocks
+    - _site
     - vendor
     - dist
     - node_modules
