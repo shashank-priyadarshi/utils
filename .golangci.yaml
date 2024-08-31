@@ -103,7 +103,7 @@ issues:
     #    - ^(?!.*(algo|database|logger)$)(?!.*\btest\b).*\.go$
     #    - ^(?!.*(?:algo|database|logger)(?!.*\btest\b)).*\.go$
     #    - '^(?=.*test)(?!.*(?:algo|database|logger)).*\.go$'
-    - '**/[ ^/ ](?!algo|database|logger)/**/*.go'
+#    - '**/[ ^/ ](?!algo|database|logger)/**/*.go'
   exclude-dirs:
     - mocks
     - _site
