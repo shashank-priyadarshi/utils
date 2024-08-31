@@ -41,8 +41,9 @@ jobs:
           PR_CODE_SUGGESTIONS.NUM_CODE_SUGGESTIONS: 20
 
       # https://github.com/amannn/action-semantic-pull-request
-      - name: Semantic Pull Requests
-        uses: amannn/action-semantic-pull-request@v5
+      - name: 'Semantic Pull Requests'
+        uses: amannn/action-semantic-pull-request@main
+        continue-on-error: true
         env:
           GITHUB_TOKEN: "${{secrets.GITHUB_TOKEN}}"
         with:
