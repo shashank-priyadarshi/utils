@@ -100,7 +100,9 @@ jobs:
           golangci-lint run > external_issues.json
 
       - name: 'Run tests'
-        run: go test -coverprofile=coverage.txt
+        run: |
+          go test -coverprofile=coverage.txt
+          go test -coverprofile=coverage.out
 
       - name: 'Analyze with SonarQube'
         uses: SonarSource/sonarcloud-github-action@master
@@ -110,16 +112,10 @@ jobs:
           SONAR_HOST_URL: "${{ secrets.SONAR_HOST_URL }}"
         with:
           args:
-            -Dsonar.project.branch=main
             -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }}
             -Dsonar.organization=${{ secrets.SONAR_ORGANIZATION }}
-            -Dsonar.projectName=utils
             -Dsonar.projectVersion=$RELEASE_VERSION
-            -Dsonar.sources=.
             -Dsonar.exclusions=**/*.@(c|cpp|h|hpp|inl|cc|cxx|mm|mii)  # Exclude common C/C++ files (optional)
-            -Dsonar.exclusions=**/[^/](?!algo|database|logger)/**/*.go
-            -Dsonar.externalIssues.reportPaths=external_issues.json
-            -Dsonar.verbose=true
 
       - name: 'Upload coverage reports to Codecov'
         uses: codecov/codecov-action@main
