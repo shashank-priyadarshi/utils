@@ -88,6 +88,17 @@ jobs:
       - name: 'Set env'
         run: export RELEASE_VERSION=$(git describe --tags --abbrev=0)
 
+      - name: 'golangci-lint scan'
+        uses: golangci/golangci-lint-action@master
+        with:
+          install-mode: 'binary'
+          github-token: '${{ secrets.GITHUB_TOKEN }}'
+          only-new-issues: 'true'
+          args: '--config .golangci.yaml'
+      - name: 'Save golangci-lint output'
+        run: |
+          golangci-lint run > external_issues.json
+
       - name: 'Run tests'
         run: go test -coverprofile=coverage.txt
 
@@ -105,7 +116,9 @@ jobs:
             -Dsonar.projectName=utils
             -Dsonar.projectVersion=$RELEASE_VERSION
             -Dsonar.sources=.
-            -Dsonar.exclusions=**/[^/](algo|database|logger)/**/*.go
+            -Dsonar.exclusions=**/*.@(c|cpp|h|hpp|inl|cc|cxx|mm|mii)  # Exclude common C/C++ files (optional)
+            -Dsonar.exclusions=**/[^/](?!algo|database|logger)/**/*.go
+            -Dsonar.externalIssues.reportPaths=external_issues.json
             -Dsonar.verbose=true
 
       - name: 'Upload coverage reports to Codecov'
