@@ -124,8 +124,9 @@ jobs:
       - name: 'golangci-lint scan & save output'
         continue-on-error: true
         run: |
-          golangci-lint run --config .golangci.yaml --out-format json > external_issues.json
-          cat external_issues.json
+          golangci-lint run --config .golangci.yaml --out-format checkstyle --build-tags=integration > external_issues.xml
+          sed -i 's+<file name="+<file name="go/+g' external_issues.xml
+          cat external_issues.xml
 
       - name: 'Analyze with SonarQube'
         uses: SonarSource/sonarcloud-github-action@master

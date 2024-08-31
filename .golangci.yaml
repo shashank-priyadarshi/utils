@@ -17,7 +17,7 @@ linters:
 
 linters-settings:
   govet:
-    check-shadowing: true
+    shadow: true
     fast: false
     enable-all: true
 
@@ -115,18 +115,16 @@ issues:
     - docs
     - codegen
 
-output:
-  formats:
-    - format: json
-      path: stderr
-    - format: github-actions
-      path: lint
-  print-issued-lines: true
-  print-linter-name: true
-  uniq-by-line: true
-  sort-results: true
-  show-stats: true
-  sort-order:
-    - linter
-    - severity
-    - file
+#output:
+#  formats:
+#    - format: github-actions
+#      path: lint
+#  print-issued-lines: true
+#  print-linter-name: true
+#  uniq-by-line: true
+#  sort-results: true
+#  show-stats: true
+#  sort-order:
+#    - linter
+#    - severity
+#    - file
