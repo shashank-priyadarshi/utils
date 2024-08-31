@@ -122,8 +122,10 @@ jobs:
           export PATH=$GOBIN:$PATH
 
       - name: 'golangci-lint scan & save output'
+        continue-on-error: true
         run: |
           golangci-lint run --config .golangci.yaml --out-format json > external_issues.json
+          cat external_issues.json
 
       - name: 'Analyze with SonarQube'
         uses: SonarSource/sonarcloud-github-action@master

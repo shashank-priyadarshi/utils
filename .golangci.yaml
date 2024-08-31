@@ -13,9 +13,6 @@ linters:
   enable-all: true
   disable:
     - gomnd
-    - ifshort
-    - scopelint
-    - nosnakecase
   fast: true
 
 linters-settings:
