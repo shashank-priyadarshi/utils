@@ -88,21 +88,15 @@ jobs:
       - name: 'Set env'
         run: export RELEASE_VERSION=$(git describe --tags --abbrev=0)
 
-      - name: 'golangci-lint scan'
-        uses: golangci/golangci-lint-action@master
-        with:
-          install-mode: 'binary'
-          github-token: '${{ secrets.GITHUB_TOKEN }}'
-          only-new-issues: 'true'
-          args: '--config .golangci.yaml'
-      - name: 'Save golangci-lint output'
-        run: |
-          golangci-lint run > external_issues.json
-
       - name: 'Run tests'
         run: |
           go test -coverprofile=coverage.txt
           go test -coverprofile=coverage.out
+
+      - name: 'golangci-lint scan & save output'
+        run: |
+          go install github.com/golangci/golangci-lint/cmd/golangci-lint@master
+          golangci-lint run --config .golangci.yaml > external_issues.json
 
       - name: 'Analyze with SonarQube'
         uses: SonarSource/sonarcloud-github-action@master
