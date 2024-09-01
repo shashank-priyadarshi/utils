@@ -2,24 +2,21 @@ package logger
 
 import (
 	"fmt"
-	"os"
-	"strconv"
-
 	"go.ssnk.in/utils/logger"
 )
 
 func Test() {
 
-	logProvider := os.Getenv("LOG_PROVIDER")
-	logLevel := os.Getenv("LOG_LEVEL")
-	logFormat := os.Getenv("LOG_FORMAT")
-	traceRaw := os.Getenv("LOG_TRACE")
+	//logProvider := os.Getenv("LOG_PROVIDER")
+	//logLevel := os.Getenv("LOG_LEVEL")
+	//logFormat := os.Getenv("LOG_FORMAT")
+	//traceRaw := os.Getenv("LOG_TRACE")
+	//
+	//trace, _ := strconv.ParseBool(traceRaw)
 
-	trace, _ := strconv.ParseBool(traceRaw)
+	log := logger.New()
 
-	log := logger.New(logProvider, logLevel, logFormat, trace)
-
-	log.With("key", "value") // debug
+	//log.With("key", "value") // debug
 	log.Info("something", "info_key", "info_value")
 	log.Debug("something", "debug_key", "debug_value") //debug
 	log.Warn("something", "warn_key", "warn_value")
