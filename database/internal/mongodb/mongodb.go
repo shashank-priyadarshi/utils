@@ -7,6 +7,8 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.ssnk.in/utils/database/models"
+	"go.ssnk.in/utils/errors"
+	_ "go.ssnk.in/utils/errors"
 )
 
 type Handler struct {
@@ -20,9 +22,8 @@ func Handle(client *mongo.Client) *Handler {
 }
 
 func (h *Handler) Create(ctx context.Context, args ...interface{}) (*models.Response, error) {
-
 	if len(args) < 3 {
-		return nil, utilities.InsufficientParameters
+		return nil, errors.InsufficientParameters.Error(3, len(args))
 	}
 
 	var (
@@ -34,28 +35,27 @@ func (h *Handler) Create(ctx context.Context, args ...interface{}) (*models.Resp
 	)
 
 	if database, ok = args[0].(string); !ok {
-		return nil, utilities.NewError(utilities.InvalidParameterType.Error(), "database")
+		return nil, errors.InvalidParameterType.Error("database", database, args[0])
 	}
 
 	if collection, ok = args[1].(string); !ok {
-		return nil, utilities.NewError(utilities.InvalidParameterType.Error(), "collection")
+		return nil, errors.InvalidParameterType.Error("collection", collection, args[1])
 	}
 
 	if documents, ok = args[2].([]interface{}); !ok {
-		return nil, utilities.NewError(utilities.InvalidParameterType.Error(), "documents")
+		return nil, errors.InvalidParameterType.Error("documents", documents, args[2])
 	}
 
 	if _, err = h.client.Database(database).Collection(collection).InsertMany(ctx, documents); err != nil {
-		return nil, utilities.NewError(utilities.OperationFailed.Error(), fmt.Sprintf("error inserting entries to collection %s of database %s: %v", collection, database, err))
+		return nil, errors.OperationFailed.Error(err.Error())
 	}
 
 	return nil, nil
 }
 
 func (h *Handler) Query(ctx context.Context, args ...interface{}) (*models.Response, error) {
-
 	if len(args) < 3 {
-		return nil, utilities.InsufficientParameters
+		return nil, errors.InsufficientParameters.Error(3, len(args))
 	}
 
 	var (
@@ -68,19 +68,19 @@ func (h *Handler) Query(ctx context.Context, args ...interface{}) (*models.Respo
 	)
 
 	if database, ok = args[0].(string); !ok {
-		return nil, utilities.NewError(utilities.InvalidParameterType.Error(), "database")
+		return nil, errors.InvalidParameterType.Error("database", database, args[0])
 	}
 
 	if collection, ok = args[1].(string); !ok {
-		return nil, utilities.NewError(utilities.InvalidParameterType.Error(), "collection")
+		return nil, errors.InvalidParameterType.Error("collection", collection, args[1])
 	}
 
-	if query, ok = args[2].(bson.D); !ok {
-		return nil, utilities.NewError(utilities.InvalidParameterType.Error(), "query")
+	if database, ok = args[0].(string); !ok {
+		return nil, errors.InvalidParameterType.Error("query", query, args[2])
 	}
 
 	if cur, err = h.client.Database(database).Collection(collection).Find(ctx, query); err != nil {
-		return nil, utilities.NewError(utilities.OperationFailed.Error(), fmt.Sprintf("error executing query %+v on collection %s in database %s", query, collection, database))
+		return nil, errors.OperationFailed.Error(fmt.Sprintf("error executing query %+v on collection %s in database %s", query, collection, database))
 	}
 
 	response := &models.Response{
@@ -91,7 +91,7 @@ func (h *Handler) Query(ctx context.Context, args ...interface{}) (*models.Respo
 		var entry interface{}
 
 		if err = cur.Decode(&entry); err != nil {
-			return nil, utilities.NewError(utilities.OperationFailed.Error(), fmt.Sprintf("error unmarshaling fetched document %+v to array of entries: %v", cur, err))
+			return nil, errors.OperationFailed.Error(fmt.Sprintf("error unmarshaling fetched document %+v to array of entries: %v", cur, err))
 		}
 
 		response.Result = append(response.Result, entry)
@@ -101,9 +101,8 @@ func (h *Handler) Query(ctx context.Context, args ...interface{}) (*models.Respo
 }
 
 func (h *Handler) Update(ctx context.Context, args ...interface{}) (*models.Response, error) {
-
 	if len(args) < 4 {
-		return nil, utilities.InsufficientParameters
+		return nil, errors.InsufficientParameters.Error(4, len(args))
 	}
 
 	var (
@@ -117,23 +116,23 @@ func (h *Handler) Update(ctx context.Context, args ...interface{}) (*models.Resp
 	)
 
 	if database, ok = args[0].(string); !ok {
-		return nil, utilities.NewError(utilities.InvalidParameterType.Error(), "database")
+		return nil, errors.InvalidParameterType.Error("database", database, args[0])
 	}
 
 	if collection, ok = args[1].(string); !ok {
-		return nil, utilities.NewError(utilities.InvalidParameterType.Error(), "collection")
+		return nil, errors.InvalidParameterType.Error("collection", collection, args[1])
 	}
 
-	if filterQuery, ok = args[2].(bson.D); !ok {
-		return nil, utilities.NewError(utilities.InvalidParameterType.Error(), "filter query")
+	if database, ok = args[0].(string); !ok {
+		return nil, errors.InvalidParameterType.Error("filter query", filterQuery, args[2])
 	}
 
-	if updateQuery, ok = args[3].(bson.D); !ok {
-		return nil, utilities.NewError(utilities.InvalidParameterType.Error(), "update query")
+	if database, ok = args[0].(string); !ok {
+		return nil, errors.InvalidParameterType.Error("update query", updateQuery, args[2])
 	}
 
 	if updateResult, err = h.client.Database(database).Collection(collection).UpdateOne(ctx, filterQuery, updateQuery); err != nil {
-		return nil, utilities.NewError(utilities.OperationFailed.Error(), fmt.Sprintf("error updating entry in collection %s of database %s: %v", collection, database, err))
+		return nil, errors.OperationFailed.Error(fmt.Sprintf("error updating entry in collection %s of database %s: %v", collection, database, err))
 	}
 
 	return &models.Response{Result: []interface{}{struct {
@@ -147,9 +146,8 @@ func (h *Handler) Update(ctx context.Context, args ...interface{}) (*models.Resp
 }
 
 func (h *Handler) Delete(ctx context.Context, args ...interface{}) (*models.Response, error) {
-
 	if len(args) < 3 {
-		return nil, utilities.InsufficientParameters
+		return nil, errors.InsufficientParameters.Error(3, len(args))
 	}
 
 	var (
@@ -162,19 +160,19 @@ func (h *Handler) Delete(ctx context.Context, args ...interface{}) (*models.Resp
 	)
 
 	if database, ok = args[0].(string); !ok {
-		return nil, utilities.NewError(utilities.InvalidParameterType.Error(), "database")
+		return nil, errors.InvalidParameterType.Error("database", database, args[0])
 	}
 
 	if collection, ok = args[1].(string); !ok {
-		return nil, utilities.NewError(utilities.InvalidParameterType.Error(), "collection")
+		return nil, errors.InvalidParameterType.Error("collection", collection, args[1])
 	}
 
-	if filterQuery, ok = args[2].(bson.D); !ok {
-		return nil, utilities.NewError(utilities.InvalidParameterType.Error(), "filter query")
+	if database, ok = args[0].(string); !ok {
+		return nil, errors.InvalidParameterType.Error("filter query", filterQuery, args[2])
 	}
 
 	if deleteResult, err = h.client.Database(database).Collection(collection).DeleteOne(ctx, filterQuery); err != nil {
-		return nil, utilities.NewError(utilities.OperationFailed.Error(), fmt.Sprintf("error deleting entry from collection %s of database %s: %v", collection, database, err))
+		return nil, errors.OperationFailed.Error(fmt.Sprintf("error deleting entry from collection %s of database %s: %v", collection, database, err))
 	}
 
 	return &models.Response{Result: []interface{}{deleteResult.DeletedCount}}, nil

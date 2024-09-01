@@ -14,7 +14,6 @@ import (
 )
 
 func Handle(orm constants.ORM, client interface{}) (handle ports.Database, err error) {
-
 	switch orm {
 	case constants.GORM:
 		conn, ok := client.(*gorm.DB)

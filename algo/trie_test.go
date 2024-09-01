@@ -1,11 +1,11 @@
 package algo_test
 
 import (
-	_ "github.com/onsi/ginkgo/v2"
+	"testing"
+
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/suite"
 	"go.ssnk.in/utils/algo"
-	"testing"
 )
 
 // go test -count=1 -json -v .
@@ -58,11 +58,9 @@ func (t *TrieTestSuite) BeforeTest() {
 
 func (t *TrieTestSuite) TestTrie_InsertAndSearch() {
 	for _, tt := range t.tests {
-
 		t.trie.Insert(tt.input.keys, tt.input.value)
-
 		v, ok := t.trie.Search(tt.input.keys)
-		// Debug logs
+
 		suite.TestingSuite(t).T().Logf("Testing InsertAndSearch: %s", tt.name)
 		suite.TestingSuite(t).T().Logf("Expected value: %s, Got: %s", tt.expected.output, v)
 		suite.TestingSuite(t).T().Logf("Expected exists: %v, Got: %v", tt.expected.exists, ok)
@@ -73,11 +71,9 @@ func (t *TrieTestSuite) TestTrie_InsertAndSearch() {
 }
 
 func (t *TrieTestSuite) TestTrie_DeleteAndSearch() {
-
 	for _, tt := range t.tests {
-
 		err := t.trie.Delete(tt.input.keys)
-		// Debug logs
+
 		suite.TestingSuite(t).T().Logf("Testing Delete: %s", tt.name)
 		suite.TestingSuite(t).T().Logf("Expected error: %v, Got: %v", nil, err)
 
@@ -91,7 +87,6 @@ func (t *TrieTestSuite) TestTrie_DeleteAndSearch() {
 			err:    nil,
 		}
 
-		// Debug logs
 		suite.TestingSuite(t).T().Logf("Expected value: %s, Got: %s", expected.output, v)
 		suite.TestingSuite(t).T().Logf("Expected exists: %v, Got: %v", expected.exists, ok)
 

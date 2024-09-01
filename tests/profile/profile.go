@@ -1,7 +1,7 @@
 package profile
 
 import (
-	"go.ssnk.in/utils/test/types"
+	"go.ssnk.in/utils/tests/types"
 )
 
 type Profile struct{}

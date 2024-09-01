@@ -2,18 +2,19 @@ package main
 
 import (
 	"flag"
-	"go.ssnk.in/utils/logger"
-	loggerPorts "go.ssnk.in/utils/logger/ports"
-	"go.ssnk.in/utils/test/integration"
-	"go.ssnk.in/utils/test/load"
-	"go.ssnk.in/utils/test/profile"
-	"go.ssnk.in/utils/test/types"
-	"gopkg.in/yaml.v3"
 	"io"
 	"os"
 	"strconv"
 	"strings"
 	"sync"
+
+	"go.ssnk.in/utils/logger"
+	loggerPorts "go.ssnk.in/utils/logger/ports"
+	"go.ssnk.in/utils/tests/integration"
+	"go.ssnk.in/utils/tests/load"
+	"go.ssnk.in/utils/tests/profile"
+	"go.ssnk.in/utils/tests/types"
+	"gopkg.in/yaml.v3"
 )
 
 type Tester interface {
@@ -41,7 +42,6 @@ const (
 )
 
 func main() {
-
 	s := suite{
 		log: logger.New(logger.SetLevel("info"), logger.SetProvider("slog")),
 	}
@@ -142,19 +142,16 @@ type suite struct {
 }
 
 func (s *suite) withIntegrationTests() *suite {
-
 	s.tests[Integration] = integration.New()
 	return s
 }
 
 func (s *suite) withProfiling() *suite {
-
 	s.tests[Profile] = profile.New()
 	return s
 }
 
 func (s *suite) withLoadTests() *suite {
-
 	s.tests[Load] = load.New()
 	return s
 }

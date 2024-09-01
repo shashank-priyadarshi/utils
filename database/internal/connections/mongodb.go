@@ -3,8 +3,8 @@ package connections
 import (
 	"context"
 	"fmt"
-	"github.com/labstack/gommon/log"
 
+	"github.com/labstack/gommon/log"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 	"go.ssnk.in/utils/database/models"
@@ -13,7 +13,6 @@ import (
 var opts = &options.ClientOptions{}
 
 func MongoDB(ctx context.Context, config *models.Config) (client *mongo.Client, err error) {
-
 	if len(config.Options.URI) == 0 {
 		err = fmt.Errorf("mongo db uri cannot be empty")
 		log.Error(err)

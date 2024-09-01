@@ -15,11 +15,8 @@ const (
 	Logger
 )
 
-type Integration struct {
-}
+type Integration struct{}
 
-type Profile struct {
-}
+type Profile struct{}
 
-type Load struct {
-}
+type Load struct{}

@@ -26,7 +26,7 @@ func NewSlogLogger(logLevel, format string, trace bool) Slog {
 }
 
 func (s Slog) init(logLevel, format string, trace bool) {
-	var opts = &slog.HandlerOptions{}
+	opts := &slog.HandlerOptions{}
 	var handler slog.Handler
 
 	opts.AddSource = trace

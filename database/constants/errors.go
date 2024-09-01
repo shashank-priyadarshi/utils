@@ -6,11 +6,13 @@ type Error Type
 
 func (t Error) Error() *error {
 	err := errors.New(*t.String())
+
 	return &err
 }
 
 func (t Error) String() *string {
 	str := string(t)
+
 	return &str
 }
 

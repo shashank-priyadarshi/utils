@@ -14,7 +14,6 @@ import (
 )
 
 func New(ctx context.Context, config *models.Config) (handle ports.Database, err error) {
-
 	switch config.Type {
 	case constants.MONGODB:
 		client, err := connections.MongoDB(ctx, config)
@@ -45,8 +44,6 @@ func New(ctx context.Context, config *models.Config) (handle ports.Database, err
 
 	default:
 		return nil, fmt.Errorf("database type %s is not supported", config.Type)
-
 	}
-
 	return
 }

@@ -3,22 +3,22 @@ package sql
 import (
 	"context"
 	"fmt"
-	"github.com/DATA-DOG/go-sqlmock"
-	_ "github.com/DATA-DOG/go-sqlmock"
-	"github.com/stretchr/testify/assert"
 	"strings"
 	"testing"
+
+	"github.com/DATA-DOG/go-sqlmock"
+	"github.com/stretchr/testify/assert"
+	"go.ssnk.in/utils/types"
 )
 
 func Test_Create(t *testing.T) {
-
-	//logger := ports.NewMockLogger(t)
+	// logger := ports.NewMockLogger(t)
 	db, mock, err := sqlmock.New()
 	assert.Equal(t, nil, err)
 
 	handle := Handle(db)
 
-	tests := []utilities.Test{{
+	tests := []types.Test{{
 		Name: "happy path",
 		TestCase: func(t *testing.T) {
 			query := strings.TrimSpace(`INSERT INTO person (name, age) VALUES (test, 3000)`)
@@ -36,14 +36,13 @@ func Test_Create(t *testing.T) {
 }
 
 func Test_Query(t *testing.T) {
-
-	//logger := ports.NewMockLogger(t)
+	// logger := ports.NewMockLogger(t)
 	db, mock, err := sqlmock.New()
 	assert.Equal(t, nil, err)
 
 	handle := Handle(db)
 
-	tests := []utilities.Test{{
+	tests := []types.Test{{
 		Name: "happy path",
 		TestCase: func(t *testing.T) {
 			mock.ExpectExec("")
@@ -59,14 +58,13 @@ func Test_Query(t *testing.T) {
 }
 
 func Test_Update(t *testing.T) {
-
-	//logger := ports.NewMockLogger(t)
+	// logger := ports.NewMockLogger(t)
 	db, mock, err := sqlmock.New()
 	assert.Equal(t, nil, err)
 
 	handle := Handle(db)
 
-	tests := []utilities.Test{{
+	tests := []types.Test{{
 		Name: "happy path",
 		TestCase: func(t *testing.T) {
 			mock.ExpectExec("")
@@ -82,14 +80,13 @@ func Test_Update(t *testing.T) {
 }
 
 func Test_Delete(t *testing.T) {
-
-	//logger := ports.NewMockLogger(t)
+	// logger := ports.NewMockLogger(t)
 	db, mock, err := sqlmock.New()
 	assert.Equal(t, nil, err)
 
 	handle := Handle(db)
 
-	tests := []utilities.Test{{
+	tests := []types.Test{{
 		Name: "happy path",
 		TestCase: func(t *testing.T) {
 			mock.ExpectExec("")

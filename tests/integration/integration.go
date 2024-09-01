@@ -2,11 +2,12 @@ package integration
 
 import (
 	"fmt"
+
 	_ "github.com/ory/dockertest/v3"
-	"go.ssnk.in/utils/test/integration/modules/algo"
-	"go.ssnk.in/utils/test/integration/modules/database"
-	"go.ssnk.in/utils/test/integration/modules/logger"
-	"go.ssnk.in/utils/test/types"
+	"go.ssnk.in/utils/tests/integration/modules/algo"
+	"go.ssnk.in/utils/tests/integration/modules/database"
+	"go.ssnk.in/utils/tests/integration/modules/logger"
+	"go.ssnk.in/utils/tests/types"
 )
 
 type Integration struct {
@@ -20,7 +21,7 @@ func New() *Integration {
 func (i *Integration) Execute(c *types.Config) error {
 	fmt.Println("Setting up integration tests...")
 
-	var packageTests = make(map[types.Package]func())
+	packageTests := make(map[types.Package]func())
 
 	// Store package integration tests for execution
 	packageTests[types.Algo] = algo.Test

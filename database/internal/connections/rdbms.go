@@ -4,9 +4,9 @@ import (
 	"context"
 	"database/sql"
 	"fmt"
-	"github.com/labstack/gommon/log"
 
 	"github.com/glebarez/sqlite"
+	"github.com/labstack/gommon/log"
 	"go.ssnk.in/utils/database/constants"
 	"go.ssnk.in/utils/database/models"
 	"gorm.io/driver/mysql"
@@ -15,7 +15,6 @@ import (
 )
 
 func RDBMS(ctx context.Context, config *models.Config) (client interface{}, err error) {
-
 	if !isSupported(config.Options.Driver) {
 		err = fmt.Errorf("unsupported sql driver")
 		log.Error(err)
@@ -57,8 +56,7 @@ func RDBMS(ctx context.Context, config *models.Config) (client interface{}, err 
 }
 
 func isSupported(driver constants.Driver) bool {
-
-	var supported = make(map[constants.Driver]any)
+	supported := make(map[constants.Driver]any)
 
 	supported[constants.VITESS] = nil
 	supported[constants.COCKROACHDB] = nil
@@ -76,7 +74,6 @@ func isSupported(driver constants.Driver) bool {
 }
 
 func createGORMConnection(driver constants.Driver, conn *sql.DB) (db *gorm.DB, err error) {
-
 	switch driver {
 	case constants.MYSQL:
 		db, err = gorm.Open(mysql.New(mysql.Config{Conn: conn}), &gorm.Config{})

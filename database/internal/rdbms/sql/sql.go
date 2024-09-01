@@ -6,6 +6,7 @@ import (
 	"fmt"
 
 	"go.ssnk.in/utils/database/models"
+	"go.ssnk.in/utils/errors"
 )
 
 type Handler struct {
@@ -13,7 +14,6 @@ type Handler struct {
 }
 
 func Handle(client *sql.DB) *Handler {
-
 	return &Handler{
 		client: client,
 	}
@@ -29,9 +29,8 @@ Query
 Add query validator to validate query and required arguments
 */
 func (h *Handler) Query(ctx context.Context, args ...interface{}) (*models.Response, error) {
-
 	if len(args) < 2 {
-		return nil, utilities.InsufficientParameters
+		return nil, errors.InsufficientParameters.Error(2, len(args))
 	}
 
 	var (
@@ -43,16 +42,16 @@ func (h *Handler) Query(ctx context.Context, args ...interface{}) (*models.Respo
 	)
 
 	if model = args[0]; model == nil {
-		return nil, utilities.NewError(utilities.InvalidParameterType.Error(), "model")
+		return nil, errors.InvalidParameterType.Error("model", model, args[0])
 	}
 
 	if query, ok = args[1].(string); !ok {
-		return nil, utilities.NewError(utilities.InvalidParameterType.Error(), "query")
+		return nil, errors.InvalidParameterType.Error("query", query, args[1])
 	}
 
 	rows, err = h.client.QueryContext(ctx, query, args[1:]...)
 	if err != nil {
-		return nil, utilities.NewError(utilities.OperationFailed.Error(), fmt.Sprintf("error executing query %s on database: %v", query, err))
+		return nil, errors.OperationFailed.Error(fmt.Sprintf("error executing query %s on database: %v", query, err))
 	}
 
 	var response *models.Response
@@ -60,7 +59,7 @@ func (h *Handler) Query(ctx context.Context, args ...interface{}) (*models.Respo
 	for rows.Next() {
 		err = rows.Scan(model)
 		if err != nil {
-			return nil, utilities.NewError(utilities.OperationFailed.Error(), fmt.Sprintf("error scanning db row: %v", err))
+			return nil, errors.OperationFailed.Error(fmt.Sprintf("error scanning db row: %v", err))
 		}
 
 		response.Result = append(response.Result, model)
@@ -75,9 +74,8 @@ Update
 Add query validator to validate query and required arguments
 */
 func (h *Handler) Update(ctx context.Context, args ...interface{}) (*models.Response, error) {
-
 	if len(args) < 1 {
-		return nil, utilities.InsufficientParameters
+		return nil, errors.InsufficientParameters.Error(1, len(args))
 	}
 
 	var (
@@ -88,11 +86,11 @@ func (h *Handler) Update(ctx context.Context, args ...interface{}) (*models.Resp
 	)
 
 	if query, ok = args[0].(string); !ok {
-		return nil, utilities.NewError(utilities.InvalidParameterType.Error(), "query")
+		return nil, errors.InvalidParameterType.Error("query", query, args[0])
 	}
 
 	if len(query) == 0 {
-		return nil, utilities.NewError(utilities.InvalidParameter.Error(), "query")
+		return nil, errors.InvalidParameterValue.Error("query", "valid string", query)
 	}
 
 	if len(args) > 1 {
@@ -101,7 +99,7 @@ func (h *Handler) Update(ctx context.Context, args ...interface{}) (*models.Resp
 
 	result, err = h.client.ExecContext(ctx, query, args...)
 	if err != nil {
-		return nil, utilities.NewError(utilities.OperationFailed.Error(), fmt.Sprintf("error executing query %s on database: %v", query, err))
+		return nil, errors.OperationFailed.Error(fmt.Sprintf("error executing query %s on database: %v", query, err))
 	}
 
 	var response *models.Response
