@@ -147,7 +147,7 @@ jobs:
             -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }}
             -Dsonar.organization=${{ secrets.SONAR_ORGANIZATION }}
             -Dsonar.projectVersion=$RELEASE_VERSION
-            -Dsonar.exclusions=**/*.@(c|cpp|h|hpp|inl|cc|cxx|mm|mii)  # Exclude common C/C++ files (optional)
+            # -Dsonar.exclusions=**/*.@(c|cpp|h|hpp|inl|cc|cxx|mm|mii)  # Exclude common C/C++ files (optional)
 
       - name: 'Upload coverage reports to Codecov'
         uses: codecov/codecov-action@main
