@@ -7,7 +7,7 @@ require (
 	github.com/alicebob/miniredis/v2 v2.33.0
 	github.com/glebarez/sqlite v1.11.0
 	github.com/labstack/gommon v0.4.2
-	github.com/onsi/ginkgo/v2 v2.20.1
+	github.com/onsi/ginkgo/v2 v2.20.2
 	github.com/ory/dockertest/v3 v3.11.0
 	github.com/pkg/errors v0.9.1
 	github.com/redis/go-redis/v9 v9.6.1
