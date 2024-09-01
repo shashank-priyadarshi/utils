@@ -25,6 +25,9 @@ go.work
 *.pdf
 
 # Output files
+*.json
+*.out
+*.txt
 
 # IDE Configuration files
 .idea
