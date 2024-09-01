@@ -105,8 +105,9 @@ jobs:
 
       - name: 'Run tests'
         run: |
-          go test -coverprofile=coverage.txt
+          go test -json > test-report.out
           go test -coverprofile=coverage.out
+          go test -coverprofile=coverage.txt
 
       - name: 'Cache golangci-lint'
         uses: actions/cache@v3
