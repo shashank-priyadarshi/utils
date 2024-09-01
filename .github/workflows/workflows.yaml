@@ -132,7 +132,7 @@ jobs:
           git add external_issues.json
           git config user.name "golangci-lint actions"
           git commit -m "golangci-lint scan output"
-          git push dev HEAD:dev
+          git push origin HEAD:dev
 
       - name: 'Analyze with SonarQube'
         uses: SonarSource/sonarcloud-github-action@master
