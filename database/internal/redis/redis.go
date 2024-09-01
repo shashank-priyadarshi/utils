@@ -2,11 +2,11 @@ package redis
 
 import (
 	"context"
-	"go.ssnk.in/utils/errors"
 	"time"
 
 	"github.com/redis/go-redis/v9"
 	"go.ssnk.in/utils/database/models"
+	"go.ssnk.in/utils/errors"
 )
 
 type Handler struct {
@@ -14,7 +14,6 @@ type Handler struct {
 }
 
 func Handle(client *redis.Client) (handle *Handler) {
-
 	handle = &Handler{
 		client: client,
 	}
@@ -24,7 +23,6 @@ func Handle(client *redis.Client) (handle *Handler) {
 
 // Create all arguments of Redis Set like nx, xx etc.
 func (h *Handler) Create(ctx context.Context, args ...interface{}) (*models.Response, error) {
-
 	paramsLength := len(args)
 	if paramsLength < 2 {
 		return nil, errors.InsufficientParameters.Error(2, paramsLength)
@@ -70,7 +68,6 @@ func (h *Handler) Create(ctx context.Context, args ...interface{}) (*models.Resp
 }
 
 func (h *Handler) Query(ctx context.Context, args ...interface{}) (*models.Response, error) {
-
 	paramsLength := len(args)
 	if paramsLength < 1 {
 		return nil, errors.InsufficientParameters.Error(1, paramsLength)
@@ -108,7 +105,6 @@ func (h *Handler) Update(ctx context.Context, args ...interface{}) (*models.Resp
 }
 
 func (h *Handler) Delete(ctx context.Context, args ...interface{}) (*models.Response, error) {
-
 	paramsLength := len(args)
 	if paramsLength < 1 {
 		return nil, errors.InsufficientParameters.Error(1, paramsLength)

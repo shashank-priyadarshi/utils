@@ -3,14 +3,13 @@ package connections
 import (
 	"context"
 	"fmt"
-	"github.com/labstack/gommon/log"
 
+	"github.com/labstack/gommon/log"
 	redisclient "github.com/redis/go-redis/v9"
 	"go.ssnk.in/utils/database/models"
 )
 
 func Redis(ctx context.Context, config *models.Config) (client *redisclient.Client, err error) {
-
 	if len(config.Options.URI) == 0 {
 		err = fmt.Errorf("redis uri cannot be empty")
 		log.Error(err)
