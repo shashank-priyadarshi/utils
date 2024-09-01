@@ -3,10 +3,6 @@ name: Unified Workflows
 on:
   pull_request:
     branches: [ 'main' ]
-  push:
-    branches: [ 'main' ]
-    tags:
-      - 'v*.*.*'
   workflow_dispatch:
 
 permissions:
@@ -86,12 +82,12 @@ jobs:
           fetch-depth: 0
 
       - name: 'Install Go 1.23'
-        uses: actions/setup-go@v4
+        uses: actions/setup-go@main
         with:
           go-version: 1.23
 
       - name: 'Cache Go Modules'
-        uses: actions/cache@v3
+        uses: actions/cache@main
         with:
           path: |
             ~/.cache/go-build
@@ -105,33 +101,11 @@ jobs:
           go test -json > test_report.out
           go test -coverprofile=coverage.out
 
-      # - name: 'Cache golangci-lint'
-      #   uses: actions/cache@v3
-      #   with:
-      #     path: /usr/local/bin/golangci-lint
-      #     key: ${{ runner.os }}-golangci-lint-${{ hashFiles('**/go.sum') }}
-
-      # Install golangci-lint
       - name: 'Run golangci-lint'
         uses: golangci/golangci-lint-action@master
         with:
           version: latest
           args: --config .golangci.yaml --out-format json ./... > external_issues.json
-
-      # - name: 'golangci-lint scan & save output'
-      #   continue-on-error: true
-      #   run: |
-      #     golangci-lint --config .golangci.yaml --out-format json run ./... > external_issues.json
-      
-      # - name: 'validate golangci-lint json output'
-      #   run: |
-      #     first_line=$(head -n 1 external_issues.json)
-          
-      #     if jq -n --argjson json "$first_line" '$json' > "external_issues.json"; then
-      #       echo "golangci lint issues written to external_issues.json"
-      #     else
-      #       echo "{}" > "external_issues.json"
-      #     fi
 
       - name: 'Analyze with SonarQube'
         uses: SonarSource/sonarcloud-github-action@master
