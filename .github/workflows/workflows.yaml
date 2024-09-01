@@ -29,11 +29,6 @@ jobs:
       contents: "write"
 
     steps:
-      - name: Upgrade jq
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y jq
-
       # https://github.com/Codium-ai/pr-agent
       - name: 'PR Agent action step'
         id: pragent
@@ -135,7 +130,7 @@ jobs:
         run: |
           first_line=$(head -n 1 external_issues.json)
           
-          if jq -n -c -e 'fromjson($ENV.FIRST_LINE)' FIRST_LINE="$first_line"; then
+          if jq -n --argjson json "$first_line" '$json'; then
             echo "$first_line" > "external_issues.json"
           else
             echo "{}" > "external_issues.json"
