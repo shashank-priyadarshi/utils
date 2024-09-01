@@ -130,15 +130,14 @@ jobs:
         run: |
           first_line=$(head -n 1 external_issues.json)
           
-          if jq -n --argjson json "$first_line" '$json'; then
-            echo "$first_line" > "external_issues.json"
+          if jq -n --argjson json "$first_line" '$json' > "external_issues.json"; then
+            echo "golangci lint issues written to external_issues.json"
           else
             echo "{}" > "external_issues.json"
           fi
 
-          git config user.name "golangci-lint actions"
-          git commit -m "golangci-lint scan output"
           git add external_issues.json
+          git commit -m "golangci-lint scan output"
           git push origin HEAD:dev
 
       - name: 'Analyze with SonarQube'
