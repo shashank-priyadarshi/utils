@@ -3,6 +3,7 @@ package redis
 import (
 	"context"
 	"fmt"
+	"go.ssnk.in/utils/types"
 	"testing"
 
 	"github.com/alicebob/miniredis/v2"

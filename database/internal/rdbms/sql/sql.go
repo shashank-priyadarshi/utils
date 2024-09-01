@@ -4,6 +4,7 @@ import (
 	"context"
 	"database/sql"
 	"fmt"
+	"go.ssnk.in/utils/errors"
 
 	"go.ssnk.in/utils/database/models"
 	"go.ssnk.in/utils/errors"

@@ -2,6 +2,7 @@ package redis
 
 import (
 	"context"
+	"go.ssnk.in/utils/errors"
 	"time"
 
 	"github.com/redis/go-redis/v9"
