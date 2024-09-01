@@ -3,6 +3,7 @@ package redis
 import (
 	"context"
 	"fmt"
+	"go.ssnk.in/utils/types"
 	"testing"
 
 	"github.com/alicebob/miniredis/v2"
@@ -24,7 +25,7 @@ func Test_Create(t *testing.T) {
 
 	handle := Handle(client)
 
-	tests := []utilities.Test{
+	tests := []types.Test{
 		{
 			Name: "happy path",
 			TestCase: func(t *testing.T) {
@@ -57,7 +58,7 @@ func Test_Query(t *testing.T) {
 
 	handle := Handle(client)
 
-	tests := []utilities.Test{
+	tests := []types.Test{
 		{
 			Name: "happy path",
 			TestCase: func(t *testing.T) {
@@ -92,7 +93,7 @@ func Test_Update(t *testing.T) {
 
 	handle := Handle(client)
 
-	tests := []utilities.Test{
+	tests := []types.Test{
 		{
 			Name: "happy path",
 			TestCase: func(t *testing.T) {
@@ -133,7 +134,7 @@ func Test_Delete(t *testing.T) {
 
 	handle := Handle(client)
 
-	tests := []utilities.Test{
+	tests := []types.Test{
 		{
 			Name: "happy path",
 			TestCase: func(t *testing.T) {

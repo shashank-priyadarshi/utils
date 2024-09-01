@@ -2,6 +2,7 @@ package redis
 
 import (
 	"context"
+	"go.ssnk.in/utils/errors"
 	"time"
 
 	"github.com/redis/go-redis/v9"
@@ -26,7 +27,7 @@ func (h *Handler) Create(ctx context.Context, args ...interface{}) (*models.Resp
 
 	paramsLength := len(args)
 	if paramsLength < 2 {
-		return nil, utilities.InsufficientParameters
+		return nil, errors.InsufficientParameters.Error(2, paramsLength)
 	}
 
 	var (
@@ -40,7 +41,7 @@ func (h *Handler) Create(ctx context.Context, args ...interface{}) (*models.Resp
 	)
 
 	if key, isKey = args[0].(string); !isKey {
-		err = utilities.NewError(utilities.InvalidParameterType.Error(), "key")
+		err = errors.InvalidParameterType.Error("key", key, args[0])
 		return nil, err
 	}
 
@@ -48,19 +49,19 @@ func (h *Handler) Create(ctx context.Context, args ...interface{}) (*models.Resp
 
 	if paramsLength > 2 {
 		if expiration, isExpiration = args[2].(time.Duration); !isExpiration {
-			err = utilities.NewError(utilities.InvalidParameterType.Error(), "expiration")
+			err = errors.InvalidParameterType.Error("expiration", expiration, args[2])
 			return nil, err
 		}
 	}
 
 	resultCmd := h.client.Set(ctx, key, value, expiration)
 	if err = resultCmd.Err(); err != nil {
-		return nil, utilities.NewError(utilities.OperationFailed.Error(), err.Error())
+		return nil, errors.OperationFailed.Error(err.Error())
 	}
 
 	var result string
 	if result, err = resultCmd.Result(); err != nil {
-		return nil, utilities.NewError(utilities.OperationFailed.Error(), err.Error())
+		return nil, errors.OperationFailed.Error(err.Error())
 	}
 
 	return &models.Response{
@@ -72,7 +73,7 @@ func (h *Handler) Query(ctx context.Context, args ...interface{}) (*models.Respo
 
 	paramsLength := len(args)
 	if paramsLength < 1 {
-		return nil, utilities.InsufficientParameters
+		return nil, errors.InsufficientParameters.Error(1, paramsLength)
 	}
 
 	var (
@@ -83,18 +84,18 @@ func (h *Handler) Query(ctx context.Context, args ...interface{}) (*models.Respo
 	)
 
 	if key, isKey = args[0].(string); !isKey {
-		err = utilities.NewError(utilities.InvalidParameterType.Error(), "key")
+		err = errors.InvalidParameterType.Error("key", key, args[0])
 		return nil, err
 	}
 
 	resultCmd := h.client.Get(ctx, key)
 	if err = resultCmd.Err(); err != nil {
-		return nil, utilities.NewError(utilities.OperationFailed.Error(), err.Error())
+		return nil, errors.OperationFailed.Error(err.Error())
 	}
 
 	var result string
 	if result, err = resultCmd.Result(); err != nil {
-		return nil, utilities.NewError(utilities.OperationFailed.Error(), err.Error())
+		return nil, errors.OperationFailed.Error(err.Error())
 	}
 
 	return &models.Response{
@@ -110,7 +111,7 @@ func (h *Handler) Delete(ctx context.Context, args ...interface{}) (*models.Resp
 
 	paramsLength := len(args)
 	if paramsLength < 1 {
-		return nil, utilities.InsufficientParameters
+		return nil, errors.InsufficientParameters.Error(1, paramsLength)
 	}
 
 	var (
@@ -121,18 +122,18 @@ func (h *Handler) Delete(ctx context.Context, args ...interface{}) (*models.Resp
 	)
 
 	if key, isKey = args[0].(string); !isKey {
-		err = utilities.NewError(utilities.InvalidParameterType.Error(), "key")
+		err = errors.InvalidParameterType.Error("key", key, args[0])
 		return nil, err
 	}
 
 	resultCmd := h.client.Del(ctx, key)
 	if err = resultCmd.Err(); err != nil {
-		return nil, utilities.NewError(utilities.OperationFailed.Error(), err.Error())
+		return nil, errors.OperationFailed.Error(err.Error())
 	}
 
 	var result int64
 	if result, err = resultCmd.Result(); err != nil {
-		return nil, utilities.NewError(utilities.OperationFailed.Error(), err.Error())
+		return nil, errors.OperationFailed.Error(err.Error())
 	}
 
 	return &models.Response{
