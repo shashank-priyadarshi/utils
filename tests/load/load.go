@@ -1,7 +1,7 @@
 package load
 
 import (
-	"go.ssnk.in/utils/test/types"
+	"go.ssnk.in/utils/tests/types"
 )
 
 type Load struct{}
