@@ -1,0 +1,40 @@
+with-expecter: true
+
+packages:
+  go.ssnk.in/utils/logger/ports:
+    case: underscore
+    interfaces:
+      Logger:
+        config:
+          filename: logger.go
+          dir: mocks/logger
+          mockname: MockLogger
+
+  go.ssnk.in/utils/database/ports:
+    case: underscore
+    interfaces:
+      Database:
+        config:
+          filename: database.go
+          dir: mocks/database
+          mockname: MockDatabase
+      Operations:
+        config:
+          dir: mocks/database
+          filename: operations.go
+          mockname: MockOperations
+      Transactions:
+        config:
+          dir: mocks/database
+          filename: transactions.go
+          mockname: MockTransactions
+      Closer:
+        config:
+          dir: mocks/database
+          filename: closer.go
+          mockname: Closer
+      Configure:
+        config:
+          dir: mocks/database
+          filename: configure.go
+          mockname: MockConfigure

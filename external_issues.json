@@ -1,0 +1,2317 @@
+{
+  "Issues": [
+    {
+      "FromLinter": "depguard",
+      "Text": "import 'github.com/pkg/errors' is not allowed from list 'Main'",
+      "Severity": "",
+      "SourceLines": [
+        "import \"github.com/pkg/errors\""
+      ],
+      "Replacement": null,
+      "Pos": {
+        "Filename": "algo/trie.go",
+        "Offset": 21,
+        "Line": 3,
+        "Column": 8
+      },
+      "ExpectNoLint": false,
+      "ExpectedNoLintLinter": ""
+    },
+    {
+      "FromLinter": "godot",
+      "Text": "Comment should end in a period",
+      "Severity": "",
+      "SourceLines": [
+        "// Trie represents the Trie data structure"
+      ],
+      "Replacement": {
+        "NeedOnlyDelete": false,
+        "NewLines": [
+          "// Trie represents the Trie data structure."
+        ],
+        "Inline": null
+      },
+      "Pos": {
+        "Filename": "algo/trie.go",
+        "Offset": 46,
+        "Line": 5,
+        "Column": 43
+      },
+      "ExpectNoLint": false,
+      "ExpectedNoLintLinter": ""
+    },
+    {
+      "FromLinter": "godot",
+      "Text": "Comment should end in a period",
+      "Severity": "",
+      "SourceLines": [
+        "// TrieNode represents a node in the Trie"
+      ],
+      "Replacement": {
+        "NeedOnlyDelete": false,
+        "NewLines": [
+          "// TrieNode represents a node in the Trie."
+        ],
+        "Inline": null
+      },
+      "Pos": {
+        "Filename": "algo/trie.go",
+        "Offset": 154,
+        "Line": 10,
+        "Column": 42
+      },
+      "ExpectNoLint": false,
+      "ExpectedNoLintLinter": ""
+    },
+    {
+      "FromLinter": "godot",
+      "Text": "Comment should end in a period",
+      "Severity": "",
+      "SourceLines": [
+        "// NewTrie initializes and returns a new Trie"
+      ],
+      "Replacement": {
+        "NeedOnlyDelete": false,
+        "NewLines": [
+          "// NewTrie initializes and returns a new Trie."
+        ],
+        "Inline": null
+      },
+      "Pos": {
+        "Filename": "algo/trie.go",
+        "Offset": 302,
+        "Line": 17,
+        "Column": 46
+      },
+      "ExpectNoLint": false,
+      "ExpectedNoLintLinter": ""
+    },
+    {
+      "FromLinter": "nlreturn",
+      "Text": "return with no blank line before",
+      "Severity": "",
+      "SourceLines": [
+        "\t\t\treturn zeroValue, false"
+      ],
+      "Replacement": null,
+      "Pos": {
+        "Filename": "algo/trie.go",
+        "Offset": 949,
+        "Line": 46,
+        "Column": 4
+      },
+      "ExpectNoLint": false,
+      "ExpectedNoLintLinter": ""
+    },
+    {
+      "FromLinter": "wsl",
+      "Text": "return statements should not be cuddled if block has more than two lines",
+      "Severity": "",
+      "SourceLines": [
+        "\treturn zeroValue, false"
+      ],
+      "Replacement": null,
+      "Pos": {
+        "Filename": "algo/trie.go",
+        "Offset": 1063,
+        "Line": 57,
+        "Column": 2
+      },
+      "ExpectNoLint": false,
+      "ExpectedNoLintLinter": ""
+    },
+    {
+      "FromLinter": "wsl",
+      "Text": "only one cuddle assignment allowed before if statement",
+      "Severity": "",
+      "SourceLines": [
+        "\tif !exists {"
+      ],
+      "Replacement": null,
+      "Pos": {
+        "Filename": "algo/trie.go",
+        "Offset": 1533,
+        "Line": 80,
+        "Column": 2
+      },
+      "ExpectNoLint": false,
+      "ExpectedNoLintLinter": ""
+    },
+    {
+      "FromLinter": "gci",
+      "Text": "File is not `gci`-ed with --skip-generated -s standard -s default",
+      "Severity": "",
+      "SourceLines": [
+        "import ("
+      ],
+      "Replacement": {
+        "NeedOnlyDelete": false,
+        "NewLines": [
+          "import (",
+          "\t\"testing\"",
+          ""
+        ],
+        "Inline": null
+      },
+      "Pos": {
+        "Filename": "algo/trie_test.go",
+        "Offset": 0,
+        "Line": 3,
+        "Column": 0
+      },
+      "ExpectNoLint": false,
+      "ExpectedNoLintLinter": ""
+    },
+    {
+      "FromLinter": "depguard",
+      "Text": "import 'github.com/onsi/ginkgo/v2' is not allowed from list 'Main'",
+      "Severity": "",
+      "SourceLines": [
+        "\t_ \"github.com/onsi/ginkgo/v2\""
+      ],
+      "Replacement": null,
+      "Pos": {
+        "Filename": "algo/trie_test.go",
+        "Offset": 29,
+        "Line": 4,
+        "Column": 2
+      },
+      "ExpectNoLint": false,
+      "ExpectedNoLintLinter": ""
+    },
+    {
+      "FromLinter": "depguard",
+      "Text": "import 'github.com/stretchr/testify/assert' is not allowed from list 'Main'",
+      "Severity": "",
+      "SourceLines": [
+        "\t\"github.com/stretchr/testify/assert\""
+      ],
+      "Replacement": null,
+      "Pos": {
+        "Filename": "algo/trie_test.go",
+        "Offset": 60,
+        "Line": 5,
+        "Column": 2
+      },
+      "ExpectNoLint": false,
+      "ExpectedNoLintLinter": ""
+    },
+    {
+      "FromLinter": "depguard",
+      "Text": "import 'github.com/stretchr/testify/suite' is not allowed from list 'Main'",
+      "Severity": "",
+      "SourceLines": [
+        "\t\"github.com/stretchr/testify/suite\""
+      ],
+      "Replacement": null,
+      "Pos": {
+        "Filename": "algo/trie_test.go",
+        "Offset": 98,
+        "Line": 6,
+        "Column": 2
+      },
+      "ExpectNoLint": false,
+      "ExpectedNoLintLinter": ""
+    },
+    {
+      "FromLinter": "gci",
+      "Text": "File is not `gci`-ed with --skip-generated -s standard -s default",
+      "Severity": "",
+      "SourceLines": [
+        "\t\"testing\""
+      ],
+      "Replacement": {
+        "NeedOnlyDelete": true,
+        "NewLines": null,
+        "Inline": null
+      },
+      "Pos": {
+        "Filename": "algo/trie_test.go",
+        "Offset": 0,
+        "Line": 8,
+        "Column": 0
+      },
+      "ExpectNoLint": false,
+      "ExpectedNoLintLinter": ""
+    },
+    {
+      "FromLinter": "whitespace",
+      "Text": "unnecessary leading newline",
+      "Severity": "",
+      "SourceLines": [
+        "\tfor _, tt := range t.tests {",
+        ""
+      ],
+      "Replacement": {
+        "NeedOnlyDelete": false,
+        "NewLines": [
+          "\tfor _, tt := range t.tests {"
+        ],
+        "Inline": null
+      },
+      "LineRange": {
+        "From": 60,
+        "To": 61
+      },
+      "Pos": {
+        "Filename": "algo/trie_test.go",
+        "Offset": 0,
+        "Line": 60,
+        "Column": 0
+      },
+      "ExpectNoLint": false,
+      "ExpectedNoLintLinter": ""
+    },
+    {
+      "FromLinter": "whitespace",
+      "Text": "unnecessary leading newline",
+      "Severity": "",
+      "SourceLines": [
+        "func (t *TrieTestSuite) TestTrie_DeleteAndSearch() {",
+        ""
+      ],
+      "Replacement": {
+        "NeedOnlyDelete": false,
+        "NewLines": [
+          "func (t *TrieTestSuite) TestTrie_DeleteAndSearch() {"
+        ],
+        "Inline": null
+      },
+      "LineRange": {
+        "From": 75,
+        "To": 76
+      },
+      "Pos": {
+        "Filename": "algo/trie_test.go",
+        "Offset": 0,
+        "Line": 75,
+        "Column": 0
+      },
+      "ExpectNoLint": false,
+      "ExpectedNoLintLinter": ""
+    },
+    {
+      "FromLinter": "gofumpt",
+      "Text": "File is not `gofumpt`-ed",
+      "Severity": "",
+      "SourceLines": [
+        ""
+      ],
+      "Replacement": {
+        "NeedOnlyDelete": true,
+        "NewLines": null,
+        "Inline": null
+      },
+      "Pos": {
+        "Filename": "algo/trie_test.go",
+        "Offset": 0,
+        "Line": 76,
+        "Column": 0
+      },
+      "ExpectNoLint": false,
+      "ExpectedNoLintLinter": ""
+    },
+    {
+      "FromLinter": "whitespace",
+      "Text": "unnecessary leading newline",
+      "Severity": "",
+      "SourceLines": [
+        "\tfor _, tt := range t.tests {",
+        ""
+      ],
+      "Replacement": {
+        "NeedOnlyDelete": false,
+        "NewLines": [
+          "\tfor _, tt := range t.tests {"
+        ],
+        "Inline": null
+      },
+      "LineRange": {
+        "From": 77,
+        "To": 78
+      },
+      "Pos": {
+        "Filename": "algo/trie_test.go",
+        "Offset": 0,
+        "Line": 77,
+        "Column": 0
+      },
+      "ExpectNoLint": false,
+      "ExpectedNoLintLinter": ""
+    },
+    {
+      "FromLinter": "nlreturn",
+      "Text": "return with no blank line before",
+      "Severity": "",
+      "SourceLines": [
+        "\treturn \u0026err"
+      ],
+      "Replacement": null,
+      "Pos": {
+        "Filename": "database/constants/errors.go",
+        "Offset": 118,
+        "Line": 9,
+        "Column": 2
+      },
+      "ExpectNoLint": false,
+      "ExpectedNoLintLinter": ""
+    },
+    {
+      "FromLinter": "nlreturn",
+      "Text": "return with no blank line before",
+      "Severity": "",
+      "SourceLines": [
+        "\treturn \u0026str"
+      ],
+      "Replacement": null,
+      "Pos": {
+        "Filename": "database/constants/errors.go",
+        "Offset": 186,
+        "Line": 14,
+        "Column": 2
+      },
+      "ExpectNoLint": false,
+      "ExpectedNoLintLinter": ""
+    },
+    {
+      "FromLinter": "typecheck",
+      "Text": "could not import go.ssnk.in/utils/database/internal/mongodb (-: # go.ssnk.in/utils/database/internal/mongodb\ndatabase/internal/mongodb/mongodb.go:25:15: undefined: utilities\ndatabase/internal/mongodb/mongodb.go:37:15: undefined: utilities\ndatabase/internal/mongodb/mongodb.go:41:15: undefined: utilities\ndatabase/internal/mongodb/mongodb.go:45:15: undefined: utilities\ndatabase/internal/mongodb/mongodb.go:49:15: undefined: utilities\ndatabase/internal/mongodb/mongodb.go:58:15: undefined: utilities\ndatabase/internal/mongodb/mongodb.go:71:15: undefined: utilities\ndatabase/internal/mongodb/mongodb.go:75:15: undefined: utilities\ndatabase/internal/mongodb/mongodb.go:79:15: undefined: utilities\ndatabase/internal/mongodb/mongodb.go:83:15: undefined: utilities\ndatabase/internal/mongodb/mongodb.go:83:15: too many errors)",
+      "Severity": "",
+      "SourceLines": [
+        "\t\"go.ssnk.in/utils/database/internal/mongodb\""
+      ],
+      "Replacement": null,
+      "Pos": {
+        "Filename": "database/internal/adapters.go",
+        "Offset": 0,
+        "Line": 9,
+        "Column": 2
+      },
+      "ExpectNoLint": false,
+      "ExpectedNoLintLinter": ""
+    },
+    {
+      "FromLinter": "typecheck",
+      "Text": "could not import go.ssnk.in/utils/database/internal/redis (-: # go.ssnk.in/utils/database/internal/redis\ndatabase/internal/redis/redis.go:29:15: undefined: utilities\ndatabase/internal/redis/redis.go:43:9: undefined: utilities\ndatabase/internal/redis/redis.go:51:10: undefined: utilities\ndatabase/internal/redis/redis.go:58:15: undefined: utilities\ndatabase/internal/redis/redis.go:63:15: undefined: utilities\ndatabase/internal/redis/redis.go:75:15: undefined: utilities\ndatabase/internal/redis/redis.go:86:9: undefined: utilities\ndatabase/internal/redis/redis.go:92:15: undefined: utilities\ndatabase/internal/redis/redis.go:97:15: undefined: utilities\ndatabase/internal/redis/redis.go:113:15: undefined: utilities\ndatabase/internal/redis/redis.go:113:15: too many errors)",
+      "Severity": "",
+      "SourceLines": [
+        "\t\"go.ssnk.in/utils/database/internal/redis\""
+      ],
+      "Replacement": null,
+      "Pos": {
+        "Filename": "database/internal/adapters.go",
+        "Offset": 0,
+        "Line": 11,
+        "Column": 2
+      },
+      "ExpectNoLint": false,
+      "ExpectedNoLintLinter": ""
+    },
+    {
+      "FromLinter": "gofumpt",
+      "Text": "File is not `gofumpt`-ed",
+      "Severity": "",
+      "SourceLines": [
+        "\t\"fmt\""
+      ],
+      "Replacement": {
+        "NeedOnlyDelete": false,
+        "NewLines": [
+          "\t\"fmt\"",
+          ""
+        ],
+        "Inline": null
+      },
+      "Pos": {
+        "Filename": "database/internal/connections/mongodb.go",
+        "Offset": 0,
+        "Line": 5,
+        "Column": 0
+      },
+      "ExpectNoLint": false,
+      "ExpectedNoLintLinter": ""
+    },
+    {
+      "FromLinter": "gci",
+      "Text": "File is not `gci`-ed with --skip-generated -s standard -s default",
+      "Severity": "",
+      "SourceLines": [
+        "\t\"github.com/labstack/gommon/log\""
+      ],
+      "Replacement": {
+        "NeedOnlyDelete": true,
+        "NewLines": null,
+        "Inline": null
+      },
+      "Pos": {
+        "Filename": "database/internal/connections/mongodb.go",
+        "Offset": 0,
+        "Line": 6,
+        "Column": 0
+      },
+      "ExpectNoLint": false,
+      "ExpectedNoLintLinter": ""
+    },
+    {
+      "FromLinter": "gci",
+      "Text": "File is not `gci`-ed with --skip-generated -s standard -s default",
+      "Severity": "",
+      "SourceLines": [
+        ""
+      ],
+      "Replacement": {
+        "NeedOnlyDelete": false,
+        "NewLines": [
+          "",
+          "\t\"github.com/labstack/gommon/log\""
+        ],
+        "Inline": null
+      },
+      "Pos": {
+        "Filename": "database/internal/connections/mongodb.go",
+        "Offset": 0,
+        "Line": 7,
+        "Column": 0
+      },
+      "ExpectNoLint": false,
+      "ExpectedNoLintLinter": ""
+    },
+    {
+      "FromLinter": "funlen",
+      "Text": "Function 'MongoDB' is too long (66 \u003e 60)",
+      "Severity": "",
+      "SourceLines": [
+        "func MongoDB(ctx context.Context, config *models.Config) (client *mongo.Client, err error) {"
+      ],
+      "Replacement": null,
+      "Pos": {
+        "Filename": "database/internal/connections/mongodb.go",
+        "Offset": 0,
+        "Line": 15,
+        "Column": 0
+      },
+      "ExpectNoLint": false,
+      "ExpectedNoLintLinter": ""
+    },
+    {
+      "FromLinter": "gofumpt",
+      "Text": "File is not `gofumpt`-ed",
+      "Severity": "",
+      "SourceLines": [
+        ""
+      ],
+      "Replacement": {
+        "NeedOnlyDelete": true,
+        "NewLines": null,
+        "Inline": null
+      },
+      "Pos": {
+        "Filename": "database/internal/connections/mongodb.go",
+        "Offset": 0,
+        "Line": 16,
+        "Column": 0
+      },
+      "ExpectNoLint": false,
+      "ExpectedNoLintLinter": ""
+    },
+    {
+      "FromLinter": "wsl",
+      "Text": "return statements should not be cuddled if block has more than two lines",
+      "Severity": "",
+      "SourceLines": [
+        "\t\treturn"
+      ],
+      "Replacement": null,
+      "Pos": {
+        "Filename": "database/internal/connections/mongodb.go",
+        "Offset": 440,
+        "Line": 20,
+        "Column": 3
+      },
+      "ExpectNoLint": false,
+      "ExpectedNoLintLinter": ""
+    },
+    {
+      "FromLinter": "lll",
+      "Text": "line is 161 characters",
+      "Severity": "",
+      "SourceLines": [
+        "\topts.ApplyURI(config.Options.URI).SetServerAPIOptions(serverAPI).SetMaxPoolSize(uint64(config.Options.DatabaseOptions.MongoDBPoolSize)).SetBSONOptions(bsonOpts)"
+      ],
+      "Replacement": null,
+      "Pos": {
+        "Filename": "database/internal/connections/mongodb.go",
+        "Offset": 0,
+        "Line": 29,
+        "Column": 0
+      },
+      "ExpectNoLint": false,
+      "ExpectedNoLintLinter": ""
+    },
+    {
+      "FromLinter": "godox",
+      "Text": "database/internal/connections/mongodb.go:31: Line contains TODO/BUG/FIXME: \"TODO: Create collection if not exist\"",
+      "Severity": "",
+      "SourceLines": [
+        "\t// TODO: Create collection if not exist"
+      ],
+      "Replacement": null,
+      "Pos": {
+        "Filename": "database/internal/connections/mongodb.go",
+        "Offset": 0,
+        "Line": 31,
+        "Column": 0
+      },
+      "ExpectNoLint": false,
+      "ExpectedNoLintLinter": ""
+    },
+    {
+      "FromLinter": "godox",
+      "Text": "database/internal/connections/mongodb.go:66: Line contains TODO/BUG/FIXME: \"TODO: Backoff connection logic\"",
+      "Severity": "",
+      "SourceLines": [
+        "\t// TODO: Backoff connection logic"
+      ],
+      "Replacement": null,
+      "Pos": {
+        "Filename": "database/internal/connections/mongodb.go",
+        "Offset": 0,
+        "Line": 66,
+        "Column": 0
+      },
+      "ExpectNoLint": false,
+      "ExpectedNoLintLinter": ""
+    },
+    {
+      "FromLinter": "wsl",
+      "Text": "return statements should not be cuddled if block has more than two lines",
+      "Severity": "",
+      "SourceLines": [
+        "\t\treturn"
+      ],
+      "Replacement": null,
+      "Pos": {
+        "Filename": "database/internal/connections/mongodb.go",
+        "Offset": 2378,
+        "Line": 70,
+        "Column": 3
+      },
+      "ExpectNoLint": false,
+      "ExpectedNoLintLinter": ""
+    },
+    {
+      "FromLinter": "godox",
+      "Text": "database/internal/connections/mongodb.go:76: Line contains TODO/BUG/FIXME: \"TODO: Backoff disconnection logic\"",
+      "Severity": "",
+      "SourceLines": [
+        "\t\t// TODO: Backoff disconnection logic"
+      ],
+      "Replacement": null,
+      "Pos": {
+        "Filename": "database/internal/connections/mongodb.go",
+        "Offset": 0,
+        "Line": 76,
+        "Column": 0
+      },
+      "ExpectNoLint": false,
+      "ExpectedNoLintLinter": ""
+    },
+    {
+      "FromLinter": "wsl",
+      "Text": "return statements should not be cuddled if block has more than two lines",
+      "Severity": "",
+      "SourceLines": [
+        "\t\treturn"
+      ],
+      "Replacement": null,
+      "Pos": {
+        "Filename": "database/internal/connections/mongodb.go",
+        "Offset": 2598,
+        "Line": 78,
+        "Column": 3
+      },
+      "ExpectNoLint": false,
+      "ExpectedNoLintLinter": ""
+    },
+    {
+      "FromLinter": "nakedret",
+      "Text": "naked return in func `MongoDB` with 67 lines of code",
+      "Severity": "",
+      "SourceLines": [
+        "\treturn"
+      ],
+      "Replacement": null,
+      "Pos": {
+        "Filename": "database/internal/connections/mongodb.go",
+        "Offset": 2610,
+        "Line": 81,
+        "Column": 2
+      },
+      "ExpectNoLint": false,
+      "ExpectedNoLintLinter": ""
+    },
+    {
+      "FromLinter": "gofumpt",
+      "Text": "File is not `gofumpt`-ed",
+      "Severity": "",
+      "SourceLines": [
+        "\t\"fmt\""
+      ],
+      "Replacement": {
+        "NeedOnlyDelete": false,
+        "NewLines": [
+          "\t\"fmt\"",
+          ""
+        ],
+        "Inline": null
+      },
+      "Pos": {
+        "Filename": "database/internal/connections/rdbms.go",
+        "Offset": 0,
+        "Line": 6,
+        "Column": 0
+      },
+      "ExpectNoLint": false,
+      "ExpectedNoLintLinter": ""
+    },
+    {
+      "FromLinter": "gci",
+      "Text": "File is not `gci`-ed with --skip-generated -s standard -s default",
+      "Severity": "",
+      "SourceLines": [
+        "\t\"github.com/labstack/gommon/log\""
+      ],
+      "Replacement": {
+        "NeedOnlyDelete": true,
+        "NewLines": null,
+        "Inline": null
+      },
+      "Pos": {
+        "Filename": "database/internal/connections/rdbms.go",
+        "Offset": 0,
+        "Line": 7,
+        "Column": 0
+      },
+      "ExpectNoLint": false,
+      "ExpectedNoLintLinter": ""
+    },
+    {
+      "FromLinter": "gci",
+      "Text": "File is not `gci`-ed with --skip-generated -s standard -s default",
+      "Severity": "",
+      "SourceLines": [
+        "\t\"github.com/glebarez/sqlite\""
+      ],
+      "Replacement": {
+        "NeedOnlyDelete": false,
+        "NewLines": [
+          "\t\"github.com/glebarez/sqlite\"",
+          "\t\"github.com/labstack/gommon/log\""
+        ],
+        "Inline": null
+      },
+      "Pos": {
+        "Filename": "database/internal/connections/rdbms.go",
+        "Offset": 0,
+        "Line": 9,
+        "Column": 0
+      },
+      "ExpectNoLint": false,
+      "ExpectedNoLintLinter": ""
+    },
+    {
+      "FromLinter": "whitespace",
+      "Text": "unnecessary leading newline",
+      "Severity": "",
+      "SourceLines": [
+        "func RDBMS(ctx context.Context, config *models.Config) (client interface{}, err error) {",
+        ""
+      ],
+      "Replacement": {
+        "NeedOnlyDelete": false,
+        "NewLines": [
+          "func RDBMS(ctx context.Context, config *models.Config) (client interface{}, err error) {"
+        ],
+        "Inline": null
+      },
+      "LineRange": {
+        "From": 17,
+        "To": 18
+      },
+      "Pos": {
+        "Filename": "database/internal/connections/rdbms.go",
+        "Offset": 0,
+        "Line": 17,
+        "Column": 0
+      },
+      "ExpectNoLint": false,
+      "ExpectedNoLintLinter": ""
+    },
+    {
+      "FromLinter": "gofumpt",
+      "Text": "File is not `gofumpt`-ed",
+      "Severity": "",
+      "SourceLines": [
+        ""
+      ],
+      "Replacement": {
+        "NeedOnlyDelete": true,
+        "NewLines": null,
+        "Inline": null
+      },
+      "Pos": {
+        "Filename": "database/internal/connections/rdbms.go",
+        "Offset": 0,
+        "Line": 18,
+        "Column": 0
+      },
+      "ExpectNoLint": false,
+      "ExpectedNoLintLinter": ""
+    },
+    {
+      "FromLinter": "wsl",
+      "Text": "return statements should not be cuddled if block has more than two lines",
+      "Severity": "",
+      "SourceLines": [
+        "\t\treturn"
+      ],
+      "Replacement": null,
+      "Pos": {
+        "Filename": "database/internal/connections/rdbms.go",
+        "Offset": 470,
+        "Line": 22,
+        "Column": 3
+      },
+      "ExpectNoLint": false,
+      "ExpectedNoLintLinter": ""
+    },
+    {
+      "FromLinter": "wsl",
+      "Text": "return statements should not be cuddled if block has more than two lines",
+      "Severity": "",
+      "SourceLines": [
+        "\t\treturn"
+      ],
+      "Replacement": null,
+      "Pos": {
+        "Filename": "database/internal/connections/rdbms.go",
+        "Offset": 635,
+        "Line": 29,
+        "Column": 3
+      },
+      "ExpectNoLint": false,
+      "ExpectedNoLintLinter": ""
+    },
+    {
+      "FromLinter": "wsl",
+      "Text": "if statements should only be cuddled with assignments used in the if statement itself",
+      "Severity": "",
+      "SourceLines": [
+        "\t\t\tif gormDB, err = createGORMConnection(config.Options.Driver, conn); err != nil {"
+      ],
+      "Replacement": null,
+      "Pos": {
+        "Filename": "database/internal/connections/rdbms.go",
+        "Offset": 786,
+        "Line": 39,
+        "Column": 4
+      },
+      "ExpectNoLint": false,
+      "ExpectedNoLintLinter": ""
+    },
+    {
+      "FromLinter": "nakedret",
+      "Text": "naked return in func `RDBMS` with 40 lines of code",
+      "Severity": "",
+      "SourceLines": [
+        "\t\t\t\treturn"
+      ],
+      "Replacement": null,
+      "Pos": {
+        "Filename": "database/internal/connections/rdbms.go",
+        "Offset": 935,
+        "Line": 41,
+        "Column": 5
+      },
+      "ExpectNoLint": false,
+      "ExpectedNoLintLinter": ""
+    },
+    {
+      "FromLinter": "wsl",
+      "Text": "return statements should not be cuddled if block has more than two lines",
+      "Severity": "",
+      "SourceLines": [
+        "\t\t\treturn"
+      ],
+      "Replacement": null,
+      "Pos": {
+        "Filename": "database/internal/connections/rdbms.go",
+        "Offset": 982,
+        "Line": 45,
+        "Column": 4
+      },
+      "ExpectNoLint": false,
+      "ExpectedNoLintLinter": ""
+    },
+    {
+      "FromLinter": "wsl",
+      "Text": "return statements should not be cuddled if block has more than two lines",
+      "Severity": "",
+      "SourceLines": [
+        "\t\t\treturn"
+      ],
+      "Replacement": null,
+      "Pos": {
+        "Filename": "database/internal/connections/rdbms.go",
+        "Offset": 1066,
+        "Line": 50,
+        "Column": 4
+      },
+      "ExpectNoLint": false,
+      "ExpectedNoLintLinter": ""
+    },
+    {
+      "FromLinter": "nakedret",
+      "Text": "naked return in func `RDBMS` with 40 lines of code",
+      "Severity": "",
+      "SourceLines": [
+        "\t\treturn"
+      ],
+      "Replacement": null,
+      "Pos": {
+        "Filename": "database/internal/connections/rdbms.go",
+        "Offset": 1122,
+        "Line": 55,
+        "Column": 3
+      },
+      "ExpectNoLint": false,
+      "ExpectedNoLintLinter": ""
+    },
+    {
+      "FromLinter": "whitespace",
+      "Text": "unnecessary leading newline",
+      "Severity": "",
+      "SourceLines": [
+        "func isSupported(driver constants.Driver) bool {",
+        ""
+      ],
+      "Replacement": {
+        "NeedOnlyDelete": false,
+        "NewLines": [
+          "func isSupported(driver constants.Driver) bool {"
+        ],
+        "Inline": null
+      },
+      "LineRange": {
+        "From": 59,
+        "To": 60
+      },
+      "Pos": {
+        "Filename": "database/internal/connections/rdbms.go",
+        "Offset": 0,
+        "Line": 59,
+        "Column": 0
+      },
+      "ExpectNoLint": false,
+      "ExpectedNoLintLinter": ""
+    },
+    {
+      "FromLinter": "gofumpt",
+      "Text": "File is not `gofumpt`-ed",
+      "Severity": "",
+      "SourceLines": [
+        "",
+        "\tvar supported = make(map[constants.Driver]any)"
+      ],
+      "Replacement": {
+        "NeedOnlyDelete": false,
+        "NewLines": [
+          "\tsupported := make(map[constants.Driver]any)"
+        ],
+        "Inline": null
+      },
+      "LineRange": {
+        "From": 60,
+        "To": 61
+      },
+      "Pos": {
+        "Filename": "database/internal/connections/rdbms.go",
+        "Offset": 0,
+        "Line": 60,
+        "Column": 0
+      },
+      "ExpectNoLint": false,
+      "ExpectedNoLintLinter": ""
+    },
+    {
+      "FromLinter": "whitespace",
+      "Text": "unnecessary leading newline",
+      "Severity": "",
+      "SourceLines": [
+        "func createGORMConnection(driver constants.Driver, conn *sql.DB) (db *gorm.DB, err error) {",
+        ""
+      ],
+      "Replacement": {
+        "NeedOnlyDelete": false,
+        "NewLines": [
+          "func createGORMConnection(driver constants.Driver, conn *sql.DB) (db *gorm.DB, err error) {"
+        ],
+        "Inline": null
+      },
+      "LineRange": {
+        "From": 78,
+        "To": 79
+      },
+      "Pos": {
+        "Filename": "database/internal/connections/rdbms.go",
+        "Offset": 0,
+        "Line": 78,
+        "Column": 0
+      },
+      "ExpectNoLint": false,
+      "ExpectedNoLintLinter": ""
+    },
+    {
+      "FromLinter": "gofumpt",
+      "Text": "File is not `gofumpt`-ed",
+      "Severity": "",
+      "SourceLines": [
+        ""
+      ],
+      "Replacement": {
+        "NeedOnlyDelete": true,
+        "NewLines": null,
+        "Inline": null
+      },
+      "Pos": {
+        "Filename": "database/internal/connections/rdbms.go",
+        "Offset": 0,
+        "Line": 79,
+        "Column": 0
+      },
+      "ExpectNoLint": false,
+      "ExpectedNoLintLinter": ""
+    },
+    {
+      "FromLinter": "nlreturn",
+      "Text": "return with no blank line before",
+      "Severity": "",
+      "SourceLines": [
+        "\t\treturn"
+      ],
+      "Replacement": null,
+      "Pos": {
+        "Filename": "database/internal/connections/rdbms.go",
+        "Offset": 1719,
+        "Line": 83,
+        "Column": 3
+      },
+      "ExpectNoLint": false,
+      "ExpectedNoLintLinter": ""
+    },
+    {
+      "FromLinter": "wsl",
+      "Text": "return statements should not be cuddled if block has more than two lines",
+      "Severity": "",
+      "SourceLines": [
+        "\t\treturn"
+      ],
+      "Replacement": null,
+      "Pos": {
+        "Filename": "database/internal/connections/rdbms.go",
+        "Offset": 1844,
+        "Line": 89,
+        "Column": 3
+      },
+      "ExpectNoLint": false,
+      "ExpectedNoLintLinter": ""
+    },
+    {
+      "FromLinter": "nlreturn",
+      "Text": "return with no blank line before",
+      "Severity": "",
+      "SourceLines": [
+        "\t\treturn"
+      ],
+      "Replacement": null,
+      "Pos": {
+        "Filename": "database/internal/connections/rdbms.go",
+        "Offset": 1942,
+        "Line": 93,
+        "Column": 3
+      },
+      "ExpectNoLint": false,
+      "ExpectedNoLintLinter": ""
+    },
+    {
+      "FromLinter": "gofumpt",
+      "Text": "File is not `gofumpt`-ed",
+      "Severity": "",
+      "SourceLines": [
+        "\t\"fmt\""
+      ],
+      "Replacement": {
+        "NeedOnlyDelete": false,
+        "NewLines": [
+          "\t\"fmt\"",
+          ""
+        ],
+        "Inline": null
+      },
+      "Pos": {
+        "Filename": "database/internal/connections/redis.go",
+        "Offset": 0,
+        "Line": 5,
+        "Column": 0
+      },
+      "ExpectNoLint": false,
+      "ExpectedNoLintLinter": ""
+    },
+    {
+      "FromLinter": "gci",
+      "Text": "File is not `gci`-ed with --skip-generated -s standard -s default",
+      "Severity": "",
+      "SourceLines": [
+        "\t\"github.com/labstack/gommon/log\""
+      ],
+      "Replacement": {
+        "NeedOnlyDelete": true,
+        "NewLines": null,
+        "Inline": null
+      },
+      "Pos": {
+        "Filename": "database/internal/connections/redis.go",
+        "Offset": 0,
+        "Line": 6,
+        "Column": 0
+      },
+      "ExpectNoLint": false,
+      "ExpectedNoLintLinter": ""
+    },
+    {
+      "FromLinter": "gci",
+      "Text": "File is not `gci`-ed with --skip-generated -s standard -s default",
+      "Severity": "",
+      "SourceLines": [
+        ""
+      ],
+      "Replacement": {
+        "NeedOnlyDelete": false,
+        "NewLines": [
+          "",
+          "\t\"github.com/labstack/gommon/log\""
+        ],
+        "Inline": null
+      },
+      "Pos": {
+        "Filename": "database/internal/connections/redis.go",
+        "Offset": 0,
+        "Line": 7,
+        "Column": 0
+      },
+      "ExpectNoLint": false,
+      "ExpectedNoLintLinter": ""
+    },
+    {
+      "FromLinter": "depguard",
+      "Text": "import 'github.com/redis/go-redis/v9' is not allowed from list 'Main'",
+      "Severity": "",
+      "SourceLines": [
+        "\tredisclient \"github.com/redis/go-redis/v9\""
+      ],
+      "Replacement": null,
+      "Pos": {
+        "Filename": "database/internal/connections/redis.go",
+        "Offset": 84,
+        "Line": 8,
+        "Column": 2
+      },
+      "ExpectNoLint": false,
+      "ExpectedNoLintLinter": ""
+    },
+    {
+      "FromLinter": "whitespace",
+      "Text": "unnecessary leading newline",
+      "Severity": "",
+      "SourceLines": [
+        "func Redis(ctx context.Context, config *models.Config) (client *redisclient.Client, err error) {",
+        ""
+      ],
+      "Replacement": {
+        "NeedOnlyDelete": false,
+        "NewLines": [
+          "func Redis(ctx context.Context, config *models.Config) (client *redisclient.Client, err error) {"
+        ],
+        "Inline": null
+      },
+      "LineRange": {
+        "From": 12,
+        "To": 13
+      },
+      "Pos": {
+        "Filename": "database/internal/connections/redis.go",
+        "Offset": 0,
+        "Line": 12,
+        "Column": 0
+      },
+      "ExpectNoLint": false,
+      "ExpectedNoLintLinter": ""
+    },
+    {
+      "FromLinter": "gofumpt",
+      "Text": "File is not `gofumpt`-ed",
+      "Severity": "",
+      "SourceLines": [
+        ""
+      ],
+      "Replacement": {
+        "NeedOnlyDelete": true,
+        "NewLines": null,
+        "Inline": null
+      },
+      "Pos": {
+        "Filename": "database/internal/connections/redis.go",
+        "Offset": 0,
+        "Line": 13,
+        "Column": 0
+      },
+      "ExpectNoLint": false,
+      "ExpectedNoLintLinter": ""
+    },
+    {
+      "FromLinter": "wsl",
+      "Text": "return statements should not be cuddled if block has more than two lines",
+      "Severity": "",
+      "SourceLines": [
+        "\t\treturn"
+      ],
+      "Replacement": null,
+      "Pos": {
+        "Filename": "database/internal/connections/redis.go",
+        "Offset": 366,
+        "Line": 17,
+        "Column": 3
+      },
+      "ExpectNoLint": false,
+      "ExpectedNoLintLinter": ""
+    },
+    {
+      "FromLinter": "wsl",
+      "Text": "return statements should not be cuddled if block has more than two lines",
+      "Severity": "",
+      "SourceLines": [
+        "\t\treturn"
+      ],
+      "Replacement": null,
+      "Pos": {
+        "Filename": "database/internal/connections/redis.go",
+        "Offset": 696,
+        "Line": 32,
+        "Column": 3
+      },
+      "ExpectNoLint": false,
+      "ExpectedNoLintLinter": ""
+    },
+    {
+      "FromLinter": "typecheck",
+      "Text": ": # go.ssnk.in/utils/database/internal/mongodb [go.ssnk.in/utils/database/internal/mongodb.test]\ndatabase/internal/mongodb/mongodb.go:25:15: undefined: utilities\ndatabase/internal/mongodb/mongodb.go:37:15: undefined: utilities\ndatabase/internal/mongodb/mongodb.go:41:15: undefined: utilities\ndatabase/internal/mongodb/mongodb.go:45:15: undefined: utilities\ndatabase/internal/mongodb/mongodb.go:49:15: undefined: utilities\ndatabase/internal/mongodb/mongodb.go:58:15: undefined: utilities\ndatabase/internal/mongodb/mongodb.go:71:15: undefined: utilities\ndatabase/internal/mongodb/mongodb.go:75:15: undefined: utilities\ndatabase/internal/mongodb/mongodb.go:79:15: undefined: utilities\ndatabase/internal/mongodb/mongodb.go:83:15: undefined: utilities\ndatabase/internal/mongodb/mongodb.go:83:15: too many errors",
+      "Severity": "",
+      "SourceLines": [
+        "package mongodb"
+      ],
+      "Replacement": null,
+      "Pos": {
+        "Filename": "database/internal/mongodb/mongodb.go",
+        "Offset": 0,
+        "Line": 1,
+        "Column": 0
+      },
+      "ExpectNoLint": false,
+      "ExpectedNoLintLinter": ""
+    },
+    {
+      "FromLinter": "godot",
+      "Text": "Comment should end in a period",
+      "Severity": "",
+      "SourceLines": [
+        "\t// go run -mod=mod entgo.io/ent/cmd/ent generate --template \u003cdir-path\u003e --template glob=\"path/to/*.tmpl\" ./ent/schema"
+      ],
+      "Replacement": {
+        "NeedOnlyDelete": false,
+        "NewLines": [
+          "\t// go run -mod=mod entgo.io/ent/cmd/ent generate --template \u003cdir-path\u003e --template glob=\"path/to/*.tmpl\" ./ent/schema."
+        ],
+        "Inline": null
+      },
+      "Pos": {
+        "Filename": "database/internal/rdbms/orm/orm.go",
+        "Offset": 31,
+        "Line": 6,
+        "Column": 118
+      },
+      "ExpectNoLint": false,
+      "ExpectedNoLintLinter": ""
+    },
+    {
+      "FromLinter": "depguard",
+      "Text": "import 'entgo.io/ent/entc' is not allowed from list 'Main'",
+      "Severity": "",
+      "SourceLines": [
+        "\t_ \"entgo.io/ent/entc\""
+      ],
+      "Replacement": null,
+      "Pos": {
+        "Filename": "database/internal/rdbms/orm/orm.go",
+        "Offset": 149,
+        "Line": 7,
+        "Column": 2
+      },
+      "ExpectNoLint": false,
+      "ExpectedNoLintLinter": ""
+    },
+    {
+      "FromLinter": "depguard",
+      "Text": "import 'entgo.io/ent/entc/gen' is not allowed from list 'Main'",
+      "Severity": "",
+      "SourceLines": [
+        "\t_ \"entgo.io/ent/entc/gen\""
+      ],
+      "Replacement": null,
+      "Pos": {
+        "Filename": "database/internal/rdbms/orm/orm.go",
+        "Offset": 172,
+        "Line": 8,
+        "Column": 2
+      },
+      "ExpectNoLint": false,
+      "ExpectedNoLintLinter": ""
+    },
+    {
+      "FromLinter": "depguard",
+      "Text": "import 'entgo.io/ent/schema/field' is not allowed from list 'Main'",
+      "Severity": "",
+      "SourceLines": [
+        "\t_ \"entgo.io/ent/schema/field\""
+      ],
+      "Replacement": null,
+      "Pos": {
+        "Filename": "database/internal/rdbms/orm/orm.go",
+        "Offset": 199,
+        "Line": 9,
+        "Column": 2
+      },
+      "ExpectNoLint": false,
+      "ExpectedNoLintLinter": ""
+    },
+    {
+      "FromLinter": "whitespace",
+      "Text": "unnecessary leading newline",
+      "Severity": "",
+      "SourceLines": [
+        "func Handle(orm constants.ORM, client interface{}) (handle ports.Database, err error) {",
+        ""
+      ],
+      "Replacement": {
+        "NeedOnlyDelete": false,
+        "NewLines": [
+          "func Handle(orm constants.ORM, client interface{}) (handle ports.Database, err error) {"
+        ],
+        "Inline": null
+      },
+      "LineRange": {
+        "From": 16,
+        "To": 17
+      },
+      "Pos": {
+        "Filename": "database/internal/rdbms/orm/orm.go",
+        "Offset": 0,
+        "Line": 16,
+        "Column": 0
+      },
+      "ExpectNoLint": false,
+      "ExpectedNoLintLinter": ""
+    },
+    {
+      "FromLinter": "gofumpt",
+      "Text": "File is not `gofumpt`-ed",
+      "Severity": "",
+      "SourceLines": [
+        ""
+      ],
+      "Replacement": {
+        "NeedOnlyDelete": true,
+        "NewLines": null,
+        "Inline": null
+      },
+      "Pos": {
+        "Filename": "database/internal/rdbms/orm/orm.go",
+        "Offset": 0,
+        "Line": 17,
+        "Column": 0
+      },
+      "ExpectNoLint": false,
+      "ExpectedNoLintLinter": ""
+    },
+    {
+      "FromLinter": "nlreturn",
+      "Text": "return with no blank line before",
+      "Severity": "",
+      "SourceLines": [
+        "\t\t\treturn"
+      ],
+      "Replacement": null,
+      "Pos": {
+        "Filename": "database/internal/rdbms/orm/orm.go",
+        "Offset": 614,
+        "Line": 23,
+        "Column": 4
+      },
+      "ExpectNoLint": false,
+      "ExpectedNoLintLinter": ""
+    },
+    {
+      "FromLinter": "wsl",
+      "Text": "return statements should not be cuddled if block has more than two lines",
+      "Severity": "",
+      "SourceLines": [
+        "\t\treturn"
+      ],
+      "Replacement": null,
+      "Pos": {
+        "Filename": "database/internal/rdbms/orm/orm.go",
+        "Offset": 664,
+        "Line": 27,
+        "Column": 3
+      },
+      "ExpectNoLint": false,
+      "ExpectedNoLintLinter": ""
+    },
+    {
+      "FromLinter": "typecheck",
+      "Text": "could not import go.ssnk.in/utils/database/internal/rdbms/sql (-: # go.ssnk.in/utils/database/internal/rdbms/sql\ndatabase/internal/rdbms/sql/sql.go:34:15: undefined: utilities\ndatabase/internal/rdbms/sql/sql.go:46:15: undefined: utilities\ndatabase/internal/rdbms/sql/sql.go:50:15: undefined: utilities\ndatabase/internal/rdbms/sql/sql.go:55:15: undefined: utilities\ndatabase/internal/rdbms/sql/sql.go:63:16: undefined: utilities\ndatabase/internal/rdbms/sql/sql.go:80:15: undefined: utilities\ndatabase/internal/rdbms/sql/sql.go:91:15: undefined: utilities\ndatabase/internal/rdbms/sql/sql.go:95:15: undefined: utilities\ndatabase/internal/rdbms/sql/sql.go:104:15: undefined: utilities)",
+      "Severity": "",
+      "SourceLines": [
+        "\tsqlhandler \"go.ssnk.in/utils/database/internal/rdbms/sql\""
+      ],
+      "Replacement": null,
+      "Pos": {
+        "Filename": "database/internal/rdbms/rdbms.go",
+        "Offset": 0,
+        "Line": 10,
+        "Column": 13
+      },
+      "ExpectNoLint": false,
+      "ExpectedNoLintLinter": ""
+    },
+    {
+      "FromLinter": "typecheck",
+      "Text": ": # go.ssnk.in/utils/database/internal/rdbms/sql [go.ssnk.in/utils/database/internal/rdbms/sql.test]\ndatabase/internal/rdbms/sql/sql.go:34:15: undefined: utilities\ndatabase/internal/rdbms/sql/sql.go:46:15: undefined: utilities\ndatabase/internal/rdbms/sql/sql.go:50:15: undefined: utilities\ndatabase/internal/rdbms/sql/sql.go:55:15: undefined: utilities\ndatabase/internal/rdbms/sql/sql.go:63:16: undefined: utilities\ndatabase/internal/rdbms/sql/sql.go:80:15: undefined: utilities\ndatabase/internal/rdbms/sql/sql.go:91:15: undefined: utilities\ndatabase/internal/rdbms/sql/sql.go:95:15: undefined: utilities\ndatabase/internal/rdbms/sql/sql.go:104:15: undefined: utilities\ndatabase/internal/rdbms/sql/sql_test.go:21:13: undefined: utilities\ndatabase/internal/rdbms/sql/sql_test.go:21:13: too many errors",
+      "Severity": "",
+      "SourceLines": [
+        "package sql"
+      ],
+      "Replacement": null,
+      "Pos": {
+        "Filename": "database/internal/rdbms/sql/sql.go",
+        "Offset": 0,
+        "Line": 1,
+        "Column": 0
+      },
+      "ExpectNoLint": false,
+      "ExpectedNoLintLinter": ""
+    },
+    {
+      "FromLinter": "typecheck",
+      "Text": ": # go.ssnk.in/utils/database/internal/redis [go.ssnk.in/utils/database/internal/redis.test]\ndatabase/internal/redis/redis.go:29:15: undefined: utilities\ndatabase/internal/redis/redis.go:43:9: undefined: utilities\ndatabase/internal/redis/redis.go:51:10: undefined: utilities\ndatabase/internal/redis/redis.go:58:15: undefined: utilities\ndatabase/internal/redis/redis.go:63:15: undefined: utilities\ndatabase/internal/redis/redis.go:75:15: undefined: utilities\ndatabase/internal/redis/redis.go:86:9: undefined: utilities\ndatabase/internal/redis/redis.go:92:15: undefined: utilities\ndatabase/internal/redis/redis.go:97:15: undefined: utilities\ndatabase/internal/redis/redis.go:113:15: undefined: utilities\ndatabase/internal/redis/redis.go:113:15: too many errors",
+      "Severity": "",
+      "SourceLines": [
+        "package redis"
+      ],
+      "Replacement": null,
+      "Pos": {
+        "Filename": "database/internal/redis/redis.go",
+        "Offset": 0,
+        "Line": 1,
+        "Column": 0
+      },
+      "ExpectNoLint": false,
+      "ExpectedNoLintLinter": ""
+    },
+    {
+      "FromLinter": "depguard",
+      "Text": "import 'github.com/sirupsen/logrus' is not allowed from list 'Main'",
+      "Severity": "",
+      "SourceLines": [
+        "\t\"github.com/sirupsen/logrus\""
+      ],
+      "Replacement": null,
+      "Pos": {
+        "Filename": "logger/internal/logrus.go",
+        "Offset": 36,
+        "Line": 6,
+        "Column": 2
+      },
+      "ExpectNoLint": false,
+      "ExpectedNoLintLinter": ""
+    },
+    {
+      "FromLinter": "godox",
+      "Text": "logger/internal/logrus.go:42: Line contains TODO/BUG/FIXME: \"TODO: Implement structured logging with ...\"",
+      "Severity": "",
+      "SourceLines": [
+        "\t// TODO: Implement structured logging with fields using logrus.Fields"
+      ],
+      "Replacement": null,
+      "Pos": {
+        "Filename": "logger/internal/logrus.go",
+        "Offset": 0,
+        "Line": 42,
+        "Column": 0
+      },
+      "ExpectNoLint": false,
+      "ExpectedNoLintLinter": ""
+    },
+    {
+      "FromLinter": "wsl",
+      "Text": "return statements should not be cuddled if block has more than two lines",
+      "Severity": "",
+      "SourceLines": [
+        "\treturn logger"
+      ],
+      "Replacement": null,
+      "Pos": {
+        "Filename": "logger/internal/slog.go",
+        "Offset": 365,
+        "Line": 25,
+        "Column": 2
+      },
+      "ExpectNoLint": false,
+      "ExpectedNoLintLinter": ""
+    },
+    {
+      "FromLinter": "gofumpt",
+      "Text": "File is not `gofumpt`-ed",
+      "Severity": "",
+      "SourceLines": [
+        "\tvar opts = \u0026slog.HandlerOptions{}"
+      ],
+      "Replacement": {
+        "NeedOnlyDelete": false,
+        "NewLines": [
+          "\topts := \u0026slog.HandlerOptions{}"
+        ],
+        "Inline": null
+      },
+      "Pos": {
+        "Filename": "logger/internal/slog.go",
+        "Offset": 0,
+        "Line": 29,
+        "Column": 0
+      },
+      "ExpectNoLint": false,
+      "ExpectedNoLintLinter": ""
+    },
+    {
+      "FromLinter": "wsl",
+      "Text": "declarations should never be cuddled",
+      "Severity": "",
+      "SourceLines": [
+        "\tvar handler slog.Handler"
+      ],
+      "Replacement": null,
+      "Pos": {
+        "Filename": "logger/internal/slog.go",
+        "Offset": 476,
+        "Line": 30,
+        "Column": 2
+      },
+      "ExpectNoLint": false,
+      "ExpectedNoLintLinter": ""
+    },
+    {
+      "FromLinter": "wsl",
+      "Text": "block should not start with a whitespace",
+      "Severity": "",
+      "SourceLines": [
+        "\topts.ReplaceAttr = func(groups []string, a slog.Attr) slog.Attr {"
+      ],
+      "Replacement": null,
+      "Pos": {
+        "Filename": "logger/internal/slog.go",
+        "Offset": 591,
+        "Line": 33,
+        "Column": 66
+      },
+      "ExpectNoLint": false,
+      "ExpectedNoLintLinter": ""
+    },
+    {
+      "FromLinter": "forcetypeassert",
+      "Text": "type assertion must be checked",
+      "Severity": "",
+      "SourceLines": [
+        "\t\t\tlevel := a.Value.Any().(slog.Level)"
+      ],
+      "Replacement": null,
+      "Pos": {
+        "Filename": "logger/internal/slog.go",
+        "Offset": 664,
+        "Line": 38,
+        "Column": 4
+      },
+      "ExpectNoLint": false,
+      "ExpectedNoLintLinter": ""
+    },
+    {
+      "FromLinter": "ineffassign",
+      "Text": "ineffectual assignment to levelLabel",
+      "Severity": "",
+      "SourceLines": [
+        "\t\t\tlevelLabel, exists := LevelNames[level]"
+      ],
+      "Replacement": null,
+      "Pos": {
+        "Filename": "logger/internal/slog.go",
+        "Offset": 703,
+        "Line": 39,
+        "Column": 4
+      },
+      "ExpectNoLint": false,
+      "ExpectedNoLintLinter": ""
+    },
+    {
+      "FromLinter": "wsl",
+      "Text": "only one cuddle assignment allowed before if statement",
+      "Severity": "",
+      "SourceLines": [
+        "\t\t\tif exists {"
+      ],
+      "Replacement": null,
+      "Pos": {
+        "Filename": "logger/internal/slog.go",
+        "Offset": 746,
+        "Line": 40,
+        "Column": 4
+      },
+      "ExpectNoLint": false,
+      "ExpectedNoLintLinter": ""
+    },
+    {
+      "FromLinter": "wsl",
+      "Text": "assignments should only be cuddled with other assignments",
+      "Severity": "",
+      "SourceLines": [
+        "\t\t\ta.Value = slog.StringValue(levelLabel)"
+      ],
+      "Replacement": null,
+      "Pos": {
+        "Filename": "logger/internal/slog.go",
+        "Offset": 1021,
+        "Line": 54,
+        "Column": 4
+      },
+      "ExpectNoLint": false,
+      "ExpectedNoLintLinter": ""
+    },
+    {
+      "FromLinter": "prealloc",
+      "Text": "Consider pre-allocating `attrs`",
+      "Severity": "",
+      "SourceLines": [
+        "\tvar attrs []any"
+      ],
+      "Replacement": null,
+      "Pos": {
+        "Filename": "logger/internal/slog.go",
+        "Offset": 2131,
+        "Line": 112,
+        "Column": 2
+      },
+      "ExpectNoLint": false,
+      "ExpectedNoLintLinter": ""
+    },
+    {
+      "FromLinter": "gci",
+      "Text": "File is not `gci`-ed with --skip-generated -s standard -s default",
+      "Severity": "",
+      "SourceLines": [
+        "\t\"fmt\""
+      ],
+      "Replacement": {
+        "NeedOnlyDelete": false,
+        "NewLines": [
+          "\t\"fmt\"",
+          ""
+        ],
+        "Inline": null
+      },
+      "Pos": {
+        "Filename": "logger/internal/zap.go",
+        "Offset": 0,
+        "Line": 4,
+        "Column": 0
+      },
+      "ExpectNoLint": false,
+      "ExpectedNoLintLinter": ""
+    },
+    {
+      "FromLinter": "wsl",
+      "Text": "return statements should not be cuddled if block has more than two lines",
+      "Severity": "",
+      "SourceLines": [
+        "\treturn \u0026Zap{"
+      ],
+      "Replacement": null,
+      "Pos": {
+        "Filename": "logger/internal/zap.go",
+        "Offset": 206,
+        "Line": 14,
+        "Column": 2
+      },
+      "ExpectNoLint": false,
+      "ExpectedNoLintLinter": ""
+    },
+    {
+      "FromLinter": "godox",
+      "Text": "logger/internal/zap.go:40: Line contains TODO/BUG/FIXME: \"TODO: Implement structured logging with ...\"",
+      "Severity": "",
+      "SourceLines": [
+        "\t// TODO: Implement structured logging with fields using zap.Field"
+      ],
+      "Replacement": null,
+      "Pos": {
+        "Filename": "logger/internal/zap.go",
+        "Offset": 0,
+        "Line": 40,
+        "Column": 0
+      },
+      "ExpectNoLint": false,
+      "ExpectedNoLintLinter": ""
+    },
+    {
+      "FromLinter": "depguard",
+      "Text": "import 'github.com/rs/zerolog' is not allowed from list 'Main'",
+      "Severity": "",
+      "SourceLines": [
+        "\t\"github.com/rs/zerolog\""
+      ],
+      "Replacement": null,
+      "Pos": {
+        "Filename": "logger/internal/zerolog.go",
+        "Offset": 42,
+        "Line": 7,
+        "Column": 2
+      },
+      "ExpectNoLint": false,
+      "ExpectedNoLintLinter": ""
+    },
+    {
+      "FromLinter": "godox",
+      "Text": "logger/internal/zerolog.go:41: Line contains TODO/BUG/FIXME: \"TODO: Implement structured logging with ...\"",
+      "Severity": "",
+      "SourceLines": [
+        "\t// TODO: Implement structured logging with fields"
+      ],
+      "Replacement": null,
+      "Pos": {
+        "Filename": "logger/internal/zerolog.go",
+        "Offset": 0,
+        "Line": 41,
+        "Column": 0
+      },
+      "ExpectNoLint": false,
+      "ExpectedNoLintLinter": ""
+    },
+    {
+      "FromLinter": "gci",
+      "Text": "File is not `gci`-ed with --skip-generated -s standard -s default",
+      "Severity": "",
+      "SourceLines": [
+        "import ("
+      ],
+      "Replacement": {
+        "NeedOnlyDelete": false,
+        "NewLines": [
+          "import (",
+          "\t\"time\"",
+          ""
+        ],
+        "Inline": null
+      },
+      "Pos": {
+        "Filename": "logger/logger.go",
+        "Offset": 0,
+        "Line": 3,
+        "Column": 0
+      },
+      "ExpectNoLint": false,
+      "ExpectedNoLintLinter": ""
+    },
+    {
+      "FromLinter": "gci",
+      "Text": "File is not `gci`-ed with --skip-generated -s standard -s default",
+      "Severity": "",
+      "SourceLines": [
+        "\t\"time\""
+      ],
+      "Replacement": {
+        "NeedOnlyDelete": true,
+        "NewLines": null,
+        "Inline": null
+      },
+      "Pos": {
+        "Filename": "logger/logger.go",
+        "Offset": 0,
+        "Line": 7,
+        "Column": 0
+      },
+      "ExpectNoLint": false,
+      "ExpectedNoLintLinter": ""
+    },
+    {
+      "FromLinter": "whitespace",
+      "Text": "unnecessary leading newline",
+      "Severity": "",
+      "SourceLines": [
+        "func New(opts ...func(*Logger)) Logger {",
+        ""
+      ],
+      "Replacement": {
+        "NeedOnlyDelete": false,
+        "NewLines": [
+          "func New(opts ...func(*Logger)) Logger {"
+        ],
+        "Inline": null
+      },
+      "LineRange": {
+        "From": 26,
+        "To": 27
+      },
+      "Pos": {
+        "Filename": "logger/logger.go",
+        "Offset": 0,
+        "Line": 26,
+        "Column": 0
+      },
+      "ExpectNoLint": false,
+      "ExpectedNoLintLinter": ""
+    },
+    {
+      "FromLinter": "gofumpt",
+      "Text": "File is not `gofumpt`-ed",
+      "Severity": "",
+      "SourceLines": [
+        ""
+      ],
+      "Replacement": {
+        "NeedOnlyDelete": true,
+        "NewLines": null,
+        "Inline": null
+      },
+      "Pos": {
+        "Filename": "logger/logger.go",
+        "Offset": 0,
+        "Line": 27,
+        "Column": 0
+      },
+      "ExpectNoLint": false,
+      "ExpectedNoLintLinter": ""
+    },
+    {
+      "FromLinter": "typecheck",
+      "Text": "could not import go.ssnk.in/utils/test/integration/modules/logger (-: # go.ssnk.in/utils/test/integration/modules/logger\ntest/integration/modules/logger/logger.go:20:20: cannot use logProvider (variable of type string) as func(*\"go.ssnk.in/utils/logger\".Logger) value in argument to logger.New\ntest/integration/modules/logger/logger.go:20:33: cannot use logLevel (variable of type string) as func(*\"go.ssnk.in/utils/logger\".Logger) value in argument to logger.New\ntest/integration/modules/logger/logger.go:20:43: cannot use logFormat (variable of type string) as func(*\"go.ssnk.in/utils/logger\".Logger) value in argument to logger.New\ntest/integration/modules/logger/logger.go:20:54: cannot use trace (variable of type bool) as func(*\"go.ssnk.in/utils/logger\".Logger) value in argument to logger.New\ntest/integration/modules/logger/logger.go:22:6: log.With undefined (type \"go.ssnk.in/utils/logger\".Logger has no field or method With))",
+      "Severity": "",
+      "SourceLines": [
+        "\t\"go.ssnk.in/utils/test/integration/modules/logger\""
+      ],
+      "Replacement": null,
+      "Pos": {
+        "Filename": "test/integration/integration.go",
+        "Offset": 0,
+        "Line": 8,
+        "Column": 2
+      },
+      "ExpectNoLint": false,
+      "ExpectedNoLintLinter": ""
+    },
+    {
+      "FromLinter": "typecheck",
+      "Text": ": # go.ssnk.in/utils/test/integration/modules/logger\ntest/integration/modules/logger/logger.go:20:20: cannot use logProvider (variable of type string) as func(*\"go.ssnk.in/utils/logger\".Logger) value in argument to logger.New\ntest/integration/modules/logger/logger.go:20:33: cannot use logLevel (variable of type string) as func(*\"go.ssnk.in/utils/logger\".Logger) value in argument to logger.New\ntest/integration/modules/logger/logger.go:20:43: cannot use logFormat (variable of type string) as func(*\"go.ssnk.in/utils/logger\".Logger) value in argument to logger.New\ntest/integration/modules/logger/logger.go:20:54: cannot use trace (variable of type bool) as func(*\"go.ssnk.in/utils/logger\".Logger) value in argument to logger.New\ntest/integration/modules/logger/logger.go:22:6: log.With undefined (type \"go.ssnk.in/utils/logger\".Logger has no field or method With)",
+      "Severity": "",
+      "SourceLines": [
+        "package logger"
+      ],
+      "Replacement": null,
+      "Pos": {
+        "Filename": "test/integration/modules/logger/logger.go",
+        "Offset": 0,
+        "Line": 1,
+        "Column": 0
+      },
+      "ExpectNoLint": false,
+      "ExpectedNoLintLinter": ""
+    },
+    {
+      "FromLinter": "gofumpt",
+      "Text": "File is not `gofumpt`-ed",
+      "Severity": "",
+      "SourceLines": [
+        "type Integration struct {",
+        "}"
+      ],
+      "Replacement": {
+        "NeedOnlyDelete": false,
+        "NewLines": [
+          "type Integration struct{}"
+        ],
+        "Inline": null
+      },
+      "LineRange": {
+        "From": 18,
+        "To": 19
+      },
+      "Pos": {
+        "Filename": "test/types/types.go",
+        "Offset": 0,
+        "Line": 18,
+        "Column": 0
+      },
+      "ExpectNoLint": false,
+      "ExpectedNoLintLinter": ""
+    },
+    {
+      "FromLinter": "gofumpt",
+      "Text": "File is not `gofumpt`-ed",
+      "Severity": "",
+      "SourceLines": [
+        "type Profile struct {",
+        "}"
+      ],
+      "Replacement": {
+        "NeedOnlyDelete": false,
+        "NewLines": [
+          "type Profile struct{}"
+        ],
+        "Inline": null
+      },
+      "LineRange": {
+        "From": 21,
+        "To": 22
+      },
+      "Pos": {
+        "Filename": "test/types/types.go",
+        "Offset": 0,
+        "Line": 21,
+        "Column": 0
+      },
+      "ExpectNoLint": false,
+      "ExpectedNoLintLinter": ""
+    },
+    {
+      "FromLinter": "gofumpt",
+      "Text": "File is not `gofumpt`-ed",
+      "Severity": "",
+      "SourceLines": [
+        "type Load struct {",
+        "}"
+      ],
+      "Replacement": {
+        "NeedOnlyDelete": false,
+        "NewLines": [
+          "type Load struct{}"
+        ],
+        "Inline": null
+      },
+      "LineRange": {
+        "From": 24,
+        "To": 25
+      },
+      "Pos": {
+        "Filename": "test/types/types.go",
+        "Offset": 0,
+        "Line": 24,
+        "Column": 0
+      },
+      "ExpectNoLint": false,
+      "ExpectedNoLintLinter": ""
+    }
+  ],
+  "Report": {
+    "Linters": [
+      {
+        "Name": "asasalint"
+      },
+      {
+        "Name": "asciicheck",
+        "Enabled": true
+      },
+      {
+        "Name": "bidichk",
+        "Enabled": true
+      },
+      {
+        "Name": "bodyclose"
+      },
+      {
+        "Name": "containedctx"
+      },
+      {
+        "Name": "contextcheck"
+      },
+      {
+        "Name": "cyclop"
+      },
+      {
+        "Name": "decorder",
+        "Enabled": true
+      },
+      {
+        "Name": "deadcode"
+      },
+      {
+        "Name": "depguard",
+        "Enabled": true
+      },
+      {
+        "Name": "dogsled",
+        "Enabled": true
+      },
+      {
+        "Name": "dupl",
+        "Enabled": true
+      },
+      {
+        "Name": "dupword",
+        "Enabled": true
+      },
+      {
+        "Name": "durationcheck"
+      },
+      {
+        "Name": "errcheck",
+        "EnabledByDefault": true
+      },
+      {
+        "Name": "errchkjson"
+      },
+      {
+        "Name": "errname"
+      },
+      {
+        "Name": "errorlint"
+      },
+      {
+        "Name": "execinquery"
+      },
+      {
+        "Name": "exhaustive"
+      },
+      {
+        "Name": "exhaustivestruct"
+      },
+      {
+        "Name": "exhaustruct"
+      },
+      {
+        "Name": "exportloopref"
+      },
+      {
+        "Name": "forbidigo"
+      },
+      {
+        "Name": "forcetypeassert",
+        "Enabled": true
+      },
+      {
+        "Name": "funlen",
+        "Enabled": true
+      },
+      {
+        "Name": "gci",
+        "Enabled": true
+      },
+      {
+        "Name": "ginkgolinter"
+      },
+      {
+        "Name": "gocheckcompilerdirectives",
+        "Enabled": true
+      },
+      {
+        "Name": "gochecknoglobals"
+      },
+      {
+        "Name": "gochecknoinits",
+        "Enabled": true
+      },
+      {
+        "Name": "gocognit",
+        "Enabled": true
+      },
+      {
+        "Name": "goconst",
+        "Enabled": true
+      },
+      {
+        "Name": "gocritic"
+      },
+      {
+        "Name": "gocyclo",
+        "Enabled": true
+      },
+      {
+        "Name": "godot",
+        "Enabled": true
+      },
+      {
+        "Name": "godox",
+        "Enabled": true
+      },
+      {
+        "Name": "goerr113"
+      },
+      {
+        "Name": "gofmt",
+        "Enabled": true
+      },
+      {
+        "Name": "gofumpt",
+        "Enabled": true
+      },
+      {
+        "Name": "goheader",
+        "Enabled": true
+      },
+      {
+        "Name": "goimports",
+        "Enabled": true
+      },
+      {
+        "Name": "golint"
+      },
+      {
+        "Name": "gomnd"
+      },
+      {
+        "Name": "gomoddirectives",
+        "Enabled": true
+      },
+      {
+        "Name": "gomodguard",
+        "Enabled": true
+      },
+      {
+        "Name": "goprintffuncname",
+        "Enabled": true
+      },
+      {
+        "Name": "gosec"
+      },
+      {
+        "Name": "gosimple",
+        "EnabledByDefault": true
+      },
+      {
+        "Name": "gosmopolitan"
+      },
+      {
+        "Name": "govet",
+        "EnabledByDefault": true
+      },
+      {
+        "Name": "grouper",
+        "Enabled": true
+      },
+      {
+        "Name": "ifshort"
+      },
+      {
+        "Name": "importas"
+      },
+      {
+        "Name": "ineffassign",
+        "Enabled": true,
+        "EnabledByDefault": true
+      },
+      {
+        "Name": "interfacebloat",
+        "Enabled": true
+      },
+      {
+        "Name": "interfacer"
+      },
+      {
+        "Name": "ireturn"
+      },
+      {
+        "Name": "lll",
+        "Enabled": true
+      },
+      {
+        "Name": "loggercheck"
+      },
+      {
+        "Name": "maintidx",
+        "Enabled": true
+      },
+      {
+        "Name": "makezero"
+      },
+      {
+        "Name": "maligned"
+      },
+      {
+        "Name": "mirror"
+      },
+      {
+        "Name": "misspell",
+        "Enabled": true
+      },
+      {
+        "Name": "musttag"
+      },
+      {
+        "Name": "nakedret",
+        "Enabled": true
+      },
+      {
+        "Name": "nestif",
+        "Enabled": true
+      },
+      {
+        "Name": "nilerr"
+      },
+      {
+        "Name": "nilnil"
+      },
+      {
+        "Name": "nlreturn",
+        "Enabled": true
+      },
+      {
+        "Name": "noctx"
+      },
+      {
+        "Name": "nonamedreturns"
+      },
+      {
+        "Name": "nosnakecase"
+      },
+      {
+        "Name": "nosprintfhostport",
+        "Enabled": true
+      },
+      {
+        "Name": "paralleltest"
+      },
+      {
+        "Name": "prealloc",
+        "Enabled": true
+      },
+      {
+        "Name": "predeclared",
+        "Enabled": true
+      },
+      {
+        "Name": "promlinter",
+        "Enabled": true
+      },
+      {
+        "Name": "reassign"
+      },
+      {
+        "Name": "revive"
+      },
+      {
+        "Name": "rowserrcheck"
+      },
+      {
+        "Name": "scopelint"
+      },
+      {
+        "Name": "sqlclosecheck"
+      },
+      {
+        "Name": "staticcheck",
+        "EnabledByDefault": true
+      },
+      {
+        "Name": "structcheck"
+      },
+      {
+        "Name": "stylecheck"
+      },
+      {
+        "Name": "tagalign",
+        "Enabled": true
+      },
+      {
+        "Name": "tagliatelle",
+        "Enabled": true
+      },
+      {
+        "Name": "tenv"
+      },
+      {
+        "Name": "testableexamples",
+        "Enabled": true
+      },
+      {
+        "Name": "testpackage",
+        "Enabled": true
+      },
+      {
+        "Name": "thelper"
+      },
+      {
+        "Name": "tparallel"
+      },
+      {
+        "Name": "typecheck",
+        "Enabled": true,
+        "EnabledByDefault": true
+      },
+      {
+        "Name": "unconvert"
+      },
+      {
+        "Name": "unparam"
+      },
+      {
+        "Name": "unused",
+        "EnabledByDefault": true
+      },
+      {
+        "Name": "usestdlibvars",
+        "Enabled": true
+      },
+      {
+        "Name": "varcheck"
+      },
+      {
+        "Name": "varnamelen"
+      },
+      {
+        "Name": "wastedassign"
+      },
+      {
+        "Name": "whitespace",
+        "Enabled": true
+      },
+      {
+        "Name": "wrapcheck"
+      },
+      {
+        "Name": "wsl",
+        "Enabled": true
+      },
+      {
+        "Name": "zerologlint"
+      },
+      {
+        "Name": "nolintlint",
+        "Enabled": true
+      }
+    ]
+  }
+}
