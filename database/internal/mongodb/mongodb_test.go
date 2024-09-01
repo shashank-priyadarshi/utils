@@ -3,6 +3,7 @@ package mongodb
 import (
 	"context"
 	"fmt"
+	"go.ssnk.in/utils/types"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -29,7 +30,7 @@ func Test_Create(t *testing.T) {
 
 	handle := Handle(client)
 
-	tests := []utilities.Test{{
+	tests := []types.Test{{
 		Name: "happy path",
 		TestCase: func(t *testing.T) {
 			documents := []interface{}{bson.D{{"foo", "bar"}}, bson.D{{"hello", "world"}}, bson.D{{"pi", 3.14159}}}
@@ -58,7 +59,7 @@ func Test_Query(t *testing.T) {
 
 	handle := Handle(client)
 
-	tests := []utilities.Test{{
+	tests := []types.Test{{
 		Name: "happy path",
 		TestCase: func(t *testing.T) {
 			documents := []interface{}{bson.D{{"foo", "bar"}}, bson.D{{"hello", "world"}}, bson.D{{"pi", 3.14159}}}
@@ -92,7 +93,7 @@ func Test_Update(t *testing.T) {
 
 	handle := Handle(client)
 
-	tests := []utilities.Test{{
+	tests := []types.Test{{
 		Name: "happy path",
 		TestCase: func(t *testing.T) {
 			query := []interface{}{bson.D{{"foo", "bar"}}, bson.D{{"hello", "world"}}, bson.D{{"pi", 3.14159}}}
@@ -130,7 +131,7 @@ func Test_Delete(t *testing.T) {
 
 	handle := Handle(client)
 
-	tests := []utilities.Test{{
+	tests := []types.Test{{
 		Name: "happy path",
 		TestCase: func(t *testing.T) {
 			query := []interface{}{bson.D{{"foo", "bar"}}}
