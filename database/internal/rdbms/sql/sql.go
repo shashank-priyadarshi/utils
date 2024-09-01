@@ -4,9 +4,9 @@ import (
 	"context"
 	"database/sql"
 	"fmt"
-	"go.ssnk.in/utils/errors"
 
 	"go.ssnk.in/utils/database/models"
+	"go.ssnk.in/utils/errors"
 )
 
 type Handler struct {
@@ -14,7 +14,6 @@ type Handler struct {
 }
 
 func Handle(client *sql.DB) *Handler {
-
 	return &Handler{
 		client: client,
 	}
@@ -30,7 +29,6 @@ Query
 Add query validator to validate query and required arguments
 */
 func (h *Handler) Query(ctx context.Context, args ...interface{}) (*models.Response, error) {
-
 	if len(args) < 2 {
 		return nil, errors.InsufficientParameters.Error(2, len(args))
 	}
@@ -76,7 +74,6 @@ Update
 Add query validator to validate query and required arguments
 */
 func (h *Handler) Update(ctx context.Context, args ...interface{}) (*models.Response, error) {
-
 	if len(args) < 1 {
 		return nil, errors.InsufficientParameters.Error(1, len(args))
 	}

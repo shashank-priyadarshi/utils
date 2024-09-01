@@ -1,20 +1,20 @@
 package algo
 
-import "github.com/pkg/errors"
+import "errors"
 
-// Trie represents the Trie data structure
+// Trie represents the Trie data structure.
 type Trie[K comparable, V any] struct {
 	root *TrieNode[K, V]
 }
 
-// TrieNode represents a node in the Trie
+// TrieNode represents a node in the Trie.
 type TrieNode[K comparable, V any] struct {
 	children map[K]*TrieNode[K, V]
 	isWord   bool
 	value    V
 }
 
-// NewTrie initializes and returns a new Trie
+// NewTrie initializes and returns a new Trie.
 func NewTrie[K comparable, V any]() *Trie[K, V] {
 	return &Trie[K, V]{root: &TrieNode[K, V]{children: make(map[K]*TrieNode[K, V])}}
 }
@@ -43,6 +43,7 @@ func (t *Trie[K, V]) Search(key []K) (V, bool) {
 		child, exists := node.children[k]
 		if !exists {
 			var zeroValue V
+
 			return zeroValue, false
 		}
 
@@ -54,6 +55,7 @@ func (t *Trie[K, V]) Search(key []K) (V, bool) {
 	}
 
 	var zeroValue V
+
 	return zeroValue, false
 }
 
@@ -76,6 +78,7 @@ func (t *Trie[K, V]) deleteRecursive(node *TrieNode[K, V], key []K, depth int) e
 	}
 
 	k := key[depth]
+
 	child, exists := node.children[k]
 	if !exists {
 		return errors.New("key not found")

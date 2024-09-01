@@ -3,11 +3,11 @@ package mongodb
 import (
 	"context"
 	"fmt"
-	"go.ssnk.in/utils/errors"
 
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.ssnk.in/utils/database/models"
+	"go.ssnk.in/utils/errors"
 	_ "go.ssnk.in/utils/errors"
 )
 
@@ -22,7 +22,6 @@ func Handle(client *mongo.Client) *Handler {
 }
 
 func (h *Handler) Create(ctx context.Context, args ...interface{}) (*models.Response, error) {
-
 	if len(args) < 3 {
 		return nil, errors.InsufficientParameters.Error(3, len(args))
 	}
@@ -55,7 +54,6 @@ func (h *Handler) Create(ctx context.Context, args ...interface{}) (*models.Resp
 }
 
 func (h *Handler) Query(ctx context.Context, args ...interface{}) (*models.Response, error) {
-
 	if len(args) < 3 {
 		return nil, errors.InsufficientParameters.Error(3, len(args))
 	}
@@ -103,7 +101,6 @@ func (h *Handler) Query(ctx context.Context, args ...interface{}) (*models.Respo
 }
 
 func (h *Handler) Update(ctx context.Context, args ...interface{}) (*models.Response, error) {
-
 	if len(args) < 4 {
 		return nil, errors.InsufficientParameters.Error(4, len(args))
 	}
@@ -149,7 +146,6 @@ func (h *Handler) Update(ctx context.Context, args ...interface{}) (*models.Resp
 }
 
 func (h *Handler) Delete(ctx context.Context, args ...interface{}) (*models.Response, error) {
-
 	if len(args) < 3 {
 		return nil, errors.InsufficientParameters.Error(3, len(args))
 	}

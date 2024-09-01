@@ -3,7 +3,6 @@ package mongodb
 import (
 	"context"
 	"fmt"
-	"go.ssnk.in/utils/types"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -14,11 +13,11 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 	_ "go.mongodb.org/mongo-driver/mongo/integration/mtest"
 	"go.mongodb.org/mongo-driver/mongo/options"
+	"go.ssnk.in/utils/types"
 )
 
 func Test_Create(t *testing.T) {
-
-	//logger := ports.NewMockLogger(t)
+	// logger := ports.NewMockLogger(t)
 	server, err := strikememongo.Start("4.0.5")
 	defer server.Stop()
 	assert.Equal(t, nil, err)
@@ -46,8 +45,7 @@ func Test_Create(t *testing.T) {
 }
 
 func Test_Query(t *testing.T) {
-
-	//logger := ports.NewMockLogger(t)
+	// logger := ports.NewMockLogger(t)
 	server, err := strikememongo.Start("4.0.5")
 	defer server.Stop()
 	assert.Equal(t, nil, err)
@@ -80,8 +78,7 @@ func Test_Query(t *testing.T) {
 }
 
 func Test_Update(t *testing.T) {
-
-	//logger := ports.NewMockLogger(t)
+	// logger := ports.NewMockLogger(t)
 	server, err := strikememongo.Start("4.0.5")
 	defer server.Stop()
 	assert.Equal(t, nil, err)
@@ -118,8 +115,7 @@ func Test_Update(t *testing.T) {
 }
 
 func Test_Delete(t *testing.T) {
-
-	//logger := ports.NewMockLogger(t)
+	// logger := ports.NewMockLogger(t)
 	server, err := strikememongo.Start("4.0.5")
 	defer server.Stop()
 	assert.Equal(t, nil, err)
@@ -144,8 +140,8 @@ func Test_Delete(t *testing.T) {
 			assert.Equal(t, nil, err)
 
 			// TODO: Result should contain deleted count
-			//values := response.Result[0].(int64)
-			//assert.Equal(t, 1, values)
+			// values := response.Result[0].(int64)
+			// assert.Equal(t, 1, values)
 		},
 	}}
 

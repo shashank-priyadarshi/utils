@@ -1,10 +1,11 @@
 package logger
 
 import (
+	"time"
+
 	"go.ssnk.in/utils/logger/constants"
 	"go.ssnk.in/utils/logger/internal"
 	"go.ssnk.in/utils/logger/ports"
-	"time"
 )
 
 type Logger struct {
@@ -24,7 +25,6 @@ type RotateOptions struct {
 }
 
 func New(opts ...func(*Logger)) Logger {
-
 	l := &Logger{
 		Logger: nil,
 	}

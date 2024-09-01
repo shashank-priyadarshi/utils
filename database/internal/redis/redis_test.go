@@ -3,17 +3,16 @@ package redis
 import (
 	"context"
 	"fmt"
-	"go.ssnk.in/utils/types"
 	"testing"
 
 	"github.com/alicebob/miniredis/v2"
 	"github.com/redis/go-redis/v9"
 	"github.com/stretchr/testify/assert"
+	"go.ssnk.in/utils/types"
 )
 
 func Test_Create(t *testing.T) {
-
-	//logger := ports.NewMockLogger(t)
+	// logger := ports.NewMockLogger(t)
 	miniredisServer := miniredis.NewMiniRedis()
 	if err := miniredisServer.Start(); err != nil {
 		t.Fatal("failed to start redis test server using mini redis")
@@ -45,8 +44,7 @@ func Test_Create(t *testing.T) {
 }
 
 func Test_Query(t *testing.T) {
-
-	//logger := ports.NewMockLogger(t)
+	// logger := ports.NewMockLogger(t)
 	miniredisServer := miniredis.NewMiniRedis()
 	if err := miniredisServer.Start(); err != nil {
 		t.Fatal("failed to start redis test server using mini redis")
@@ -80,8 +78,7 @@ func Test_Query(t *testing.T) {
 }
 
 func Test_Update(t *testing.T) {
-
-	//logger := ports.NewMockLogger(t)
+	// logger := ports.NewMockLogger(t)
 	miniredisServer := miniredis.NewMiniRedis()
 	if err := miniredisServer.Start(); err != nil {
 		t.Fatal("failed to start redis test server using mini redis")
@@ -121,8 +118,7 @@ func Test_Update(t *testing.T) {
 }
 
 func Test_Delete(t *testing.T) {
-
-	//logger := ports.NewMockLogger(t)
+	// logger := ports.NewMockLogger(t)
 	miniredisServer := miniredis.NewMiniRedis()
 	if err := miniredisServer.Start(); err != nil {
 		t.Fatal("failed to start redis test server using mini redis")
