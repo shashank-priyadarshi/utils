@@ -125,10 +125,17 @@ jobs:
         continue-on-error: true
         run: |
           golangci-lint --config .golangci.yaml --out-format json run ./... > external_issues.json
-          ls
-          ls ..
-          ls ../..
-          cat external_issues.json
+      
+      - name: 'validate golangci-lint json output'
+        run: |
+          first_line=$(head -n 1 external_issues.json)
+          
+          if jq -n -c -e 'fromjson($ENV.FIRST_LINE)' FIRST_LINE="$first_line"; then
+            echo "$first_line" > "external_issues.json"
+          else
+            echo "{}" > "external_issues.json"
+          fi
+
           git add external_issues.json
           git config user.name "golangci-lint actions"
           git commit -m "golangci-lint scan output"
