@@ -155,15 +155,15 @@ jobs:
       - name: 'Dependency Review'
         uses: actions/dependency-review-action@main
         with:
-          base-ref: pull_request
-          head-ref: pull_request_target
+          base-ref: dev
+          head-ref: main
           comment-summary-in-pr: always
           show-openssf-scorecard: true
           vulnerability-check: true
-          # license-check: true
-          # allow-licenses: GPL-3.0, BSD-3-Clause, MIT
-          # allow-dependencies-licenses: GPL-3.0, BSD-3-Clause, MIT
-          # fail-on-severity: critical
+          license-check: true
+          allow-licenses: GPL-3.0, BSD-3-Clause, MIT
+          allow-dependencies-licenses: GPL-3.0, BSD-3-Clause, MIT
+          warn-only: true
 
       # https://github.com/actions/labeler
       - name: 'Labeler'
