@@ -100,14 +100,10 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-go-
 
-      - name: 'Set env'
-        run: export RELEASE_VERSION=$(git describe --tags --abbrev=0)
-
       - name: 'Run tests'
         run: |
           go test -json > test_report.out
           go test -coverprofile=coverage.out
-          go test -coverprofile=coverage.txt
 
       - name: 'Cache golangci-lint'
         uses: actions/cache@v3
@@ -143,13 +139,13 @@ jobs:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
           SONAR_TOKEN: "${{ secrets.SONAR_TOKEN }}"
           SONAR_HOST_URL: "${{ secrets.SONAR_HOST_URL }}"
+          RELEASE_VERSION: ${{ steps.vars.outputs.tag }}
         with:
           args:
             -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }}
             -Dsonar.organization=${{ secrets.SONAR_ORGANIZATION }}
             -Dsonar.projectVersion=$RELEASE_VERSION
-            # -Dsonar.exclusions=**/*.@(c|cpp|h|hpp|inl|cc|cxx|mm|mii)  # Exclude common C/C++ files (optional)
-
+      
       - name: 'Upload coverage reports to Codecov'
         uses: codecov/codecov-action@main
         with:
@@ -163,7 +159,7 @@ jobs:
           head-ref: pull_request_target
           license-check: true
           allow-licenses: GPL-3.0, BSD-3-Clause, MIT
-          allow-dependencies-licenses: GPL-3.0, BSD-3-Clause, MIT
+          # allow-dependencies-licenses: GPL-3.0, BSD-3-Clause, MIT
           comment-summary-in-pr: always
           fail-on-severity: moderate
           show-openssf-scorecard: true
