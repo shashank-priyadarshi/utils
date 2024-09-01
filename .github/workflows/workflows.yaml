@@ -1,0 +1,178 @@
+name: Unified Workflows
+
+on:
+  pull_request:
+    branches: [ 'main' ]
+  push:
+    branches: [ 'main' ]
+    tags:
+      - 'v*.*.*'
+  workflow_dispatch:
+
+permissions:
+  actions: "read"
+  issues: "write"
+  checks: "write"
+  security-events: "write"
+  pull-requests: "write"
+  contents: "write"
+
+jobs:
+  workflows:
+    runs-on: "ubuntu-latest"
+    permissions:
+      actions: "read"
+      issues: "write"
+      checks: "write"
+      security-events: "write"
+      pull-requests: "write"
+      contents: "write"
+
+    steps:
+      # https://github.com/Codium-ai/pr-agent
+      - name: 'PR Agent action step'
+        id: pragent
+        uses: Codium-ai/pr-agent@main
+        env:
+          OPENAI_KEY: "${{ secrets.OPENAI_KEY }}"
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+          OPENAI.ORG: "${{ secrets.OPENAI_ORG }}"
+          PR_REVIEWER.REQUIRE_TESTS_REVIEW: "false" # Disable tests review
+          PR_CODE_SUGGESTIONS.NUM_CODE_SUGGESTIONS: 20
+
+      # https://github.com/amannn/action-semantic-pull-request
+      - name: 'Semantic Pull Requests'
+        uses: amannn/action-semantic-pull-request@main
+        continue-on-error: true
+        env:
+          GITHUB_TOKEN: "${{secrets.GITHUB_TOKEN}}"
+        with:
+          wip: true
+          types: |
+            fix
+            feat
+            docs
+            perf
+            refactor
+            revert
+            test
+          scopes: |
+            core
+            ui
+            JIRA-\d+
+          requireScope: true
+          disallowScopes: |
+            release
+            [A-Z]+
+            algo
+            database
+            logger
+          subjectPattern: ^(?![A-Z]).+$
+          subjectPatternError: |
+            The subject "{subject}" found in the pull request title "{title}"
+            didn't match the configured pattern. Please ensure that the subject
+            doesn't start with an uppercase character.
+          githubBaseUrl: https://github.com/shashank-priyadarshi/utils
+          ignoreLabels: |
+            bot
+            ignore-semantic-pull-request
+          headerPattern: '^(\w*)(?:\(([\w$.\-*/ ]*)\))?: (.*)$'
+          headerPatternCorrespondence: type, scope, subject
+
+      # https://github.com/actions/dependency-review-action
+      - name: 'Checkout Repository'
+        uses: actions/checkout@main
+        with:
+          fetch-depth: 0
+
+      - name: 'Install Go 1.23'
+        uses: actions/setup-go@v4
+        with:
+          go-version: 1.23
+
+      - name: 'Cache Go Modules'
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.cache/go-build
+            ~/go/pkg/mod
+          key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
+          restore-keys: |
+            ${{ runner.os }}-go-
+
+      - name: 'Run tests'
+        run: |
+          go test -json > test_report.out
+          go test -coverprofile=coverage.out
+
+      # - name: 'Cache golangci-lint'
+      #   uses: actions/cache@v3
+      #   with:
+      #     path: /usr/local/bin/golangci-lint
+      #     key: ${{ runner.os }}-golangci-lint-${{ hashFiles('**/go.sum') }}
+
+      # Install golangci-lint
+      - name: 'Run golangci-lint'
+        uses: golangci/golangci-lint-action@master
+        with:
+          version: latest
+          args: --config .golangci.yaml --out-format json ./... > external_issues.json
+
+      # - name: 'golangci-lint scan & save output'
+      #   continue-on-error: true
+      #   run: |
+      #     golangci-lint --config .golangci.yaml --out-format json run ./... > external_issues.json
+      
+      # - name: 'validate golangci-lint json output'
+      #   run: |
+      #     first_line=$(head -n 1 external_issues.json)
+          
+      #     if jq -n --argjson json "$first_line" '$json' > "external_issues.json"; then
+      #       echo "golangci lint issues written to external_issues.json"
+      #     else
+      #       echo "{}" > "external_issues.json"
+      #     fi
+
+      - name: 'Analyze with SonarQube'
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+          SONAR_TOKEN: "${{ secrets.SONAR_TOKEN }}"
+          SONAR_HOST_URL: "${{ secrets.SONAR_HOST_URL }}"
+          RELEASE_VERSION: ${{ steps.vars.outputs.tag }}
+        with:
+          args:
+            -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }}
+            -Dsonar.organization=${{ secrets.SONAR_ORGANIZATION }}
+            -Dsonar.projectVersion=$RELEASE_VERSION
+      
+      - name: 'Upload coverage reports to Codecov'
+        uses: codecov/codecov-action@main
+        with:
+          token: "${{ secrets.CODECOV_TOKEN }}"
+          slug: shashank-priyadarshi/utils
+
+      - name: 'Dependency Review'
+        uses: actions/dependency-review-action@main
+        with:
+          base-ref: dev
+          head-ref: main
+          comment-summary-in-pr: always
+          allow-licenses: GPL-3.0, BSD-3-Clause, MIT
+          warn-only: true
+
+      # https://github.com/actions/labeler
+      - name: 'Labeler'
+        uses: actions/labeler@main
+        with:
+          repo-token: "${{ secrets.GITHUB_TOKEN }}"
+
+      # https://github.com/actions/stale
+      - name: 'Stale manager'
+        uses: actions/stale@main
+        with:
+          repo-token: "${{ secrets.GITHUB_TOKEN }}"
+          stale-issue-message: 'Stale issue message'
+          stale-pr-message: 'Stale pull request message'
+          stale-issue-label: 'no-issue-activity'
+          stale-pr-label: 'no-pr-activity'

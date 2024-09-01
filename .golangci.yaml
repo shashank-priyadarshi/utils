@@ -1,0 +1,132 @@
+run:
+  tests: true
+  timeout: 10m
+  concurrency: 15
+  allow-parallel-runners: true
+  allow-serial-runners: true
+  issues-exit-code: 0
+  go: '1.23'
+  build-tags:
+    - all
+
+linters:
+  enable-all: true
+  disable:
+    - gomnd
+  fast: true
+
+linters-settings:
+  govet:
+    shadow: true
+    fast: false
+    enable-all: true
+
+  dupl:
+    # tokens count to trigger issue, 150 by default
+    threshold: 500
+
+  misspell:
+    ignore-words:
+      - hdinsight
+
+  revive:
+    enable-all-rules: true
+    rules:
+      - name: cyclomatic
+        disabled: true
+      - name: argument-limit
+        disabled: true
+      - name: function-length
+        disabled: true
+      - name: function-result-limit
+        disabled: true
+      - name: line-length-limit
+        disabled: true
+      - name: file-header
+        disabled: true
+      - name: cognitive-complexity
+        disabled: true
+      - name: banned-characters
+        disabled: true
+      - name: max-public-structs
+        disabled: true
+      - name: add-constant
+        disabled: true
+      - name: unhandled-error
+        disabled: true
+      - name: var-naming
+        disabled: true
+      - name: deep-exit
+        disabled: true
+      - name: exported
+        disabled: false
+        arguments:
+          - 'disableStutteringCheck'
+      - name: unused-parameter
+        disabled: true
+      - name: confusing-naming
+        disabled: true
+      - name: confusing-results
+        disabled: true
+      - name: flag-parameter
+        disabled: true
+      - name: nested-structs
+        disabled: true
+      - name: unchecked-type-assertion
+        disabled: true
+      - name: import-alias-naming
+        disabled: true
+      - name: redundant-import-alias
+        disabled: true
+
+    gofmt:
+      rewrite-rules:
+        - pattern: 'interface{}'
+          replacement: 'any'
+        - pattern: 'a[b:len(a)]'
+          replacement: 'a[b:]'
+
+issues:
+  exclude-generated: strict
+  max-same-issues: 0
+  #  new: true
+  #  fix: true
+  exclude-rules:
+    - path: _test\.go
+      linters:
+        - dupl
+        - gocritic
+  exclude-files:
+    #    - ^(?!.*(algo|database|logger)$)(?!.*\btest\b).*\.go$
+    #    - ^(?!.*(?:algo|database|logger)(?!.*\btest\b)).*\.go$
+    #    - '^(?=.*test)(?!.*(?:algo|database|logger)).*\.go$'
+#    - '**/[ ^/ ](?!algo|database|logger)/**/*.go'
+  exclude-dirs:
+    - mocks
+    - _site
+    - vendor
+    - dist
+    - node_modules
+    - .githooks
+    - .idx
+    - assets
+    - test
+    - bin
+    - docs
+    - codegen
+
+output:
+  formats:
+    - format: json
+      path: stderr
+    - format: github-actions
+      path: lint
+  print-issued-lines: true
+  print-linter-name: true
+  uniq-by-line: true
+  sort-results: true
+  show-stats: true
+  sort-order:
+    - linter
+    - severity
+    - file

@@ -1,0 +1,12 @@
+packages:
+  - data
+  - database
+  - logger
+  - network
+  - pubsub
+  - security
+  - worker
+
+integration:
+profile:
+load:

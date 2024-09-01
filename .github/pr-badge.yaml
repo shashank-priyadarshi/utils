@@ -1,0 +1,49 @@
+- label: "Ticket"
+  message: "$issuePrefix"
+  icon: "github"
+  prNumber: "$payload.pull_request.number"
+  color: "purple"
+  url: "https://github.com/shashank-priyadarshi/utilities/issues/$issuePrefix"
+  when: "$issuePrefix"
+
+- message: "Work in Progress"
+  color: "yellow"
+  when: "$payload.pull_request.title.includes('WIP')"
+
+- message: "Outside contributor"
+  color: "#000000"
+  when: "$payload.pull_request.author_association == 'NONE'"
+
+- message: "First time contributor"
+  color: "#000000"
+  when: "$payload.pull_request.author_association == 'FIRST_TIME_CONTRIBUTOR'"
+
+- label: "Label"
+  message: "Feature"
+  when: "$labels.includes('Feature')"
+
+- label: "Commits"
+  message: "$payload.pull_request.commits"
+
+- label: "Changed Files"
+  message: "$payload.pull_request.changed_files"
+
+- label: "Additions"
+  message: "$payload.pull_request.additions"
+
+- label: "Deletions"
+  message: "$payload.pull_request.deletions"
+
+- label: "Author"
+  message: "$payload.pull_request.author_association"
+
+
+- label: "PR Size"
+  message: "Large"
+  color: "red"
+  when: "$additions >= 500"
+
+- label: "PR Size"
+  message: "Medium"
+  color: "yellow"
+  when: "$additions > 200 && $additions < 500"
