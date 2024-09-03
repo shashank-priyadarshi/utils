@@ -12,7 +12,7 @@ func Test() {
 	defer log.Fatal(fmt.Errorf("fatal error"), "fatal_key", "fatal_value") // debug
 	defer func() {
 		if r := recover(); r != nil {
-			log.Info("panic from log.Panic recovered", "panic_error", r)
+			log.Error(fmt.Errorf("panic from log.Panic recovered"), "panic_error", r)
 		}
 	}()
 

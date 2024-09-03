@@ -8,7 +8,6 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.ssnk.in/utils/database/models"
 	"go.ssnk.in/utils/errors"
-	_ "go.ssnk.in/utils/errors"
 )
 
 type Handler struct {
@@ -68,15 +67,15 @@ func (h *Handler) Query(ctx context.Context, args ...interface{}) (*models.Respo
 	)
 
 	if database, ok = args[0].(string); !ok {
-		return nil, errors.InvalidParameterType.Error("database", database, args[0])
+		return nil, errors.InvalidParameterType.Error("args[0]", database, args[0])
 	}
 
 	if collection, ok = args[1].(string); !ok {
-		return nil, errors.InvalidParameterType.Error("collection", collection, args[1])
+		return nil, errors.InvalidParameterType.Error("args[1]", collection, args[1])
 	}
 
-	if database, ok = args[0].(string); !ok {
-		return nil, errors.InvalidParameterType.Error("query", query, args[2])
+	if query, ok = args[2].(bson.D); !ok {
+		return nil, errors.InvalidParameterType.Error("args[2]", query, args[2])
 	}
 
 	if cur, err = h.client.Database(database).Collection(collection).Find(ctx, query); err != nil {
