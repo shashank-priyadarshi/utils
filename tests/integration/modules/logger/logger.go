@@ -2,11 +2,11 @@ package logger
 
 import (
 	"fmt"
+
 	"go.ssnk.in/utils/logger"
 )
 
 func Test() {
-
 	log := logger.New(logger.SetProvider("slog"), logger.SetLevel("warn"), logger.SetFormat("json"), logger.WithTracing())
 
 	defer log.Fatal(fmt.Errorf("fatal error"), "fatal_key", "fatal_value") // debug
