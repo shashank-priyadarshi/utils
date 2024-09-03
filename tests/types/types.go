@@ -1,10 +1,46 @@
 package types
 
+import "fmt"
+
 type Config struct {
-	Packages    []Package   `yaml:"packages"`
-	Integration Integration `yaml:"integration"`
-	Profile     Profile     `yaml:"profile"`
-	Load        Load        `yaml:"load"`
+	Package Package `json:"name"`
+	Config  map[Test]struct {
+		Key   string `yaml:"key"`
+		Value string `yaml:"value"`
+	} `yaml:"config,omitempty"`
+}
+
+func (c *Config) UnmarshalYAML(unmarshal func(interface{}) error) error {
+	type Alias Config
+	aux := &struct {
+		Package int `yaml:"name"`
+		Config  map[int]struct {
+			Key   string `yaml:"key"`
+			Value string `yaml:"value"`
+		} `yaml:"config,omitempty"`
+		*Alias
+	}{
+		Alias: (*Alias)(c),
+	}
+
+	if err := unmarshal(aux); err != nil {
+		return err
+	}
+
+	c.Package = Package(aux.Package)
+	c.Config = make(map[Test]struct {
+		Key   string `yaml:"key"`
+		Value string `yaml:"value"`
+	})
+	for k, v := range aux.Config {
+		test := Test(k)
+		if test < Integration || test > Load {
+			return fmt.Errorf("invalid test value: %d", k)
+		}
+		c.Config[test] = v
+	}
+
+	return nil
 }
 
 type Package int
@@ -15,8 +51,10 @@ const (
 	Logger
 )
 
-type Integration struct{}
+type Test int
 
-type Profile struct{}
-
-type Load struct{}
+const (
+	Integration Test = iota
+	Profile
+	Load
+)

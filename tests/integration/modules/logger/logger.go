@@ -2,24 +2,23 @@ package logger
 
 import (
 	"fmt"
-
 	"go.ssnk.in/utils/logger"
 )
 
 func Test() {
-	//logProvider := os.Getenv("LOG_PROVIDER")
-	//logLevel := os.Getenv("LOG_LEVEL")
-	//logFormat := os.Getenv("LOG_FORMAT")
-	//traceRaw := os.Getenv("LOG_TRACE")
-	//
-	//trace, _ := strconv.ParseBool(traceRaw)
 
-	log := logger.New()
+	log := logger.New(logger.SetProvider("slog"), logger.SetLevel("warn"), logger.SetFormat("json"), logger.WithTracing())
 
-	// log.With("key", "value") // debug
-	log.Info("something", "info_key", "info_value")
-	log.Debug("something", "debug_key", "debug_value") // debug
-	log.Warn("something", "warn_key", "warn_value")
-	log.Error(fmt.Errorf("some error"), "err_key", "err_value")
-	log.Fatal(fmt.Errorf("some error"), "fatal_key", "fatal_value") // debug
+	defer log.Fatal(fmt.Errorf("fatal error"), "fatal_key", "fatal_value") // debug
+	defer func() {
+		if r := recover(); r != nil {
+			log.Info("panic from log.Panic recovered", "panic_error", r)
+		}
+	}()
+
+	log.Info("info message", "info_key", "info_value")
+	log.Debug("debug message", "debug_key", "debug_value") // not working
+	log.Warn("warn message", "warn_key", "warn_value")
+	log.Error(fmt.Errorf("error"), "err_key", "err_value")
+	log.Panic(fmt.Errorf("panic error"), "panic_key", "panic_value") // panic log can be better
 }
