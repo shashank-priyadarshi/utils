@@ -3,4 +3,4 @@
 commitlint_path=$(whereis commitlint)
 export PATH=$PATH:$commitlint_path
 
-commitlint --verbose --edit "$1"
+commitlint --config .githooks/commitlint.config.js --verbose --edit "$1"

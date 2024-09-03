@@ -1,0 +1,9 @@
+internal
+home go.ssnk.in/utils
+
+pagefind true
+basename _index.html
+
+highlight classes:tango
+
+out docs

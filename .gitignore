@@ -17,6 +17,7 @@ dist/
 *node_modules
 package.json
 *package-lock.json
+*scan*
 
 # Go workspace file
 go.work
@@ -37,3 +38,4 @@ go.work
 *logs*
 
 # Exceptions
+!*frontmatter*
