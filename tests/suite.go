@@ -17,25 +17,19 @@ import (
 )
 
 type Tester interface {
-	Execute(*types.Config) error
+	Execute([]types.Config) error
 }
-
-type Test int
-
-const (
-	Integration Test = iota
-	Profile
-	Load
-)
 
 const (
 	FlagDescriptionConfigPath string = `Config for each supported test in a YAML.
 	Default "configPath" value is "./config.yaml".`
 	FlagDescriptionTests = `Runs Unit and Integration tests by default.
-	To run all available tests in the suite, provide comma-separated values from 0 to 5, where
+	To run all available tests in the suite, provide comma-separated values from 0 to 3, where
 	1: Integration Tests,
 	2: Integration Tests with Profiling enabled,
-	3: Load Tests.`
+	3: Load Tests.
+	If this flag is not provided through args or config.yaml, all integration tests are run.
+	If both flag and config.yaml are detected, config.yaml takes precedence.`
 	FlagDescriptionParallel = `If multiple tests are to be run in the suite, starts tests in parallel by default.
 	Set "parallel" flag value to false to disable parallel execution.`
 )
@@ -43,23 +37,24 @@ const (
 func main() {
 
 	s := suite{
-		log: logger.New(logger.SetLevel("info"), logger.SetProvider("slog")),
+		log:   logger.New(logger.SetProvider("slog"), logger.SetLevel("info"), logger.SetFormat("json"), logger.WithTracing()),
+		tests: make(map[types.Test]Tester),
 	}
 
-	s.builders = map[Test]func() *suite{
-		Integration: s.withIntegrationTests,
-		Profile:     s.withProfiling,
-		Load:        s.withLoadTests,
+	s.builders = map[types.Test]func() *suite{
+		types.Integration: s.withIntegrationTests,
+		types.Profile:     s.withProfiling,
+		types.Load:        s.withLoadTests,
 	}
 
 	var (
 		configPath, testsStr string
 		parallel             bool
-		tests                []Test
+		tests                []types.Test
 	)
 
 	flag.StringVar(&configPath, "config", "./config.yaml", FlagDescriptionConfigPath)
-	flag.StringVar(&testsStr, "tests", "0,3", FlagDescriptionTests)
+	flag.StringVar(&testsStr, "tests", "0", FlagDescriptionTests)
 	flag.BoolVar(&parallel, "parallel", true, FlagDescriptionParallel)
 
 	testsStrArr := strings.Split(testsStr, ",")
@@ -70,7 +65,7 @@ func main() {
 			continue
 		}
 
-		tests = append(tests, Test(test))
+		tests = append(tests, types.Test(test))
 	}
 
 	f, err := os.Open(configPath)
@@ -83,13 +78,15 @@ func main() {
 		s.log.Panic(err)
 	}
 
-	var config types.Config
+	var config []types.Config
 	err = yaml.Unmarshal(configBody, &config)
 	if err != nil {
-		s.log.Panic(err)
+		err = fmt.Errorf("invalid config passed: %w", err)
+		s.log.Error(err)
+		return
 	}
 
-	s.config = &config
+	s.config = config
 
 	for _, t := range tests {
 		s.builders[t]()
@@ -136,9 +133,9 @@ func (s *suite) startExecution() {
 
 type suite struct {
 	log      loggerPorts.Logger
-	builders map[Test]func() *suite
-	tests    map[Test]Tester
-	config   *types.Config
+	builders map[types.Test]func() *suite
+	tests    map[types.Test]Tester
+	config   []types.Config
 }
 
 func (s *suite) withIntegrationTests() *suite {
