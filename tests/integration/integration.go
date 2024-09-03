@@ -2,8 +2,9 @@ package integration
 
 import (
 	"fmt"
-	_ "github.com/ory/dockertest/v3"
 	loggerPorts "go.ssnk.in/utils/logger/ports"
+
+	_ "github.com/ory/dockertest/v3"
 	"go.ssnk.in/utils/tests/integration/modules/algo"
 	"go.ssnk.in/utils/tests/integration/modules/database"
 	"go.ssnk.in/utils/tests/integration/modules/logger"
@@ -23,7 +24,6 @@ func New(logger loggerPorts.Logger) *Integration {
 
 func (i *Integration) Execute(c []types.Config) error {
 	i.logger.Info("Setting up integration tests...")
-
 	packageTests := make(map[types.Package]func())
 
 	// Store package integration tests for execution
