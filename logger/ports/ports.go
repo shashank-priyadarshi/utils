@@ -1,6 +1,12 @@
 package ports
 
 type Logger interface {
+	Dispatcher
+	Sugar
+	Leveler
+}
+
+type Dispatcher interface {
 	Panic(error, ...interface{})
 	Fatal(error, ...interface{})
 	Error(error, ...interface{})
@@ -10,9 +16,9 @@ type Logger interface {
 }
 
 type Sugar interface {
-	With(map[string]string) Logger
+	With(map[string]string) Dispatcher
 }
 
 type Leveler interface {
-	Level(string) Logger
+	Level(string) Dispatcher
 }
