@@ -1,0 +1,17 @@
+---
+title: "{{ with .Name }}{{ . }}{{ else }}Reference{{ end }}"
+no_list: true
+type: docs
+github_repo: "https://github.com/shashank-priyadarshi/utils"
+github_subdir: ""
+path_base_for_github_subdir:
+  from: "docs/_index.html"
+  to: "$2"
+{{ with .Package.Synopsis -}}
+  description: {{ printf "%q" . }}
+{{ else -}}
+  description: " "
+  # Use an empty description
+  # instead of inheriting the site description.
+{{ end }}
+---

@@ -2,6 +2,7 @@ package integration
 
 import (
 	"fmt"
+	loggerPorts "go.ssnk.in/utils/logger/ports"
 
 	_ "github.com/ory/dockertest/v3"
 	"go.ssnk.in/utils/tests/integration/modules/algo"
@@ -11,16 +12,18 @@ import (
 )
 
 type Integration struct {
+	logger   loggerPorts.Logger
 	packages []types.Package
 }
 
-func New() *Integration {
-	return &Integration{}
+func New(logger loggerPorts.Logger) *Integration {
+	return &Integration{
+		logger: logger,
+	}
 }
 
-func (i *Integration) Execute(c *types.Config) error {
-	fmt.Println("Setting up integration tests...")
-
+func (i *Integration) Execute(c []types.Config) error {
+	i.logger.Info("Setting up integration tests...")
 	packageTests := make(map[types.Package]func())
 
 	// Store package integration tests for execution
@@ -28,10 +31,11 @@ func (i *Integration) Execute(c *types.Config) error {
 	packageTests[types.Database] = database.Test
 	packageTests[types.Logger] = logger.Test
 
-	fmt.Println("Executing integration tests...")
-
-	for _, value := range i.packages {
-		packageTests[value]()
+	for _, pkg := range c {
+		if _, ok := pkg.Config[types.Integration]; ok {
+			i.logger.Info(fmt.Sprintf("Executing integration tests for package %d", pkg.Package))
+			packageTests[pkg.Package]()
+		}
 	}
 
 	return nil

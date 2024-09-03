@@ -1,6 +1,7 @@
 package internal
 
 import (
+	"go.ssnk.in/utils/logger/ports"
 	"log/slog"
 	"os"
 )
@@ -25,7 +26,7 @@ func NewSlogLogger(logLevel, format string, trace bool) Slog {
 	return logger
 }
 
-func (s Slog) init(logLevel, format string, trace bool) {
+func (s *Slog) init(logLevel, format string, trace bool) {
 	opts := &slog.HandlerOptions{}
 	var handler slog.Handler
 
@@ -104,11 +105,10 @@ func (s Slog) Fatal(err error, args ...interface{}) {
 }
 
 func (s Slog) Panic(err error, args ...interface{}) {
-	s.Error(err, args...)
 	panic(err)
 }
 
-func (s Slog) With(args map[string]string) {
+func (s Slog) With(args map[string]string) ports.Dispatcher {
 	var attrs []any
 
 	for key, val := range args {
@@ -117,4 +117,10 @@ func (s Slog) With(args map[string]string) {
 	}
 
 	s.logger = s.logger.With(attrs...)
+
+	return s
+}
+
+func (s Slog) Level(level string) ports.Dispatcher {
+	return s
 }

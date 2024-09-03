@@ -6,7 +6,7 @@ before:
   hooks:
     - go mod tidy
     - go generate ./...
-    - ./release.sh prep-release
+    - ./release.sh setup
     - git cliff -o CHANGELOG.md
 
 builds:

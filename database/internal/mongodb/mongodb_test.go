@@ -6,12 +6,9 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
-	_ "github.com/stretchr/testify/assert"
 	"github.com/strikesecurity/strikememongo"
 	"go.mongodb.org/mongo-driver/bson"
-	_ "go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
-	_ "go.mongodb.org/mongo-driver/mongo/integration/mtest"
 	"go.mongodb.org/mongo-driver/mongo/options"
 	"go.ssnk.in/utils/types"
 )
@@ -115,7 +112,6 @@ func Test_Update(t *testing.T) {
 }
 
 func Test_Delete(t *testing.T) {
-	// logger := ports.NewMockLogger(t)
 	server, err := strikememongo.Start("4.0.5")
 	defer server.Stop()
 	assert.Equal(t, nil, err)

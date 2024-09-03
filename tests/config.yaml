@@ -1,12 +1,13 @@
-packages:
-  - data
-  - database
-  - logger
-  - network
-  - pubsub
-  - security
-  - worker
-
-integration:
-profile:
-load:
+# package Algo, Database or Logger as 0, 1, 2
+# tests Integration, Profile or Load as 0, 1, 2
+- name: 2
+  config:
+    0:
+      key:
+      value:
+    1:
+      key:
+      value:
+    2:
+      key:
+      value:

@@ -74,6 +74,7 @@ module.exports = {
                 'logger',
                 'repo',
                 'setup',
+                'tests'
             ]
         ],
         'scope-max-length': [2, 'always', 30],

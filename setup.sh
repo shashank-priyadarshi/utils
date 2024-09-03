@@ -31,6 +31,5 @@ printf "\nsetting up git hooks\n"
 . ./.githooks/prepare-hook.sh
 
 printf "\nsetting up git commit message template\n"
-git config commit.template ./.gitmessage
+git config commit.template .githooks/.gitmessage
 git config commit.cleanup strip
-

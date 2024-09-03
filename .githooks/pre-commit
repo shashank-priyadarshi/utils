@@ -18,7 +18,7 @@ next_version() {
 echo "Performing other code quality checks..."
 
 echo "performing other code quality checks using golangci-lint..."
-golangci-lint --out-format=json:lint.json,colored-line-number --config .golangci.yaml run ./...
+golangci-lint --out-format=json:lint.json,colored-line-number --config .github/.golangci.yaml run ./...
 
 echo "All checks passed!"
 
@@ -31,7 +31,7 @@ fi
 
 # Update CHANGELOG
 if command -v git-cliff &> /dev/null; then
-  if ! git cliff -o CHANGELOG.md; then
+  if ! git cliff -c .github/cliff.toml -vux -o CHANGELOG.md; then
     printf "\nFailed to generate changelog using git-cliff.\n"
     exit 1
   fi
