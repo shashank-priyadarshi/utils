@@ -1,9 +1,0 @@
-codecov:
-  branch: stable
-  max_report_age: '12h'
-  strict_yaml_branch: main
-
-coverage:
-  round: down
-  range: 85..95
-  precision: 5
