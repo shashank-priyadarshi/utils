@@ -88,8 +88,9 @@ jobs:
 
       - name: 'Refresh deps for CI'
         run: |
+          go env -w GONOSUMDB=go.ssnk.in
+          go mod download
           go mod tidy
-          go mod vendor
 
       - name: 'Cache Go Modules'
         uses: actions/cache@main
@@ -103,7 +104,7 @@ jobs:
 
       - name: 'Run tests'
         run: |
-          go test -json > test_report.out
+          go test -json `go list ./... | grep -v directoriesToSkip` > test_report.out 
           go test -coverprofile=coverage.out
 
       - name: 'Run golangci-lint'
