@@ -112,7 +112,7 @@ jobs:
         uses: golangci/golangci-lint-action@master
         with:
           version: latest
-          args: --config .golangci.yaml --out-format json ./... > external_issues.json
+          args: --config .github/.golangci.yaml --out-format json ./... > external_issues.json
 
       - name: 'Analyze with SonarQube'
         uses: SonarSource/sonarcloud-github-action@master
