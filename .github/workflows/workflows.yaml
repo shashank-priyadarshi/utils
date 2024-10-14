@@ -116,7 +116,7 @@ jobs:
         continue-on-error: true
         run: |
           go test -json `go list ./... | grep -v directoriesToSkip` > test_report.out
-          go test -coverprofile=coverage.out `go list ./... | grep -v directoriesToSkip`
+          go test -coverprofile=coverage.out
 
       - name: 'Run golangci-lint'
         uses: golangci/golangci-lint-action@master
