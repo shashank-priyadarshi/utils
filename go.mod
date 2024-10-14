@@ -1,6 +1,7 @@
 module go.ssnk.in/utils
 
-go 1.23
+go 1.23.0
+
 require (
 	entgo.io/ent v0.14.1
 	github.com/DATA-DOG/go-sqlmock v1.5.2
