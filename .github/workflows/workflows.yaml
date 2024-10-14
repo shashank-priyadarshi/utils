@@ -85,6 +85,8 @@ jobs:
         uses: actions/setup-go@main
         with:
           go-version: 1.23
+
+      - name: 'Refresh deps for CI'
         run: |
           go mod tidy
           go mod vendor
