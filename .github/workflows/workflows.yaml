@@ -122,7 +122,7 @@ jobs:
         uses: golangci/golangci-lint-action@master
         with:
           version: latest
-          args: --config .golangci.yaml --out-format json ./... > external_issues.json
+          args: --config .github/.golangci.yaml --out-format json ./... > external_issues.json
 
       # - name: 'golangci-lint scan & save output'
       #   continue-on-error: true
