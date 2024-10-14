@@ -85,6 +85,9 @@ jobs:
         uses: actions/setup-go@main
         with:
           go-version: 1.23
+        run: |
+          go mod tidy
+          go mod vendor
 
       - name: 'Cache Go Modules'
         uses: actions/cache@main
