@@ -36,11 +36,11 @@ func New(opts ...func(*Logger)) Logger {
 	var logger ports.Logger
 
 	switch l.provider {
-	case constants.Slog:
-		logger = internal.NewSlogLogger(l.provider.String(), l.level.String(), l.trace)
 	case constants.Logrus:
 	case constants.Zap:
 	case constants.Zerolog:
+	default:
+		logger = internal.NewSlogLogger(l.provider.String(), l.level.String(), l.trace)
 	}
 
 	l.Logger = logger
