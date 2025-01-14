@@ -2,6 +2,13 @@ package main
 
 import (
 	"flag"
+	"fmt"
+	"io"
+	"os"
+	"strconv"
+	"strings"
+	"sync"
+
 	"go.ssnk.in/utils/logger"
 	loggerPorts "go.ssnk.in/utils/logger/ports"
 	"go.ssnk.in/utils/tests/integration"
@@ -9,11 +16,6 @@ import (
 	"go.ssnk.in/utils/tests/profile"
 	"go.ssnk.in/utils/tests/types"
 	"gopkg.in/yaml.v3"
-	"io"
-	"os"
-	"strconv"
-	"strings"
-	"sync"
 )
 
 type Tester interface {
@@ -140,18 +142,18 @@ type suite struct {
 
 func (s *suite) withIntegrationTests() *suite {
 
-	s.tests[Integration] = integration.New()
+	s.tests[types.Integration] = integration.New(s.log)
 	return s
 }
 
 func (s *suite) withProfiling() *suite {
 
-	s.tests[Profile] = profile.New()
+	s.tests[types.Profile] = profile.New(s.log)
 	return s
 }
 
 func (s *suite) withLoadTests() *suite {
 
-	s.tests[Load] = load.New()
+	s.tests[types.Load] = load.New(s.log)
 	return s
 }
