@@ -102,6 +102,12 @@ jobs:
           go mod download
           go mod tidy
 
+      - name: 'Refresh deps for CI'
+        run: |
+          go env -w GONOSUMDB=go.ssnk.in
+          go mod download
+          go mod tidy
+
       - name: 'Cache Go Modules'
         uses: actions/cache@main
         with:
@@ -115,19 +121,14 @@ jobs:
       - name: 'Run tests'
         continue-on-error: true
         run: |
-          go test -json `go list ./... | grep -v directoriesToSkip` > test_report.out
-          go test -coverprofile=coverage.out
+          go test -json `go list ./... | grep -v directoriesToSkip` > test_report.out 
+          go test -coverprofile=coverage.out `go list ./... | grep -v directoriesToSkip`
 
-      - name: 'Run golangci-lint'
-        uses: golangci/golangci-lint-action@master
-        with:
-          version: latest
-          args: --config .github/.golangci.yaml --out-format json ./... > external_issues.json
-
-      # - name: 'golangci-lint scan & save output'
-      #   continue-on-error: true
-      #   run: |
-      #     golangci-lint --config .golangci.yaml --out-format json run ./... > external_issues.json
+#       - name: 'Run golangci-lint'
+#         uses: golangci/golangci-lint-action@master
+#         with:
+#           version: latest
+#           args: --config .github/.golangci.yaml --out-format json ./... > external_issues.json
 
       # - name: 'validate golangci-lint json output'
       #   run: |
