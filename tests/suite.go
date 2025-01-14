@@ -37,6 +37,7 @@ const (
 )
 
 func main() {
+
 	s := suite{
 		log:   logger.New(logger.SetProvider("slog"), logger.SetLevel("info"), logger.SetFormat("json"), logger.WithTracing()),
 		tests: make(map[types.Test]Tester),
@@ -140,16 +141,19 @@ type suite struct {
 }
 
 func (s *suite) withIntegrationTests() *suite {
+
 	s.tests[types.Integration] = integration.New(s.log)
 	return s
 }
 
 func (s *suite) withProfiling() *suite {
+
 	s.tests[types.Profile] = profile.New(s.log)
 	return s
 }
 
 func (s *suite) withLoadTests() *suite {
+
 	s.tests[types.Load] = load.New(s.log)
 	return s
 }

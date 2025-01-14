@@ -2,7 +2,6 @@ package logger
 
 import (
 	"fmt"
-
 	"go.ssnk.in/utils/logger"
 )
 

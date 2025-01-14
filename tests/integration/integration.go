@@ -2,9 +2,9 @@ package integration
 
 import (
 	"fmt"
-	loggerPorts "go.ssnk.in/utils/logger/ports"
 
 	_ "github.com/ory/dockertest/v3"
+	loggerPorts "go.ssnk.in/utils/logger/ports"
 	"go.ssnk.in/utils/tests/integration/modules/algo"
 	"go.ssnk.in/utils/tests/integration/modules/database"
 	"go.ssnk.in/utils/tests/integration/modules/logger"

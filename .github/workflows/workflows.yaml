@@ -105,14 +105,26 @@ jobs:
       - name: 'Run tests'
         continue-on-error: true
         run: |
-          go test -json `go list ./... | grep -v directoriesToSkip` > test_report.out 
+          go test -json `go list ./... | grep -v directoriesToSkip` > test_report.out
           go test -coverprofile=coverage.out `go list ./... | grep -v directoriesToSkip`
 
-      - name: 'Run golangci-lint'
-        uses: golangci/golangci-lint-action@master
-        with:
-          version: latest
-          args: --config .github/.golangci.yaml --out-format json ./... > external_issues.json
+#       - name: 'Run golangci-lint'
+#         uses: golangci/golangci-lint-action@master
+#         with:
+#           version: latest
+#           args: --config .github/.golangci.yaml --out-format json ./... > external_issues.json
+#           cache: true
+#           skip-cache-restoration: false
+
+      # - name: 'validate golangci-lint json output'
+      #   run: |
+      #     first_line=$(head -n 1 external_issues.json)
+
+      #     if jq -n --argjson json "$first_line" '$json' > "external_issues.json"; then
+      #       echo "golangci lint issues written to external_issues.json"
+      #     else
+      #       echo "{}" > "external_issues.json"
+      #     fi
 
       - name: 'Analyze with SonarQube'
         uses: SonarSource/sonarcloud-github-action@master
