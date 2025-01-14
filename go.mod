@@ -12,7 +12,7 @@ require (
 	github.com/redis/go-redis/v9 v9.6.1
 	github.com/rs/zerolog v1.33.0
 	github.com/sirupsen/logrus v1.9.3
-	github.com/stretchr/testify v1.9.0
+	github.com/stretchr/testify v1.10.0
 	github.com/strikesecurity/strikememongo v0.2.4
 	go.mongodb.org/mongo-driver v1.17.0
 	go.uber.org/zap v1.27.0
