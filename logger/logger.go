@@ -1,6 +1,7 @@
 package logger
 
 import (
+	"strings"
 	"time"
 
 	"go.ssnk.in/utils/logger/constants"
@@ -54,7 +55,7 @@ func SetProvider(provider constants.Provider) func(*Logger) {
 			provider = constants.Slog
 		}
 
-		logger.provider = provider
+		logger.provider = constants.Provider(strings.ToLower(provider.String()))
 	}
 }
 
